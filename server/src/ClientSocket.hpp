@@ -6,10 +6,10 @@
 class ClientSocket: public SocketWrapper
 {
 public:
-    ClientSocket(int socket_fd, struct sockaddr addr);
+    ClientSocket(int socket_fd, struct sockaddr_in addr);
 
 private:
-    struct sockaddr addr_;
+    struct sockaddr_in addr_;
 };
 
 #endif // CLIENTSOCKET_HPP

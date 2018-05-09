@@ -15,7 +15,7 @@ ConnectSocket::ConnectSocket(unsigned port)
     init(DEF_BACKLOG);
 }
 
-void ConnectSocket::init(int backlog)
+void ConnectSocket::init(int port,int backlog)
 {
     int yes = 1;
     if (setsockopt(getSocketFd(),
@@ -28,10 +28,7 @@ void ConnectSocket::init(int backlog)
 
     serv_addr_.sin_family = AF_INET;
     serv_addr_.sin_addr.s_addr = htonl(INADDR_ANY);
-    serv_addr_.sin_port = htons(getPort());
-
-    if (getPort() == 0)
-       throw std::runtime_error("Unspecified port");
+    serv_addr_.sin_port = htons(port);
 
     if (::bind(getSocketFd(),
                (struct sockaddr*) &serv_addr_,
@@ -42,10 +39,15 @@ void ConnectSocket::init(int backlog)
     ::listen(getSocketFd(), backlog);
 }
 
-void ConnectSocket::accept()
+ClientSocket ConnectSocket::accept()
 {
-    //TODO return client
     struct sockaddr_in clientAddr;
     socklen_t clientAddrSize = sizeof(struct sockaddr_in);
-    ::accept(getSocketFd(), (struct sockaddr*) &clientAddr, &clientAddrSize);
+    int client_socket = ::accept(getSocketFd(), (struct sockaddr*) &clientAddr, &clientAddrSize);
+
+    if (client_socket == -1)
+        throw std::runtime_error("Accept error: " + errno);
+
+    int cli = client_socket;
+    return ClientSocket(client_socket, clientAddr);
 }

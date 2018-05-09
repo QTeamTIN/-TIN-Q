@@ -2,6 +2,7 @@
 #define CONNECTSOCKET_HPP
 
 #include "SocketWrapper.hpp"
+#include "ClientSocket.hpp"
 
 
 class ConnectSocket: public SocketWrapper
@@ -12,9 +13,9 @@ public:
 
 
 private:
-    void init(int backlog = DEF_BACKLOG);
+    void init(int port, int backlog = DEF_BACKLOG);
 
-    void accept();
+    ClientSocket accept();
     struct sockaddr_in serv_addr_;
 };
 
