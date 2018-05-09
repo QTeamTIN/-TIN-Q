@@ -6,12 +6,15 @@
 
 class ConnectSocket: public SocketWrapper
 {
+    static constexpr int DEF_BACKLOG = 50;
 public:
     ConnectSocket(unsigned port);
 
 
 private:
-    void init();
+    void init(int backlog = DEF_BACKLOG);
+
+    void accept();
     struct sockaddr_in serv_addr_;
 };
 

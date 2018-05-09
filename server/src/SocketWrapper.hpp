@@ -23,6 +23,7 @@ public:
 
     virtual ~SocketWrapper();
 
+    void init();
     void close();
 
     unsigned getPort() const;
@@ -31,7 +32,6 @@ protected:
     int getSocketFd() const;
 
 private:
-    void init();
 
     int socket_fd_;
     unsigned port_;

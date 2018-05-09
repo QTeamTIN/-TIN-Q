@@ -50,20 +50,10 @@ void SocketWrapper::swap(SocketWrapper &other) noexcept
 
 void SocketWrapper::init()
 {
+    if (socket_fd_ != UNINIT_FD)
+        return;
     socket_fd_ = socket(AF_INET, SOCK_STREAM, 0);
     //TODO errors
 }
-
-//    if (setsockopt(socket_fd_,
-//                   SOL_SOCKET,
-//                   SO_REUSEADDR,
-//                   &yes,
-//                   sizeof(int)) == -1) {
-//        throw std::runtime_error("setsockopt error: " + errno);
-//    }
-
-//    serv_addr_.sin_family = AF_INET;
-//    serv_addr_.sin_addr.s_addr = htonl(INADDR_ANY);
-//    serv_addr_.sin_port = htons(port_);
 
 

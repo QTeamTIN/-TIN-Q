@@ -12,10 +12,10 @@
 ConnectSocket::ConnectSocket(unsigned port)
     :SocketWrapper(port)
 {
-    init();
+    init(DEF_BACKLOG);
 }
 
-void ConnectSocket::init()
+void ConnectSocket::init(int backlog)
 {
     int yes = 1;
     if (setsockopt(getSocketFd(),
@@ -38,4 +38,14 @@ void ConnectSocket::init()
                sizeof(serv_addr_)) < 0) {
        throw std::runtime_error("Binding error: " + errno);
     }
+
+    ::listen(getSocketFd(), backlog);
+}
+
+void ConnectSocket::accept()
+{
+    //TODO return client
+    struct sockaddr_in clientAddr;
+    socklen_t clientAddrSize = sizeof(struct sockaddr_in);
+    ::accept(getSocketFd(), (struct sockaddr*) &clientAddr, &clientAddrSize);
 }
