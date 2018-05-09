@@ -27,4 +27,15 @@ std::string ClientSocket::getReceivedMessage()
     return std::string(recv_buff_, recv_len_);
 }
 
+ssize_t ClientSocket::send(const std::string& message, int flags)
+{
+
+    const char* to_send = message.c_str();
+    ssize_t s_bytes = ::send(getSocketFd(), to_send, strlen(to_send), flags);
+    if (s_bytes < 0)
+    {
+        throw std::runtime_error("Send error" + errno);
+    }
+    return s_bytes;
+}
 
