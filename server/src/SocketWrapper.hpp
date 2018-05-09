@@ -18,7 +18,7 @@ public:
 
     SocketWrapper(SocketWrapper&& move) noexcept;
     SocketWrapper& operator=(SocketWrapper&& move) noexcept;
-    void swap(SocketWrapper& other) noexcept;
+
     SocketWrapper(SocketWrapper const&) = delete;
     SocketWrapper& operator=(SocketWrapper const&) = delete;
 
@@ -31,7 +31,6 @@ protected:
     int getSocketFd() const;
 
 private:
-
     int socket_fd_;
     unsigned port_;
 };
