@@ -6,7 +6,7 @@ OBJECTS = $(SOURCES:.cpp=.o)
 SOURCES = $(wildcard src/*.cpp)
 
 $(EXEC): $(OBJECTS)
-		$(CC) $(OBJECTS) -o $(EXEC)
+	$(CC) $(OBJECTS) -pthread -o $(EXEC)
 
 %.o: %.cpp %.hpp
 	$(CC) -c $(CXXFLAGS) $< -o $@
