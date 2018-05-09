@@ -1,13 +1,5 @@
 #include "SocketWrapper.hpp"
 
-#include <string.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netdb.h>
-#include <stdexcept>
-#include <unistd.h>
-#include <errno.h>
-
 
 SocketWrapper::SocketWrapper(unsigned port)
     :port_(port)

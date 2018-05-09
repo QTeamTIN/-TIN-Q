@@ -1,8 +1,13 @@
 #ifndef SOCKETWRAPPER_HPP
 #define SOCKETWRAPPER_HPP
 
+#include <string.h>
+#include <sys/types.h>
 #include <sys/socket.h>
 #include <netdb.h>
+#include <stdexcept>
+#include <unistd.h>
+#include <errno.h>
 
 class SocketWrapper {
 
