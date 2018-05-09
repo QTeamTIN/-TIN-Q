@@ -13,7 +13,8 @@ class SocketWrapper {
 
     static constexpr int UNINIT_FD = -1;
 public:
-    SocketWrapper(unsigned port);
+    SocketWrapper();
+    SocketWrapper(int socket_fd);
 
     SocketWrapper(SocketWrapper&& move) noexcept;
     SocketWrapper& operator=(SocketWrapper&& move) noexcept;
@@ -25,8 +26,6 @@ public:
 
     void init();
     void close();
-
-    unsigned getPort() const;
 
 protected:
     int getSocketFd() const;

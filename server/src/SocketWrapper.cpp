@@ -1,15 +1,18 @@
 #include "SocketWrapper.hpp"
 
 
-SocketWrapper::SocketWrapper(unsigned port)
-    :port_(port)
-    ,socket_fd_(UNINIT_FD)
+SocketWrapper::SocketWrapper()
+    :socket_fd_(UNINIT_FD)
 {
     init();
 }
 
+SocketWrapper::SocketWrapper(int socket_fd)
+    :socket_fd_(socket_fd)
+{}
+
 SocketWrapper::SocketWrapper(SocketWrapper &&move) noexcept
-    :port_(0)
+    :socket_fd_(UNINIT_FD)
 {
     move.swap(*this);
 }
@@ -33,10 +36,6 @@ void SocketWrapper::close()
     //TODO close errors
 }
 
-unsigned SocketWrapper::getPort() const
-{
-    return port_;
-}
 
 int SocketWrapper::getSocketFd() const
 {
@@ -45,7 +44,7 @@ int SocketWrapper::getSocketFd() const
 
 void SocketWrapper::swap(SocketWrapper &other) noexcept
 {
-    std::swap(port_, other.port_);
+    std::swap(socket_fd_, other.socket_fd_);
 }
 
 void SocketWrapper::init()
@@ -53,7 +52,6 @@ void SocketWrapper::init()
     if (socket_fd_ != UNINIT_FD)
         return;
     socket_fd_ = socket(AF_INET, SOCK_STREAM, 0);
-    //TODO errors
 }
 
 
