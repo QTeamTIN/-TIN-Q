@@ -16,6 +16,7 @@ public:
     ssize_t send(const std::string& message, int flags);
     void receive();
     std::string getReceivedMessage();
+
 private:
     struct sockaddr_in client_addr_;
 
