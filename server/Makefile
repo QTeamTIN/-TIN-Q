@@ -1,5 +1,5 @@
 CC = g++
-CC_FLAGS = -w -std=c++11
+CXXFLAGS = -w -std=c++14
 
 EXEC = SocketWrapper
 OBJECTS = $(SOURCES:.cpp=.o)
@@ -9,7 +9,7 @@ $(EXEC): $(OBJECTS)
 		$(CC) $(OBJECTS) -o $(EXEC)
 
 %.o: %.cpp %.hpp
-	$(CC) -c $(CC_FLAGS) $< -o $@
+	$(CC) -c $(CXXFLAGS) $< -o $@
 
 clean:
 	rm -f $(EXEC) $(OBJECTS)

@@ -1,6 +1,6 @@
 #ifndef CONNECTSOCKET_HPP
 #define CONNECTSOCKET_HPP
-
+#include <memory>
 #include "SocketWrapper.hpp"
 #include "ClientSocket.hpp"
 
@@ -15,7 +15,7 @@ public:
 private:
     void init(int port, int backlog = DEF_BACKLOG);
 
-    ClientSocket accept();
+    std::unique_ptr<ClientSocket> accept();
     struct sockaddr_in serv_addr_;
 };
 
