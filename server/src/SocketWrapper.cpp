@@ -14,12 +14,14 @@ SocketWrapper::SocketWrapper(int socket_fd)
 SocketWrapper::SocketWrapper(SocketWrapper &&move) noexcept
     :socket_fd_(UNINIT_FD)
 {
-    move.swap(*this);
+    socket_fd_ = move.socket_fd_;
+    move.socket_fd_ = UNINIT_FD;
 }
 
 SocketWrapper &SocketWrapper::operator=(SocketWrapper &&move) noexcept
 {
-    move.swap(*this);
+    socket_fd_ = move.socket_fd_;
+    move.socket_fd_ = UNINIT_FD;
     return *this;
 }
 
@@ -40,11 +42,6 @@ void SocketWrapper::close()
 int SocketWrapper::getSocketFd() const
 {
     return socket_fd_;
-}
-
-void SocketWrapper::swap(SocketWrapper &other) noexcept
-{
-    std::swap(socket_fd_, other.socket_fd_);
 }
 
 void SocketWrapper::init()
