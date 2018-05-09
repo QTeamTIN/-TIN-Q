@@ -8,6 +8,7 @@ class ClientSocket: public SocketWrapper
 public:
     ClientSocket(int socket_fd, struct sockaddr_in addr);
 
+
 private:
     struct sockaddr_in addr_;
 };
