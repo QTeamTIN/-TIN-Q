@@ -39,8 +39,3 @@ void ConnectSocket::init()
        throw std::runtime_error("Binding error: " + errno);
     }
 }
-
-void ConnectSocket::bind()
-{
-
-}
