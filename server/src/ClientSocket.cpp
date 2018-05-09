@@ -3,7 +3,7 @@
 ClientSocket::ClientSocket(int socket_fd, sockaddr_in addr, int buff_size)
     :SocketWrapper(socket_fd)
     ,recv_buff_size_(buff_size)
-    ,addr_(addr)
+    ,client_addr_(addr)
 {
     recv_buff_ = new char[recv_buff_size_];
 }
