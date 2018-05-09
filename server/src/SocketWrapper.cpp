@@ -41,6 +41,16 @@ void SocketWrapper::close()
     //TODO close errors
 }
 
+unsigned SocketWrapper::getPort() const
+{
+    return port_;
+}
+
+int SocketWrapper::getSocketFd() const
+{
+    return socket_fd_;
+}
+
 void SocketWrapper::swap(SocketWrapper &other) noexcept
 {
     std::swap(port_, other.port_);
@@ -49,6 +59,7 @@ void SocketWrapper::swap(SocketWrapper &other) noexcept
 void SocketWrapper::init()
 {
     socket_fd_ = socket(AF_INET, SOCK_STREAM, 0);
+    //TODO errors
 }
 
 //    if (setsockopt(socket_fd_,

@@ -20,6 +20,11 @@ public:
 
     void close();
 
+    unsigned getPort() const;
+
+protected:
+    int getSocketFd() const;
+
 private:
     void init();
 
