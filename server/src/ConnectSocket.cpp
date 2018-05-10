@@ -9,12 +9,12 @@
 #include <errno.h>
 
 ConnectSocket::ConnectSocket(unsigned port)
-    :SocketWrapper(port)
+    :SocketWrapper(), port_(port)
 {
     init(DEF_BACKLOG);
 }
 
-void ConnectSocket::init(int port,int backlog)
+void ConnectSocket::init(int backlog)
 {
     int yes = 1;
     if (setsockopt(getSocketFd(),
@@ -27,7 +27,7 @@ void ConnectSocket::init(int port,int backlog)
 
     serv_addr_.sin_family = AF_INET;
     serv_addr_.sin_addr.s_addr = htonl(INADDR_ANY);
-    serv_addr_.sin_port = htons(port);
+    serv_addr_.sin_port = htons(port_);
 
     if (::bind(getSocketFd(),
                (struct sockaddr*) &serv_addr_,

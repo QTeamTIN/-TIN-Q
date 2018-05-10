@@ -10,13 +10,13 @@ class ConnectSocket: public SocketWrapper
     static constexpr int DEF_BACKLOG = 50;
 public:
     ConnectSocket(unsigned port);
-
+    std::unique_ptr<ClientSocket> accept();
 
 private:
-    void init(int port, int backlog = DEF_BACKLOG);
+    void init(int backlog = DEF_BACKLOG);
 
-    std::unique_ptr<ClientSocket> accept();
     struct sockaddr_in serv_addr_;
+    unsigned port_;
 };
 
 #endif // CONNECTSOCKET_HPP
