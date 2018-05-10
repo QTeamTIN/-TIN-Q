@@ -1,6 +1,5 @@
 #include "Server.hpp"
 
-
 Server::Server(int conn_port)
     :connect_sock_(conn_port)
 {}

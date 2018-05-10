@@ -1,6 +1,5 @@
 #include "ClientSocket.hpp"
 
-#include <iostream>
 #include <string.h>
 
 ClientSocket::ClientSocket(int socket_fd, sockaddr_in addr, int buff_size)

@@ -14,7 +14,6 @@ public:
 
     void run();
 
-
 private:
     ConnectSocket connect_sock_;
     std::list<ClientHandler> clients_;

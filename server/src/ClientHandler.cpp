@@ -21,6 +21,7 @@ void ClientHandler::recvLoop()
     while(1) {
         sock_ptr_->receive();
         std::cout<<sock_ptr_->getReceivedMessage();
+        sock_ptr_->send("dzieki", 0);
     }
 }
 

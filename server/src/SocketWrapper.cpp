@@ -1,5 +1,4 @@
 #include "SocketWrapper.hpp"
-#include <iostream>
 
 SocketWrapper::SocketWrapper()
     :socket_fd_(UNINIT_FD)
