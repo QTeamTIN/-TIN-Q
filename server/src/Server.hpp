@@ -3,7 +3,9 @@
 
 #include "ClientSocket.hpp"
 #include "ConnectSocket.hpp"
-#include <csignal>
+#include "ClientHandler.hpp"
+
+#include <list>
 
 class Server
 {
@@ -15,6 +17,7 @@ public:
 
 private:
     ConnectSocket connect_sock_;
+    std::list<ClientHandler> clients_;
 };
 
 #endif // SERVER_HPP
