@@ -12,13 +12,11 @@ public:
     ConnectSocket(unsigned port);
     std::unique_ptr<ClientSocket> accept();
 
-
-
 private:
-    void init(int port, int backlog = DEF_BACKLOG);
-
+    void init(int backlog = DEF_BACKLOG);
 
     struct sockaddr_in serv_addr_;
+    unsigned port_;
 };
 
 #endif // CONNECTSOCKET_HPP

@@ -32,7 +32,6 @@ protected:
 
 private:
     int socket_fd_;
-    unsigned port_;
 };
 
 

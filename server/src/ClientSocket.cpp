@@ -1,5 +1,8 @@
 #include "ClientSocket.hpp"
 
+#include <iostream>
+#include <string.h>
+
 ClientSocket::ClientSocket(int socket_fd, sockaddr_in addr, int buff_size)
     :SocketWrapper(socket_fd)
     ,recv_buff_size_(buff_size)
@@ -15,9 +18,9 @@ ClientSocket::~ClientSocket()
 
 void ClientSocket::receive()
 {
-    int recv_len = ::recv(getSocketFd(), recv_buff_, recv_buff_size_, MSG_TRUNC);
-    if (recv_len) {
-        throw std::runtime_error("Receive failed: " + errno);
+    int recv_len = ::recv(getSocketFd(), recv_buff_, recv_buff_size_, 0);
+    if (recv_len < 0) {
+        throw std::runtime_error(strerror(errno));
     }
     recv_len_ = recv_len;
 }
