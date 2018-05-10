@@ -1,15 +1,15 @@
 CC = g++
-CC_FLAGS = -w -std=c++11
+CXXFLAGS = -w -std=c++14
 
 EXEC = SocketWrapper
 OBJECTS = $(SOURCES:.cpp=.o)
-SOURCES = $(wildcard *.cpp)
+SOURCES = $(wildcard src/*.cpp)
 
 $(EXEC): $(OBJECTS)
-		$(CC) $(OBJECTS) -o $(EXEC)
+	$(CC) $(OBJECTS) -pthread -o $(EXEC)
 
-%.o: %.cpp
-	$(CC) -c $(CC_FLAGS) $< -o $@
+%.o: %.cpp %.hpp
+	$(CC) -c $(CXXFLAGS) $< -o $@
 
 clean:
 	rm -f $(EXEC) $(OBJECTS)

@@ -1,4 +1,8 @@
+#include "Server.hpp"
+
 int main()
 {
-    return 0;
+    Server server(8888);
+
+    server.run();
 }
