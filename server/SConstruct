@@ -1,0 +1,5 @@
+source=Glob('src/*.cpp')
+libs=['pthread']
+lib_paths=''
+env=Environment(CPPPATH='src/')
+env.Program('bin/Server', source, LIBS=libs)
