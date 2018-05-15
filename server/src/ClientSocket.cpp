@@ -1,6 +1,8 @@
 #include "ClientSocket.hpp"
 
 #include <string.h>
+#include <iostream>
+#include <errno.h>
 
 ClientSocket::ClientSocket(int socket_fd, sockaddr_in addr, int buff_size)
     :SocketWrapper(socket_fd)
@@ -17,9 +19,12 @@ ClientSocket::~ClientSocket()
 
 void ClientSocket::receive()
 {
+    std::cout<<"receivin "<<getSocketFd()<<"\n";
     int recv_len = ::recv(getSocketFd(), recv_buff_, recv_buff_size_, 0);
+    std::cout<<"received "<<recv_len<<std::endl;
     if (recv_len < 0) {
-        throw std::runtime_error(strerror(errno));
+        fprintf(stderr, "recv: %s (%d)\n", strerror(errno), errno);
+//        throw std::runtime_error(strerror(errno));
     }
     recv_len_ = recv_len;
 }

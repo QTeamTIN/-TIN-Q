@@ -27,8 +27,9 @@ public:
     void init();
     void close();
 
-protected:
     int getSocketFd() const;
+
+protected:
 
 private:
     int socket_fd_;

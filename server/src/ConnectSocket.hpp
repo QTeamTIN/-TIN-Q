@@ -10,7 +10,7 @@ class ConnectSocket: public SocketWrapper
     static constexpr int DEF_BACKLOG = 50;
 public:
     ConnectSocket(unsigned port);
-    std::unique_ptr<ClientSocket> accept();
+    ClientSocket *accept();
 
 private:
     void init(int backlog = DEF_BACKLOG);

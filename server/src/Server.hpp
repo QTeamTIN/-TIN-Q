@@ -16,7 +16,7 @@ public:
 
 private:
     ConnectSocket connect_sock_;
-    std::list<ClientHandler> clients_;
+    std::list<ClientHandler*> clients_;
 };
 
 #endif // SERVER_HPP

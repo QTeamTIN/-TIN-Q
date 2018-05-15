@@ -6,18 +6,24 @@
 #include <csignal>
 
 #include "ClientSocket.hpp"
+#include "ClientReceiver.hpp"
 
 class ClientHandler
 {
 public:
-    ClientHandler(std::unique_ptr<ClientSocket> sock_ptr);
+    ClientHandler(ClientSocket *sock_ptr);
 
     void start();
-    void recvLoop();
+    void stop();
+
 private:
     void terminate();
-    std::unique_ptr<ClientSocket> sock_ptr_;
-    std::thread thread_;
+
+    ClientSocket *sock_ptr_;
+    ClientReceiver receiver_;
+
+
+    std::thread recv_thread_;
 };
 
 #endif // CLIENTHANDLER_HPP
