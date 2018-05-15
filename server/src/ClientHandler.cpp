@@ -1,33 +1,29 @@
 #include "ClientHandler.hpp"
 
 #include <iostream>
+#include <future>
 
-ClientHandler::ClientHandler(std::unique_ptr<ClientSocket> sock_ptr)
-    :sock_ptr_(std::move(sock_ptr))
+ClientHandler::ClientHandler(ClientSocket *sock_ptr)
+    :sock_ptr_(sock_ptr)
+    ,receiver_(sock_ptr_)
 {}
 
-void ClientHandler::start()
+void ClientHandler::init()
 {
-    thread_ = std::thread(&ClientHandler::recvLoop, this);
+    recv_thread_ = std::thread(&ClientReceiver::run, &receiver_);
 }
 
-void ClientHandler::recvLoop()
+void ClientHandler::run()
 {
-//    std::signal(SIGINT, signal_handler);
-//    shutdown_handler = [this](int signal) {
-//        std::cout << "Server shutdown...\n";
-//        this->terminate();
-//    };
-    while(1) {
-        sock_ptr_->receive();
-        std::cout<<sock_ptr_->getReceivedMessage();
-        sock_ptr_->send("dzieki");
-    }
+    init();
+    while(!stopRequested()) {}
+    terminate();
 }
 
 void ClientHandler::terminate()
 {
+    sock_ptr_->shutdown();
+    receiver_.stop();
     sock_ptr_->close();
-    exit(1);
+    std::cout<<"Close client thread\n";
 }
-

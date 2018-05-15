@@ -26,9 +26,12 @@ public:
 
     void init();
     void close();
+    int shutdown();
+
+
+    int getSocketFd() const;
 
 protected:
-    int getSocketFd() const;
 
 private:
     int socket_fd_;

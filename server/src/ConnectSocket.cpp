@@ -8,6 +8,8 @@
 #include <unistd.h>
 #include <errno.h>
 
+#include <iostream>
+
 ConnectSocket::ConnectSocket(unsigned port)
     :SocketWrapper(), port_(port)
 {
@@ -38,7 +40,7 @@ void ConnectSocket::init(int backlog)
     ::listen(getSocketFd(), backlog);
 }
 
-std::unique_ptr<ClientSocket> ConnectSocket::accept()
+ClientSocket *ConnectSocket::accept()
 {
     struct sockaddr_in clientAddr;
     socklen_t clientAddrSize = sizeof(struct sockaddr_in);
@@ -46,6 +48,6 @@ std::unique_ptr<ClientSocket> ConnectSocket::accept()
 
     if (client_socket == -1)
         throw std::runtime_error("Accept error: " + errno);
-
-    return std::make_unique<ClientSocket>(client_socket, clientAddr);
+    std::cout<<client_socket<<"<------------------\n";
+    return new ClientSocket(client_socket, clientAddr);
 }

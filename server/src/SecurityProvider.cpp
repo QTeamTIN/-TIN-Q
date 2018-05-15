@@ -28,7 +28,7 @@ void SecurityProvider::loadCertificates(SSL_CTX* ctx, char* cert_file, char* key
         throw SSLException("Private key does not match the public certificate");
 }
 
-void SecurityProvider::makeSocketSecure(std::unique_ptr<ClientSocket>& socket)
+void SecurityProvider::makeSocketSecure(ClientSocket* socket)
 {    
     SSL* ssl_handle = SSL_new(ssl_context);
     if (ssl_handle == nullptr)

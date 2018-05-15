@@ -6,7 +6,7 @@ class SecurityProvider
 public:
     SecurityProvider();
     ~SecurityProvider();
-    void makeSocketSecure(std::unique_ptr<ClientSocket>& socket);
+    void makeSocketSecure(ClientSocket *socket);
     void initSSLContext();
     void loadCertificates(SSL_CTX* ctx, char* cert_file, char* key_file);
 

@@ -1,5 +1,9 @@
 #include "ClientSocket.hpp"
 
+#include <string>
+#include <iostream>
+#include <errno.h>
+
 ClientSocket::ClientSocket(int socket_fd, sockaddr_in addr, int buff_size)
     :SocketWrapper(socket_fd)
     ,recv_buff_size_(buff_size)
@@ -18,6 +22,7 @@ void ClientSocket::receive()
 {
     int recv_len = SSL_read(ssl_handle, recv_buff_, recv_buff_size_);
     if (recv_len < 0) {
+        fprintf(stderr, "recv: %s (%d)\n", strerror(errno), errno);
         throw std::runtime_error(strerror(errno));
     }
     recv_len_ = recv_len;
