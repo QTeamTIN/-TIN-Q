@@ -4,13 +4,14 @@
 #include <memory>
 
 #include "ClientSocket.hpp"
+#include "Stoppable.h"
 
-class ClientReceiver
+class ClientReceiver: public Stoppable
 {
 public:
     ClientReceiver(ClientSocket *sock);
 
-    void receiveLoop();
+    void run() override;
 
 private:
     ClientSocket *socket_;

@@ -8,10 +8,10 @@ ClientReceiver::ClientReceiver(ClientSocket *sock)
 
 }
 
-void ClientReceiver::receiveLoop()
+void ClientReceiver::run()
 {
-    while(1) {
+    while (!stopRequested()) {
         socket_->receive();
-        std::cout<<socket_->getReceivedMessage();
+        std::cout<<socket_->getReceivedMessage()<<std::endl;
     }
 }
