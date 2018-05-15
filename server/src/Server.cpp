@@ -8,9 +8,26 @@ Server::Server(int conn_port)
 
 void Server::run()
 {
-    while(1){
+    int i = 0;
+    while(i < 3){
         ClientSocket *sock = connect_sock_.accept();
-        clients_.push_back(new ClientHandler(sock));
-        (*clients_.rbegin())->start();
+        ClientHandler* client_handler = new ClientHandler(sock);
+        std::thread thread(&ClientHandler::run, client_handler);
+
+        clients_.push_back(client_handler);
+        client_threads_.push_back(std::move(thread));
+        ++i;
     }
+    sleep(5);
+    std::cout<<"Close server\n";
+    for (auto client: clients_) {
+        client->stop();
+    }
+    std::cout<<"Joining\n";
+    for (auto& thread: client_threads_) {
+        thread.join();
+    }
+    std::cout<<"Clients closed\n";
+    std::cout<<"bye!\n";
+
 }

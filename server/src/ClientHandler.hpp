@@ -5,23 +5,24 @@
 #include <thread>
 #include <csignal>
 
+#include "Stoppable.h"
+
 #include "ClientSocket.hpp"
 #include "ClientReceiver.hpp"
 
-class ClientHandler
+class ClientHandler: public Stoppable
 {
 public:
     ClientHandler(ClientSocket *sock_ptr);
 
-    void start();
-    void stop();
+    void run() override;
 
 private:
+    void init();
     void terminate();
 
     ClientSocket *sock_ptr_;
     ClientReceiver receiver_;
-
 
     std::thread recv_thread_;
 };

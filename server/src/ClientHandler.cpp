@@ -8,23 +8,22 @@ ClientHandler::ClientHandler(ClientSocket *sock_ptr)
     ,receiver_(sock_ptr_)
 {}
 
-void ClientHandler::start()
+void ClientHandler::init()
 {
-    std::promise<void> exit_signal;
-    std::future<void> future = exit_signal.get_future();
-
     recv_thread_ = std::thread(&ClientReceiver::run, &receiver_);
 }
 
-void ClientHandler::stop()
+void ClientHandler::run()
 {
-    sock_ptr_->shutdown();
-    receiver_.stop();
-    sock_ptr_->close();
+    init();
+    while(!stopRequested()) {}
+    terminate();
 }
 
 void ClientHandler::terminate()
 {
+    sock_ptr_->shutdown();
+    receiver_.stop();
     sock_ptr_->close();
-    exit(1);
+    std::cout<<"Close client thread\n";
 }
