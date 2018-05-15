@@ -24,7 +24,7 @@ void ClientSocket::receive()
     std::cout<<"received "<<recv_len<<std::endl;
     if (recv_len < 0) {
         fprintf(stderr, "recv: %s (%d)\n", strerror(errno), errno);
-//        throw std::runtime_error(strerror(errno));
+        throw std::runtime_error(strerror(errno));
     }
     recv_len_ = recv_len;
 }
