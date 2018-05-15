@@ -8,6 +8,7 @@ public:
     ~SecurityProvider();
     void makeSocketSecure(std::unique_ptr<ClientSocket>& socket);
     void initSSLContext();
+    void loadCertificates(SSL_CTX* ctx, char* cert_file, char* key_file);
 
 private:
     SSL_CTX* ssl_context;

@@ -18,6 +18,16 @@ void SecurityProvider::initSSLContext()
     	throw SSLException("Unable to create SSL context");
 }
 
+void SecurityProvider::loadCertificates(SSL_CTX* ctx, char* cert_file, char* key_file)
+{    
+    if ( SSL_CTX_use_certificate_file(ctx, cert_file, SSL_FILETYPE_PEM) <= 0 )
+        throw SSLException("Unable to load certificate");
+    if ( SSL_CTX_use_PrivateKey_file(ctx, key_file, SSL_FILETYPE_PEM) <= 0 )
+        throw SSLException("Unable to load private key");
+    if ( !SSL_CTX_check_private_key(ctx) )
+        throw SSLException("Private key does not match the public certificate");
+}
+
 void SecurityProvider::makeSocketSecure(std::unique_ptr<ClientSocket>& socket)
 {    
     SSL* ssl_handle = SSL_new(ssl_context);
