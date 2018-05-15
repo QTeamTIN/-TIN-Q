@@ -37,6 +37,12 @@ void SocketWrapper::close()
     //TODO close errors
 }
 
+int SocketWrapper::shutdown()
+{
+    //TODO errors, "how"
+    return ::shutdown(socket_fd_, SHUT_WR);
+}
+
 
 int SocketWrapper::getSocketFd() const
 {

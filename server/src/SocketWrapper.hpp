@@ -26,6 +26,8 @@ public:
 
     void init();
     void close();
+    int shutdown();
+
 
     int getSocketFd() const;
 
