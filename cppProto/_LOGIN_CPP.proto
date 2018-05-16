@@ -1,9 +1,0 @@
-syntax = "proto3";
-
-package packet;
-
-message _LOGIN {
-	string name = 1;
-	string hash = 2;
-}
-

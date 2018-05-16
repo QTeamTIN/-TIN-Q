@@ -1,9 +1,0 @@
-syntax = "proto2";
-
-package packet;
-
-message _CHANGE {
-	required int32 code = 1[default = 3];
-	required int32 obiect_id = 2;
-}
-
