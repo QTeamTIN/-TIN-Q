@@ -28,6 +28,7 @@
 #include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
+#include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
 
@@ -91,6 +92,30 @@ extern _QUERY_RESPONSEDefaultTypeInternal __QUERY_RESPONSE_default_instance_;
 }  // namespace packet
 namespace packet {
 
+enum PACKET_PacketType {
+  PACKET_PacketType__ACK = 1,
+  PACKET_PacketType__ALIVE = 2,
+  PACKET_PacketType__CHANGE = 3,
+  PACKET_PacketType__LOGIN = 4,
+  PACKET_PacketType__OPERATION = 5,
+  PACKET_PacketType__QUERY = 6,
+  PACKET_PacketType__QUERY_RESPONSE = 7
+};
+bool PACKET_PacketType_IsValid(int value);
+const PACKET_PacketType PACKET_PacketType_PacketType_MIN = PACKET_PacketType__ACK;
+const PACKET_PacketType PACKET_PacketType_PacketType_MAX = PACKET_PacketType__QUERY_RESPONSE;
+const int PACKET_PacketType_PacketType_ARRAYSIZE = PACKET_PacketType_PacketType_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* PACKET_PacketType_descriptor();
+inline const ::std::string& PACKET_PacketType_Name(PACKET_PacketType value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    PACKET_PacketType_descriptor(), value);
+}
+inline bool PACKET_PacketType_Parse(
+    const ::std::string& name, PACKET_PacketType* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<PACKET_PacketType>(
+    PACKET_PacketType_descriptor(), name, value);
+}
 // ===================================================================
 
 class PACKET : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:packet.PACKET) */ {
@@ -180,20 +205,68 @@ class PACKET : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
 
   // nested types ----------------------------------------------------
 
+  typedef PACKET_PacketType PacketType;
+  static const PacketType _ACK =
+    PACKET_PacketType__ACK;
+  static const PacketType _ALIVE =
+    PACKET_PacketType__ALIVE;
+  static const PacketType _CHANGE =
+    PACKET_PacketType__CHANGE;
+  static const PacketType _LOGIN =
+    PACKET_PacketType__LOGIN;
+  static const PacketType _OPERATION =
+    PACKET_PacketType__OPERATION;
+  static const PacketType _QUERY =
+    PACKET_PacketType__QUERY;
+  static const PacketType _QUERY_RESPONSE =
+    PACKET_PacketType__QUERY_RESPONSE;
+  static inline bool PacketType_IsValid(int value) {
+    return PACKET_PacketType_IsValid(value);
+  }
+  static const PacketType PacketType_MIN =
+    PACKET_PacketType_PacketType_MIN;
+  static const PacketType PacketType_MAX =
+    PACKET_PacketType_PacketType_MAX;
+  static const int PacketType_ARRAYSIZE =
+    PACKET_PacketType_PacketType_ARRAYSIZE;
+  static inline const ::google::protobuf::EnumDescriptor*
+  PacketType_descriptor() {
+    return PACKET_PacketType_descriptor();
+  }
+  static inline const ::std::string& PacketType_Name(PacketType value) {
+    return PACKET_PacketType_Name(value);
+  }
+  static inline bool PacketType_Parse(const ::std::string& name,
+      PacketType* value) {
+    return PACKET_PacketType_Parse(name, value);
+  }
+
   // accessors -------------------------------------------------------
 
-  // required int32 code = 1 [default = 2];
+  // required int32 code = 2;
   bool has_code() const;
   void clear_code();
-  static const int kCodeFieldNumber = 1;
+  static const int kCodeFieldNumber = 2;
   ::google::protobuf::int32 code() const;
   void set_code(::google::protobuf::int32 value);
+
+  // required .packet.PACKET.PacketType type = 1;
+  bool has_type() const;
+  void clear_type();
+  static const int kTypeFieldNumber = 1;
+  ::packet::PACKET_PacketType type() const;
+  void set_type(::packet::PACKET_PacketType value);
 
   GOOGLE_PROTOBUF_EXTENSION_ACCESSORS(PACKET)
   // @@protoc_insertion_point(class_scope:packet.PACKET)
  private:
+  void set_has_type();
+  void clear_has_type();
   void set_has_code();
   void clear_has_code();
+
+  // helper for ByteSizeLong()
+  size_t RequiredFieldsByteSizeFallback() const;
 
   ::google::protobuf::internal::ExtensionSet _extensions_;
 
@@ -201,6 +274,7 @@ class PACKET : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable int _cached_size_;
   ::google::protobuf::int32 code_;
+  int type_;
   friend struct ::protobuf_cppQ_2eproto::TableStruct;
   friend void ::protobuf_cppQ_2eproto::InitDefaultsPACKETImpl();
 };
@@ -295,24 +369,62 @@ class _ACT : public ::google::protobuf::Message /* @@protoc_insertion_point(clas
 
   // accessors -------------------------------------------------------
 
-  static const int kOperationalLocalIdFieldNumber = 2;
+  // optional string success = 2;
+  bool has_success() const;
+  void clear_success();
+  static const int kSuccessFieldNumber = 2;
+  const ::std::string& success() const;
+  void set_success(const ::std::string& value);
+  #if LANG_CXX11
+  void set_success(::std::string&& value);
+  #endif
+  void set_success(const char* value);
+  void set_success(const char* value, size_t size);
+  ::std::string* mutable_success();
+  ::std::string* release_success();
+  void set_allocated_success(::std::string* success);
+
+  // optional string error = 3;
+  bool has_error() const;
+  void clear_error();
+  static const int kErrorFieldNumber = 3;
+  const ::std::string& error() const;
+  void set_error(const ::std::string& value);
+  #if LANG_CXX11
+  void set_error(::std::string&& value);
+  #endif
+  void set_error(const char* value);
+  void set_error(const char* value, size_t size);
+  ::std::string* mutable_error();
+  ::std::string* release_error();
+  void set_allocated_error(::std::string* error);
+
+  // required int32 operational_local_id = 1;
+  bool has_operational_local_id() const;
+  void clear_operational_local_id();
+  static const int kOperationalLocalIdFieldNumber = 1;
+  ::google::protobuf::int32 operational_local_id() const;
+  void set_operational_local_id(::google::protobuf::int32 value);
+
+  static const int kTypeFieldNumber = 100;
   static ::google::protobuf::internal::ExtensionIdentifier< ::packet::PACKET,
-      ::google::protobuf::internal::PrimitiveTypeTraits< ::google::protobuf::int32 >, 5, false >
-    operational_local_id;
-  static const int kSuccessFieldNumber = 3;
-  static ::google::protobuf::internal::ExtensionIdentifier< ::packet::PACKET,
-      ::google::protobuf::internal::StringTypeTraits, 9, false >
-    success;
-  static const int kErrorFieldNumber = 4;
-  static ::google::protobuf::internal::ExtensionIdentifier< ::packet::PACKET,
-      ::google::protobuf::internal::StringTypeTraits, 9, false >
-    error;
+      ::google::protobuf::internal::MessageTypeTraits< ::packet::_ACT >, 11, false >
+    type;
   // @@protoc_insertion_point(class_scope:packet._ACT)
  private:
+  void set_has_operational_local_id();
+  void clear_has_operational_local_id();
+  void set_has_success();
+  void clear_has_success();
+  void set_has_error();
+  void clear_has_error();
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable int _cached_size_;
+  ::google::protobuf::internal::ArenaStringPtr success_;
+  ::google::protobuf::internal::ArenaStringPtr error_;
+  ::google::protobuf::int32 operational_local_id_;
   friend struct ::protobuf_cppQ_2eproto::TableStruct;
   friend void ::protobuf_cppQ_2eproto::InitDefaults_ACTImpl();
 };
@@ -407,16 +519,26 @@ class _ALIVE : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
 
   // accessors -------------------------------------------------------
 
-  static const int kSessionIdFieldNumber = 5;
+  // required int32 session_id = 1;
+  bool has_session_id() const;
+  void clear_session_id();
+  static const int kSessionIdFieldNumber = 1;
+  ::google::protobuf::int32 session_id() const;
+  void set_session_id(::google::protobuf::int32 value);
+
+  static const int kTypeFieldNumber = 101;
   static ::google::protobuf::internal::ExtensionIdentifier< ::packet::PACKET,
-      ::google::protobuf::internal::PrimitiveTypeTraits< ::google::protobuf::int32 >, 5, false >
-    session_id;
+      ::google::protobuf::internal::MessageTypeTraits< ::packet::_ALIVE >, 11, false >
+    type;
   // @@protoc_insertion_point(class_scope:packet._ALIVE)
  private:
+  void set_has_session_id();
+  void clear_has_session_id();
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable int _cached_size_;
+  ::google::protobuf::int32 session_id_;
   friend struct ::protobuf_cppQ_2eproto::TableStruct;
   friend void ::protobuf_cppQ_2eproto::InitDefaults_ALIVEImpl();
 };
@@ -511,16 +633,26 @@ class _CHANGE : public ::google::protobuf::Message /* @@protoc_insertion_point(c
 
   // accessors -------------------------------------------------------
 
-  static const int kObiectIdFieldNumber = 6;
+  // required int32 obiect_id = 1;
+  bool has_obiect_id() const;
+  void clear_obiect_id();
+  static const int kObiectIdFieldNumber = 1;
+  ::google::protobuf::int32 obiect_id() const;
+  void set_obiect_id(::google::protobuf::int32 value);
+
+  static const int kTypeFieldNumber = 102;
   static ::google::protobuf::internal::ExtensionIdentifier< ::packet::PACKET,
-      ::google::protobuf::internal::PrimitiveTypeTraits< ::google::protobuf::int32 >, 5, false >
-    obiect_id;
+      ::google::protobuf::internal::MessageTypeTraits< ::packet::_CHANGE >, 11, false >
+    type;
   // @@protoc_insertion_point(class_scope:packet._CHANGE)
  private:
+  void set_has_obiect_id();
+  void clear_has_obiect_id();
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable int _cached_size_;
+  ::google::protobuf::int32 obiect_id_;
   friend struct ::protobuf_cppQ_2eproto::TableStruct;
   friend void ::protobuf_cppQ_2eproto::InitDefaults_CHANGEImpl();
 };
@@ -615,24 +747,46 @@ class _OPEARATION : public ::google::protobuf::Message /* @@protoc_insertion_poi
 
   // accessors -------------------------------------------------------
 
-  static const int kSessionIdFieldNumber = 7;
+  // optional int32 session_id = 1;
+  bool has_session_id() const;
+  void clear_session_id();
+  static const int kSessionIdFieldNumber = 1;
+  ::google::protobuf::int32 session_id() const;
+  void set_session_id(::google::protobuf::int32 value);
+
+  // optional int32 operation_description = 2;
+  bool has_operation_description() const;
+  void clear_operation_description();
+  static const int kOperationDescriptionFieldNumber = 2;
+  ::google::protobuf::int32 operation_description() const;
+  void set_operation_description(::google::protobuf::int32 value);
+
+  // optional int32 operational_local_id = 3;
+  bool has_operational_local_id() const;
+  void clear_operational_local_id();
+  static const int kOperationalLocalIdFieldNumber = 3;
+  ::google::protobuf::int32 operational_local_id() const;
+  void set_operational_local_id(::google::protobuf::int32 value);
+
+  static const int kTypeFieldNumber = 103;
   static ::google::protobuf::internal::ExtensionIdentifier< ::packet::PACKET,
-      ::google::protobuf::internal::PrimitiveTypeTraits< ::google::protobuf::int32 >, 5, false >
-    session_id;
-  static const int kOperationDescriptionFieldNumber = 8;
-  static ::google::protobuf::internal::ExtensionIdentifier< ::packet::PACKET,
-      ::google::protobuf::internal::PrimitiveTypeTraits< ::google::protobuf::int32 >, 5, false >
-    operation_description;
-  static const int kOperationalLocalIdFieldNumber = 9;
-  static ::google::protobuf::internal::ExtensionIdentifier< ::packet::PACKET,
-      ::google::protobuf::internal::PrimitiveTypeTraits< ::google::protobuf::int32 >, 5, false >
-    operational_local_id;
+      ::google::protobuf::internal::MessageTypeTraits< ::packet::_OPEARATION >, 11, false >
+    type;
   // @@protoc_insertion_point(class_scope:packet._OPEARATION)
  private:
+  void set_has_session_id();
+  void clear_has_session_id();
+  void set_has_operation_description();
+  void clear_has_operation_description();
+  void set_has_operational_local_id();
+  void clear_has_operational_local_id();
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable int _cached_size_;
+  ::google::protobuf::int32 session_id_;
+  ::google::protobuf::int32 operation_description_;
+  ::google::protobuf::int32 operational_local_id_;
   friend struct ::protobuf_cppQ_2eproto::TableStruct;
   friend void ::protobuf_cppQ_2eproto::InitDefaults_OPEARATIONImpl();
 };
@@ -727,20 +881,36 @@ class _QUERY : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
 
   // accessors -------------------------------------------------------
 
-  static const int kSessionIdFieldNumber = 10;
+  // required int32 session_id = 1;
+  bool has_session_id() const;
+  void clear_session_id();
+  static const int kSessionIdFieldNumber = 1;
+  ::google::protobuf::int32 session_id() const;
+  void set_session_id(::google::protobuf::int32 value);
+
+  // optional int32 object_id = 2;
+  bool has_object_id() const;
+  void clear_object_id();
+  static const int kObjectIdFieldNumber = 2;
+  ::google::protobuf::int32 object_id() const;
+  void set_object_id(::google::protobuf::int32 value);
+
+  static const int kTypeFieldNumber = 104;
   static ::google::protobuf::internal::ExtensionIdentifier< ::packet::PACKET,
-      ::google::protobuf::internal::PrimitiveTypeTraits< ::google::protobuf::int32 >, 5, false >
-    session_id;
-  static const int kObjectIdFieldNumber = 11;
-  static ::google::protobuf::internal::ExtensionIdentifier< ::packet::PACKET,
-      ::google::protobuf::internal::PrimitiveTypeTraits< ::google::protobuf::int32 >, 5, false >
-    object_id;
+      ::google::protobuf::internal::MessageTypeTraits< ::packet::_QUERY >, 11, false >
+    type;
   // @@protoc_insertion_point(class_scope:packet._QUERY)
  private:
+  void set_has_session_id();
+  void clear_has_session_id();
+  void set_has_object_id();
+  void clear_has_object_id();
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable int _cached_size_;
+  ::google::protobuf::int32 session_id_;
+  ::google::protobuf::int32 object_id_;
   friend struct ::protobuf_cppQ_2eproto::TableStruct;
   friend void ::protobuf_cppQ_2eproto::InitDefaults_QUERYImpl();
 };
@@ -835,16 +1005,36 @@ class _QUERY_RESPONSE : public ::google::protobuf::Message /* @@protoc_insertion
 
   // accessors -------------------------------------------------------
 
-  static const int kObjectDataFieldNumber = 12;
+  // required int32 session_id = 1;
+  bool has_session_id() const;
+  void clear_session_id();
+  static const int kSessionIdFieldNumber = 1;
+  ::google::protobuf::int32 session_id() const;
+  void set_session_id(::google::protobuf::int32 value);
+
+  // optional int32 object_id = 2;
+  bool has_object_id() const;
+  void clear_object_id();
+  static const int kObjectIdFieldNumber = 2;
+  ::google::protobuf::int32 object_id() const;
+  void set_object_id(::google::protobuf::int32 value);
+
+  static const int kTypeFieldNumber = 105;
   static ::google::protobuf::internal::ExtensionIdentifier< ::packet::PACKET,
-      ::google::protobuf::internal::StringTypeTraits, 9, false >
-    object_data;
+      ::google::protobuf::internal::MessageTypeTraits< ::packet::_QUERY_RESPONSE >, 11, false >
+    type;
   // @@protoc_insertion_point(class_scope:packet._QUERY_RESPONSE)
  private:
+  void set_has_session_id();
+  void clear_has_session_id();
+  void set_has_object_id();
+  void clear_has_object_id();
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable int _cached_size_;
+  ::google::protobuf::int32 session_id_;
+  ::google::protobuf::int32 object_id_;
   friend struct ::protobuf_cppQ_2eproto::TableStruct;
   friend void ::protobuf_cppQ_2eproto::InitDefaults_QUERY_RESPONSEImpl();
 };
@@ -859,7 +1049,32 @@ class _QUERY_RESPONSE : public ::google::protobuf::Message /* @@protoc_insertion
 #endif  // __GNUC__
 // PACKET
 
-// required int32 code = 1 [default = 2];
+// required .packet.PACKET.PacketType type = 1;
+inline bool PACKET::has_type() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void PACKET::set_has_type() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void PACKET::clear_has_type() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void PACKET::clear_type() {
+  type_ = 1;
+  clear_has_type();
+}
+inline ::packet::PACKET_PacketType PACKET::type() const {
+  // @@protoc_insertion_point(field_get:packet.PACKET.type)
+  return static_cast< ::packet::PACKET_PacketType >(type_);
+}
+inline void PACKET::set_type(::packet::PACKET_PacketType value) {
+  assert(::packet::PACKET_PacketType_IsValid(value));
+  set_has_type();
+  type_ = value;
+  // @@protoc_insertion_point(field_set:packet.PACKET.type)
+}
+
+// required int32 code = 2;
 inline bool PACKET::has_code() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -870,7 +1085,7 @@ inline void PACKET::clear_has_code() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void PACKET::clear_code() {
-  code_ = 2;
+  code_ = 0;
   clear_has_code();
 }
 inline ::google::protobuf::int32 PACKET::code() const {
@@ -887,25 +1102,391 @@ inline void PACKET::set_code(::google::protobuf::int32 value) {
 
 // _ACT
 
+// required int32 operational_local_id = 1;
+inline bool _ACT::has_operational_local_id() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void _ACT::set_has_operational_local_id() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void _ACT::clear_has_operational_local_id() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void _ACT::clear_operational_local_id() {
+  operational_local_id_ = 0;
+  clear_has_operational_local_id();
+}
+inline ::google::protobuf::int32 _ACT::operational_local_id() const {
+  // @@protoc_insertion_point(field_get:packet._ACT.operational_local_id)
+  return operational_local_id_;
+}
+inline void _ACT::set_operational_local_id(::google::protobuf::int32 value) {
+  set_has_operational_local_id();
+  operational_local_id_ = value;
+  // @@protoc_insertion_point(field_set:packet._ACT.operational_local_id)
+}
+
+// optional string success = 2;
+inline bool _ACT::has_success() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void _ACT::set_has_success() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void _ACT::clear_has_success() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void _ACT::clear_success() {
+  success_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  clear_has_success();
+}
+inline const ::std::string& _ACT::success() const {
+  // @@protoc_insertion_point(field_get:packet._ACT.success)
+  return success_.GetNoArena();
+}
+inline void _ACT::set_success(const ::std::string& value) {
+  set_has_success();
+  success_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:packet._ACT.success)
+}
+#if LANG_CXX11
+inline void _ACT::set_success(::std::string&& value) {
+  set_has_success();
+  success_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:packet._ACT.success)
+}
+#endif
+inline void _ACT::set_success(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  set_has_success();
+  success_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:packet._ACT.success)
+}
+inline void _ACT::set_success(const char* value, size_t size) {
+  set_has_success();
+  success_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:packet._ACT.success)
+}
+inline ::std::string* _ACT::mutable_success() {
+  set_has_success();
+  // @@protoc_insertion_point(field_mutable:packet._ACT.success)
+  return success_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* _ACT::release_success() {
+  // @@protoc_insertion_point(field_release:packet._ACT.success)
+  clear_has_success();
+  return success_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void _ACT::set_allocated_success(::std::string* success) {
+  if (success != NULL) {
+    set_has_success();
+  } else {
+    clear_has_success();
+  }
+  success_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), success);
+  // @@protoc_insertion_point(field_set_allocated:packet._ACT.success)
+}
+
+// optional string error = 3;
+inline bool _ACT::has_error() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void _ACT::set_has_error() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void _ACT::clear_has_error() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void _ACT::clear_error() {
+  error_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  clear_has_error();
+}
+inline const ::std::string& _ACT::error() const {
+  // @@protoc_insertion_point(field_get:packet._ACT.error)
+  return error_.GetNoArena();
+}
+inline void _ACT::set_error(const ::std::string& value) {
+  set_has_error();
+  error_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:packet._ACT.error)
+}
+#if LANG_CXX11
+inline void _ACT::set_error(::std::string&& value) {
+  set_has_error();
+  error_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:packet._ACT.error)
+}
+#endif
+inline void _ACT::set_error(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  set_has_error();
+  error_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:packet._ACT.error)
+}
+inline void _ACT::set_error(const char* value, size_t size) {
+  set_has_error();
+  error_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:packet._ACT.error)
+}
+inline ::std::string* _ACT::mutable_error() {
+  set_has_error();
+  // @@protoc_insertion_point(field_mutable:packet._ACT.error)
+  return error_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* _ACT::release_error() {
+  // @@protoc_insertion_point(field_release:packet._ACT.error)
+  clear_has_error();
+  return error_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void _ACT::set_allocated_error(::std::string* error) {
+  if (error != NULL) {
+    set_has_error();
+  } else {
+    clear_has_error();
+  }
+  error_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), error);
+  // @@protoc_insertion_point(field_set_allocated:packet._ACT.error)
+}
+
 // -------------------------------------------------------------------
 
 // _ALIVE
+
+// required int32 session_id = 1;
+inline bool _ALIVE::has_session_id() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void _ALIVE::set_has_session_id() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void _ALIVE::clear_has_session_id() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void _ALIVE::clear_session_id() {
+  session_id_ = 0;
+  clear_has_session_id();
+}
+inline ::google::protobuf::int32 _ALIVE::session_id() const {
+  // @@protoc_insertion_point(field_get:packet._ALIVE.session_id)
+  return session_id_;
+}
+inline void _ALIVE::set_session_id(::google::protobuf::int32 value) {
+  set_has_session_id();
+  session_id_ = value;
+  // @@protoc_insertion_point(field_set:packet._ALIVE.session_id)
+}
 
 // -------------------------------------------------------------------
 
 // _CHANGE
 
+// required int32 obiect_id = 1;
+inline bool _CHANGE::has_obiect_id() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void _CHANGE::set_has_obiect_id() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void _CHANGE::clear_has_obiect_id() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void _CHANGE::clear_obiect_id() {
+  obiect_id_ = 0;
+  clear_has_obiect_id();
+}
+inline ::google::protobuf::int32 _CHANGE::obiect_id() const {
+  // @@protoc_insertion_point(field_get:packet._CHANGE.obiect_id)
+  return obiect_id_;
+}
+inline void _CHANGE::set_obiect_id(::google::protobuf::int32 value) {
+  set_has_obiect_id();
+  obiect_id_ = value;
+  // @@protoc_insertion_point(field_set:packet._CHANGE.obiect_id)
+}
+
 // -------------------------------------------------------------------
 
 // _OPEARATION
+
+// optional int32 session_id = 1;
+inline bool _OPEARATION::has_session_id() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void _OPEARATION::set_has_session_id() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void _OPEARATION::clear_has_session_id() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void _OPEARATION::clear_session_id() {
+  session_id_ = 0;
+  clear_has_session_id();
+}
+inline ::google::protobuf::int32 _OPEARATION::session_id() const {
+  // @@protoc_insertion_point(field_get:packet._OPEARATION.session_id)
+  return session_id_;
+}
+inline void _OPEARATION::set_session_id(::google::protobuf::int32 value) {
+  set_has_session_id();
+  session_id_ = value;
+  // @@protoc_insertion_point(field_set:packet._OPEARATION.session_id)
+}
+
+// optional int32 operation_description = 2;
+inline bool _OPEARATION::has_operation_description() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void _OPEARATION::set_has_operation_description() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void _OPEARATION::clear_has_operation_description() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void _OPEARATION::clear_operation_description() {
+  operation_description_ = 0;
+  clear_has_operation_description();
+}
+inline ::google::protobuf::int32 _OPEARATION::operation_description() const {
+  // @@protoc_insertion_point(field_get:packet._OPEARATION.operation_description)
+  return operation_description_;
+}
+inline void _OPEARATION::set_operation_description(::google::protobuf::int32 value) {
+  set_has_operation_description();
+  operation_description_ = value;
+  // @@protoc_insertion_point(field_set:packet._OPEARATION.operation_description)
+}
+
+// optional int32 operational_local_id = 3;
+inline bool _OPEARATION::has_operational_local_id() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void _OPEARATION::set_has_operational_local_id() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void _OPEARATION::clear_has_operational_local_id() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void _OPEARATION::clear_operational_local_id() {
+  operational_local_id_ = 0;
+  clear_has_operational_local_id();
+}
+inline ::google::protobuf::int32 _OPEARATION::operational_local_id() const {
+  // @@protoc_insertion_point(field_get:packet._OPEARATION.operational_local_id)
+  return operational_local_id_;
+}
+inline void _OPEARATION::set_operational_local_id(::google::protobuf::int32 value) {
+  set_has_operational_local_id();
+  operational_local_id_ = value;
+  // @@protoc_insertion_point(field_set:packet._OPEARATION.operational_local_id)
+}
 
 // -------------------------------------------------------------------
 
 // _QUERY
 
+// required int32 session_id = 1;
+inline bool _QUERY::has_session_id() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void _QUERY::set_has_session_id() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void _QUERY::clear_has_session_id() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void _QUERY::clear_session_id() {
+  session_id_ = 0;
+  clear_has_session_id();
+}
+inline ::google::protobuf::int32 _QUERY::session_id() const {
+  // @@protoc_insertion_point(field_get:packet._QUERY.session_id)
+  return session_id_;
+}
+inline void _QUERY::set_session_id(::google::protobuf::int32 value) {
+  set_has_session_id();
+  session_id_ = value;
+  // @@protoc_insertion_point(field_set:packet._QUERY.session_id)
+}
+
+// optional int32 object_id = 2;
+inline bool _QUERY::has_object_id() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void _QUERY::set_has_object_id() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void _QUERY::clear_has_object_id() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void _QUERY::clear_object_id() {
+  object_id_ = 0;
+  clear_has_object_id();
+}
+inline ::google::protobuf::int32 _QUERY::object_id() const {
+  // @@protoc_insertion_point(field_get:packet._QUERY.object_id)
+  return object_id_;
+}
+inline void _QUERY::set_object_id(::google::protobuf::int32 value) {
+  set_has_object_id();
+  object_id_ = value;
+  // @@protoc_insertion_point(field_set:packet._QUERY.object_id)
+}
+
 // -------------------------------------------------------------------
 
 // _QUERY_RESPONSE
+
+// required int32 session_id = 1;
+inline bool _QUERY_RESPONSE::has_session_id() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void _QUERY_RESPONSE::set_has_session_id() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void _QUERY_RESPONSE::clear_has_session_id() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void _QUERY_RESPONSE::clear_session_id() {
+  session_id_ = 0;
+  clear_has_session_id();
+}
+inline ::google::protobuf::int32 _QUERY_RESPONSE::session_id() const {
+  // @@protoc_insertion_point(field_get:packet._QUERY_RESPONSE.session_id)
+  return session_id_;
+}
+inline void _QUERY_RESPONSE::set_session_id(::google::protobuf::int32 value) {
+  set_has_session_id();
+  session_id_ = value;
+  // @@protoc_insertion_point(field_set:packet._QUERY_RESPONSE.session_id)
+}
+
+// optional int32 object_id = 2;
+inline bool _QUERY_RESPONSE::has_object_id() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void _QUERY_RESPONSE::set_has_object_id() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void _QUERY_RESPONSE::clear_has_object_id() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void _QUERY_RESPONSE::clear_object_id() {
+  object_id_ = 0;
+  clear_has_object_id();
+}
+inline ::google::protobuf::int32 _QUERY_RESPONSE::object_id() const {
+  // @@protoc_insertion_point(field_get:packet._QUERY_RESPONSE.object_id)
+  return object_id_;
+}
+inline void _QUERY_RESPONSE::set_object_id(::google::protobuf::int32 value) {
+  set_has_object_id();
+  object_id_ = value;
+  // @@protoc_insertion_point(field_set:packet._QUERY_RESPONSE.object_id)
+}
 
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
@@ -926,6 +1507,18 @@ inline void PACKET::set_code(::google::protobuf::int32 value) {
 // @@protoc_insertion_point(namespace_scope)
 
 }  // namespace packet
+
+namespace google {
+namespace protobuf {
+
+template <> struct is_proto_enum< ::packet::PACKET_PacketType> : ::google::protobuf::internal::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::packet::PACKET_PacketType>() {
+  return ::packet::PACKET_PacketType_descriptor();
+}
+
+}  // namespace protobuf
+}  // namespace google
 
 // @@protoc_insertion_point(global_scope)
 
