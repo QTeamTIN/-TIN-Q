@@ -1,0 +1,13 @@
+syntax = "proto2";
+
+package packet;
+
+option java_package = "com.q.prot_packet";
+option java_outer_classname = "QueryPacket";
+
+message _QUERY {
+	required int32 code = 1[default = 5];
+	required int32 session_id = 2;
+	optional int32 object_id = 3;
+}
+
