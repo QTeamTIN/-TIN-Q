@@ -2,9 +2,7 @@ syntax = "proto2";
 
 package packet;
 
-option java_package = "com.q.prot_packet";
 
-option java_outer_classname = "Packet";
 message PACKET {
 	extensions 100 to 150;
 
