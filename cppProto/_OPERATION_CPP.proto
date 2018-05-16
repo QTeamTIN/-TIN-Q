@@ -1,0 +1,14 @@
+syntax = "proto2";
+
+package packet;
+
+
+
+
+message _OPEARATION {
+	required int32 code = 1[default = 2];
+	required int32 session_id = 2;
+	optional int32 operation_description = 3;
+	optional int32 operational_local_id = 4;
+}
+

@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package packet;
+
+option java_package = "com.q.prot_packet";
+option java_outer_classname = "LoginPacket";
+
+message _LOGIN {
+	string name = 1;
+	string hash = 2;
+}
+

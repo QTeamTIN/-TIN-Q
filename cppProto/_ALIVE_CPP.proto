@@ -1,0 +1,9 @@
+syntax = "proto2";
+
+package packet;
+
+message _ALIVE {
+	required int32 code = 1[default = 7];
+	required int32 session_id = 2;
+}
+
