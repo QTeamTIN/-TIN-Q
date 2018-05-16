@@ -1,0 +1,90 @@
+syntax = "proto2";
+
+package packet;
+
+
+message PACKET {
+	required int32 code = 1[default = 2];
+	extensions 2 to 15;
+}
+
+message _ACT {
+	extend PACKET {
+		optional int32 operational_local_id = 2;
+		optional string success = 3;
+		optional string error = 4;  
+	}
+}
+
+
+message _ALIVE {
+	extend PACKET {
+		optional int32 session_id = 5; 
+	}
+}
+
+
+message _CHANGE {
+	extend PACKET {
+		optional int32 obiect_id = 6;
+	}
+}
+
+message _OPEARATION {
+	extend PACKET {
+		optional int32 session_id = 7;
+		optional int32 operation_description = 8;
+		optional int32 operational_local_id = 9;
+	}
+}
+
+message _QUERY {
+	extend PACKET {
+		optional int32 session_id = 10;
+		optional int32 object_id = 11;
+	}
+}
+
+
+message _QUERY_RESPONSE {
+	extend PACKET {
+		optional string object_data = 12;
+	}
+}
+
+
+/*
+extend PACKET {
+	optional int32 session_id = 10;
+	optional int32 operation_description = 11;
+	optional int32 operational_local_id = 12;
+	optional int32 obiect_id = 13;
+	optional string success = 15;
+	optional string error = 16;  
+}
+*/
+/*
+extend PACKET {
+	
+}
+
+
+extend PACKET {
+	optional int32 operational_local_id = 14;
+
+}
+
+extend PACKET {
+	required int32 session_id = 17;
+	optional int32 object_id = 18;
+}
+
+extend PACKET {
+	optional string object_data = 19;
+}
+
+
+extend PACKET {
+	optional int32 session_id = 20;
+}*/
+
