@@ -9,6 +9,7 @@
 
 #include "ClientSocket.hpp"
 #include "ClientReceiver.hpp"
+#include "ClientSender.hpp"
 
 class ClientHandler: public Stoppable
 {
@@ -23,8 +24,9 @@ private:
 
     ClientSocket *sock_ptr_;
     ClientReceiver receiver_;
-
+    ClientSender sender_;
     std::thread recv_thread_;
+    std::thread send_thread_;
 };
 
 #endif // CLIENTHANDLER_HPP
