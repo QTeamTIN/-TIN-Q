@@ -1,5 +1,6 @@
 source=Glob('src/*.cpp')
 libs=['pthread', 'ssl', 'crypto']
 lib_paths=''
-env=Environment(CPPPATH='src/')
+env=Environment(CPPPATH='src/',
+		CXXFLAGS="-std=c++11")
 env.Program('bin/Server', source, LIBS=libs)
