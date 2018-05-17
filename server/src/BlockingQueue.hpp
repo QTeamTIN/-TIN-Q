@@ -21,7 +21,7 @@ public:
 private:
     std::mutex guard_;
     std::condition_variable full_;
-    std::condition_variable full_;
+    std::condition_variable empty_;
     std::queue<Packet> packet_queue_;
     unsigned capacity_;
 };
