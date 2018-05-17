@@ -1,0 +1,52 @@
+syntax = "proto2";
+
+package packet;
+
+option java_package = "com.q.prot_packet";
+
+option java_outer_classname = "OperationPacket";
+message _OPEARATION {
+	required int32 code = 1[default = 2];
+	required int32 session_id = 2;
+	optional int32 operation_description = 3;
+	optional int32 operational_local_id = 4;
+}
+
+
+option java_outer_classname = "ChangePacket";
+message _CHANGE {
+	required int32 code = 1[default = 3];
+	required int32 obiect_id = 2;
+}
+
+option java_outer_classname = "AckPacket";
+message _ACK {
+	required int32 code = 1[default = 4];
+	required int32 operational_local_id = 2;
+	optional string success = 3;
+	optional string error = 4;  
+}
+
+
+
+option java_outer_classname = "QueryPacket";
+message _QUERY {
+	required int32 code = 1[default = 5];
+	required int32 session_id = 2;
+	optional int32 object_id = 3;
+}
+
+
+option java_outer_classname = "QueryResponsePacket";
+message _QUERY_RESPONSE {
+	required int32 code = 1[default = 6];
+	optional string object_data = 3;
+}
+
+option java_outer_classname = "AlivePacket";
+message _ALIVE {
+	required int32 code = 1[default = 7];
+	required int32 session_id = 2;
+}
+
+

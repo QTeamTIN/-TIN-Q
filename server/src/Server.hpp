@@ -4,6 +4,7 @@
 #include "ClientSocket.hpp"
 #include "ConnectSocket.hpp"
 #include "ClientHandler.hpp"
+#include "SecurityProvider.hpp"
 
 #include <list>
 
@@ -16,7 +17,11 @@ public:
 
 private:
     ConnectSocket connect_sock_;
-    std::list<ClientHandler> clients_;
+
+    SecurityProvider security_provider_;
+
+    std::list<ClientHandler*> clients_;
+    std::list<std::thread> client_threads_;
 };
 
 #endif // SERVER_HPP
