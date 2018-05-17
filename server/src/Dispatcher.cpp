@@ -9,5 +9,11 @@ Dispatcher::Dispatcher(std::queue<PACKET> &input_queue, std::queue<PACKET> &outp
 
 void Dispatcher::run()
 {
-
+    while (!stopRequested()) {
+        if (input_queue_.empty())
+            continue;
+        PACKET pack = input_queue_.front();
+        input_queue_.pop();
+        output_queue_.push(pack);
+    }
 }
