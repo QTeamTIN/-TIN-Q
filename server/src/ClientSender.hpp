@@ -15,6 +15,8 @@ public:
 
     void run() override;
 
+    std::queue<Packet>& getOutputQueue();
+
 private:
     ClientSocket *socket_;
     PacketSerializer serializer_;

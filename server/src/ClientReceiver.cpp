@@ -16,3 +16,8 @@ void ClientReceiver::run()
         input_queue_.push(serializer_.parse(msg));
     }
 }
+
+std::queue<Packet> &ClientReceiver::getInputQueue()
+{
+    return input_queue_;
+}
