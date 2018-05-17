@@ -7,12 +7,14 @@ ClientHandler::ClientHandler(ClientSocket *sock_ptr)
     :sock_ptr_(sock_ptr)
     ,receiver_(sock_ptr_)
     ,sender_(sock_ptr_)
+    ,dispatcher_(receiver_.getInputQueue(), sender_.getOutputQueue())
 {}
 
 void ClientHandler::init()
 {
     recv_thread_ = std::thread(&ClientReceiver::run, &receiver_);
     send_thread_ = std::thread(&ClientSender::run, &sender_);
+    dispatcher_thread_ = std::thread(&Dispatcher::run, &dispatcher_);
 }
 
 void ClientHandler::run()
