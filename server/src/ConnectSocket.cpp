@@ -48,6 +48,5 @@ ClientSocket *ConnectSocket::accept()
 
     if (client_socket == -1)
         throw std::runtime_error("Accept error: " + errno);
-    std::cout<<client_socket<<"<------------------\n";
     return new ClientSocket(client_socket, clientAddr);
 }

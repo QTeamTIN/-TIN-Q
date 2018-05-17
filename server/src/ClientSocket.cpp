@@ -22,7 +22,6 @@ void ClientSocket::receive()
 {
     int recv_len = recv(getSocketFd(), recv_buff_, recv_buff_size_, 0);
     //int recv_len = SSL_read(ssl_handle, recv_buff_, recv_buff_size_);
-    std::cout<<recv_len<<" <---recv_len"<<std::endl;
     if (recv_len < 0) {
         fprintf(stderr, "recv: %s (%d)\n", strerror(errno), errno);
         throw std::runtime_error(strerror(errno));
