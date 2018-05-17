@@ -20,3 +20,8 @@ void ClientSender::run()
         std::cout<<"Package sent\n";
     }
 }
+
+std::queue<Packet> &ClientSender::getOutputQueue()
+{
+    return output_queue_;
+}
