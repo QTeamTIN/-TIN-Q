@@ -4,7 +4,7 @@
 #include <memory>
 
 #include "ClientSocket.hpp"
-#include "Stoppable.h"
+#include "Stoppable.hpp"
 
 class ClientSender: public Stoppable
 {

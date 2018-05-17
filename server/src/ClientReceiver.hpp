@@ -2,9 +2,11 @@
 #define CLIENTRECEIVER_HPP
 
 #include <memory>
+#include <queue>
 
 #include "ClientSocket.hpp"
-#include "Stoppable.h"
+#include "PacketSerializer.hpp"
+#include "Stoppable.hpp"
 
 class ClientReceiver: public Stoppable
 {
@@ -15,6 +17,8 @@ public:
 
 private:
     ClientSocket *socket_;
+    PacketSerializer serializer_;
+    std::queue<Packet> input_queue_;
 
 };
 

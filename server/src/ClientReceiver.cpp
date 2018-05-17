@@ -12,6 +12,9 @@ void ClientReceiver::run()
 {
     while (!stopRequested()) {
         socket_->receive();
-        std::cout<<socket_->getReceivedMessage()<<std::endl;
+        std::string msg = socket_->getReceivedMessage();
+        std::cout<<"received string: "<<msg<<std::endl;
+        input_queue_.push(serializer_.parse(msg));
+        std::cout<<"pushed\n";
     }
 }

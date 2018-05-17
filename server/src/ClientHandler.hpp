@@ -5,7 +5,7 @@
 #include <thread>
 #include <csignal>
 
-#include "Stoppable.h"
+#include "Stoppable.hpp"
 
 #include "ClientSocket.hpp"
 #include "ClientReceiver.hpp"
@@ -23,8 +23,10 @@ private:
     void terminate();
 
     ClientSocket *sock_ptr_;
+
     ClientReceiver receiver_;
     ClientSender sender_;
+
     std::thread recv_thread_;
     std::thread send_thread_;
 };

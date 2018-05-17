@@ -1,4 +1,4 @@
-#include "Stoppable.h"
+#include "Stoppable.hpp"
 
 Stoppable::Stoppable()
     :future_obj_(exit_signal_.get_future())

@@ -1,5 +1,5 @@
 source=Glob('src/*.cpp')
-libs=['pthread', 'ssl', 'crypto']
+libs=['pthread', 'ssl', 'crypto', 'protobuf']
 lib_paths=''
 env=Environment(CPPPATH='src/',
 		CXXFLAGS="-std=c++11")
