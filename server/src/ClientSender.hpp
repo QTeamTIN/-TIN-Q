@@ -17,6 +17,9 @@ public:
 
 private:
     ClientSocket *socket_;
+    PacketSerializer serializer_;
+
+    std::queue<Packet> output_queue_;
 
     std::queue<Packet> output_queue_;
 
