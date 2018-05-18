@@ -2,7 +2,7 @@
 
 Packet BlockingQueue::pop()
 {
-    std::unique_lock() cond_lock(guard_);
+    std::unique_lock<std::mutex> cond_lock(guard_);
     if(packet_queue_.empty())
     {
         empty_.wait(cond_lock);
@@ -15,7 +15,7 @@ Packet BlockingQueue::pop()
 
 void BlockingQueue::push(const Packet& packet)
 {
-    std::unique_lock() cond_lock(guard_);
+    std::unique_lock<std::mutex> cond_lock(guard_);
     if(packet_queue_.size() >= capacity_)
     {
         full_.wait(cond_lock);
