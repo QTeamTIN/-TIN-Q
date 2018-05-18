@@ -4,6 +4,7 @@
 #include <memory>
 #include <queue>
 
+#include "BlockingQueue.hpp"
 #include "ClientSocket.hpp"
 #include "PacketSerializer.hpp"
 #include "Stoppable.hpp"
@@ -15,8 +16,13 @@ public:
 
     void run() override;
 
+    BlockingQueue& getOutputQueue();
+
 private:
     ClientSocket *socket_;
+    PacketSerializer serializer_;
+
+    BlockingQueue output_queue_;
 
     std::queue<Packet> output_queue_;
 

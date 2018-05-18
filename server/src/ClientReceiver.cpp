@@ -14,5 +14,11 @@ void ClientReceiver::run()
         socket_->receive();
         std::string msg = socket_->getReceivedMessage();
         input_queue_.push(serializer_.parse(msg));
+        std::cout<<"Packet received\n";
     }
+}
+
+BlockingQueue &ClientReceiver::getInputQueue()
+{
+    return input_queue_;
 }
