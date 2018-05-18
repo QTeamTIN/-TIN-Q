@@ -25,7 +25,6 @@ private:
 
     ClientSocket *socket_;
     PacketSerializer serializer_;
-
     BlockingQueue input_queue_;
 
 };
