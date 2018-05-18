@@ -11,6 +11,14 @@ ClientSender::ClientSender(ClientSocket *sock)
 void ClientSender::run()
 {
     while (!stopRequested()) {
-        socket_->send("heh");
+        Packet pack = output_queue_.pop();
+        std::string to_send = serializer_.serialize(pack);
+        socket_->send(to_send);
+        std::cout<<"Package sent\n";
     }
+}
+
+BlockingQueue &ClientSender::getOutputQueue()
+{
+    return output_queue_;
 }
