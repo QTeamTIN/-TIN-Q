@@ -102,7 +102,7 @@ public class MyService extends Service {
                     SSLContext sc = SSLContext.getInstance("TLS");
                     sc.init(null, trustAllCerts, new java.security.SecureRandom());
                     SSLSocketFactory factory = sc.getSocketFactory();
-                    SSLSocket socket = (SSLSocket)factory.createSocket("192.168.1.12", 8888);
+                    SSLSocket socket = (SSLSocket)factory.createSocket("89.64.9.255", 8888);
                     socket.startHandshake();
                     input = new DataInputStream(socket.getInputStream());
                     output = new PrintStream(socket.getOutputStream());
