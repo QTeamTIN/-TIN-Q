@@ -2,8 +2,8 @@
 #define CLIENTSENDER_HPP
 
 #include <memory>
-#include <queue>
 
+#include "BlockingQueue.hpp"
 #include "ClientSocket.hpp"
 #include "PacketSerializer.hpp"
 #include "Stoppable.hpp"
@@ -15,13 +15,13 @@ public:
 
     void run() override;
 
-    std::queue<Packet>& getOutputQueue();
+    BlockingQueue& getOutputQueue();
 
 private:
     ClientSocket *socket_;
     PacketSerializer serializer_;
 
-    std::queue<Packet> output_queue_;
+    BlockingQueue output_queue_;
 
     std::queue<Packet> output_queue_;
 
