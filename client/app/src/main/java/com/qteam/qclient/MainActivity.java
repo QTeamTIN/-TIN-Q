@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.ComponentName;
+
+import com.q.prot_packet.Packet;
 import com.qteam.qclient.MyService.LocalBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
