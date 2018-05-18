@@ -12,7 +12,7 @@ class BlockingQueue
 {
     static constexpr unsigned MAX_CAPACITY = 50;
 public:
-    BlockingQueue() : capacity_(MAX_CAPACITY) {};
+    BlockingQueue() : capacity_(MAX_CAPACITY) {}
     ~BlockingQueue() = default;
 
     Packet pop();

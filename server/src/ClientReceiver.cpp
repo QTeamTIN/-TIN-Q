@@ -18,7 +18,7 @@ void ClientReceiver::run()
     }
 }
 
-std::queue<Packet> &ClientReceiver::getInputQueue()
+BlockingQueue &ClientReceiver::getInputQueue()
 {
     return input_queue_;
 }
