@@ -11,13 +11,22 @@
 class ClientSender: public Stoppable
 {
 public:
+    enum class SenderError {
+        PACKET_PARSING_ERROR
+    };
+
     ClientSender(ClientSocket *sock);
 
     void run() override;
 
     BlockingQueue& getOutputQueue();
 
+    std::future<SenderError> getErrorFuture();
+
 private:
+
+    std::promise<SenderError> error_;
+
     ClientSocket *socket_;
     PacketSerializer serializer_;
 

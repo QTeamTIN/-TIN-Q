@@ -22,3 +22,8 @@ BlockingQueue &ClientSender::getOutputQueue()
 {
     return output_queue_;
 }
+
+std::future<ClientSender::SenderError> ClientSender::getErrorFuture()
+{
+    return error_.get_future();
+}
