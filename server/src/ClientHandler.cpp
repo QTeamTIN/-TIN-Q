@@ -29,6 +29,7 @@ void ClientHandler::terminate()
     sock_ptr_->shutdown();
     receiver_.stop();
     sender_.stop();
+    dispatcher_.stop();
     sock_ptr_->close();
     std::cout<<"Close client thread\n";
 }
