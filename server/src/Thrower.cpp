@@ -7,11 +7,9 @@ Thrower::Thrower()
 Thrower::Thrower(Thrower &&other)
     :exception_handler_(std::move(other.exception_handler_))
     ,exception_future_(std::move(other.exception_future_))
-{
+{}
 
-}
-
-Thrower &&Thrower::operator=(Thrower &&other)
+Thrower& Thrower::operator=(Thrower &&other)
 {
     exception_handler_ = std::move(other.exception_handler_);
     exception_future_ = std::move(other.exception_future_);
@@ -24,5 +22,5 @@ void Thrower::handle()
 
 void Thrower::setException(const std::exception &exception)
 {
-    exception_handler_.set_exception(exception);
+    exception_handler_.set_exception(std::make_exception_ptr(exception));
 }

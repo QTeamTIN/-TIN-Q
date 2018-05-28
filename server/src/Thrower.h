@@ -7,10 +7,10 @@ class Thrower
 {
 public:
     Thrower();
-    Thrower(Thrower && other) = delete;
-    Thrower& operator=(Thrower && other) = delete;
+    Thrower(Thrower&& other);
+    Thrower& operator=(Thrower&& other);
 
-    void handle() throw(...);
+    void handle();
 
 protected:
     void setException(const std::exception& exception);
