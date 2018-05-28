@@ -23,8 +23,7 @@ private:
     void init();
     void terminate();
 
-    void handleSenderError();
-    void handleReceiverError();
+    void handleErrors();
 
     ClientSocket *sock_ptr_;
 
@@ -35,9 +34,6 @@ private:
     std::thread recv_thread_;
     std::thread send_thread_;
     std::thread dispatcher_thread_;
-
-    std::future<ClientSender::SenderError> sender_error_;
-    std::future<ClientReceiver::ReceiverError> receiver_error_;
 };
 
 #endif // CLIENTHANDLER_HPP

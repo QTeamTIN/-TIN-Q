@@ -17,7 +17,9 @@ Thrower& Thrower::operator=(Thrower &&other)
 
 void Thrower::handle()
 {
-    exception_future_.wait_for(std::chrono::milliseconds(0));
+    if (exception_future_.wait_for(std::chrono::milliseconds(0))
+            == std::future_status::ready)
+        exception_future_.get();
 }
 
 void Thrower::setException(const std::exception &exception)

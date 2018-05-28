@@ -7,8 +7,9 @@
 #include "ClientSocket.hpp"
 #include "PacketSerializer.hpp"
 #include "Stoppable.hpp"
+#include "Thrower.h"
 
-class ClientReceiver: public Stoppable
+class ClientReceiver: public Stoppable, public Thrower
 {
 public:
     enum class ReceiverError {
@@ -20,12 +21,7 @@ public:
     void run() override;
 
     BlockingQueue &getInputQueue();
-
-    std::future<ReceiverError> getErrorFuture();
-
 private:
-
-    std::promise<ReceiverError> error_;
 
     ClientSocket *socket_;
     PacketSerializer serializer_;

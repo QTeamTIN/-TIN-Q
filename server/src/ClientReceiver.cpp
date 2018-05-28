@@ -18,16 +18,11 @@ void ClientReceiver::run()
             std::cout<<"Packet received\n";
         }
     } catch (const PacketSerializer::SerializerException& e) {
-        error_.set_value(ReceiverError::PACKET_SERIALIZATION_ERROR);
+        setException(e);
     }
 }
 
 BlockingQueue &ClientReceiver::getInputQueue()
 {
     return input_queue_;
-}
-
-std::future<ClientReceiver::ReceiverError> ClientReceiver::getErrorFuture()
-{
-    return std::move(error_.get_future());
 }

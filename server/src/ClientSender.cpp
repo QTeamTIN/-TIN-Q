@@ -21,16 +21,11 @@ void ClientSender::run()
             std::cout<<"Package sent\n";
         }
     } catch (const PacketSerializer::SerializerException& e ) {
-        error_.set_value(SenderError::PACKET_PARSING_ERROR);
+        setException(e);
     }
 }
 
 BlockingQueue &ClientSender::getOutputQueue()
 {
     return output_queue_;
-}
-
-std::future<ClientSender::SenderError> ClientSender::getErrorFuture()
-{
-    return std::move(error_.get_future());
 }
