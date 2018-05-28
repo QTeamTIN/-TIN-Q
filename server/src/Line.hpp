@@ -9,13 +9,15 @@
 
 class Line {
 public:
-    Line(int id, std::string name, std::string place, std::string description, tm datetime);
+    Line(int id, std::string name, std::string place, std::string description, time_t start, time_t end);
     typedef int UserID;
     void addUser(UserID id);
     void deleteUser(UserID id);
     void letUserThrough(UserID id);
     void acceptLettingThrough(UserID id);
     void next();
+	int getAvgUserMinutes();
+
 
 
 private:
@@ -27,7 +29,12 @@ private:
 	std::string name_;
 	std::string place_;
 	std::string description_;
-	tm datetime_;
+	time_t start_;
+	time_t end_;
+	int users_serviced_=0;
+	int avg_user_minutes_ = 0;
+	void countAvgUserMinutes();
+
 	
 
 

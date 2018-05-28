@@ -1,6 +1,6 @@
 #include "Line.hpp"
 
-Line::Line(int id, std::string name, std::string place, std::string description, tm datetime) : id_(id), name_(name), place_(place), description_(description), datetime_(datetime){}
+Line::Line(int id, std::string name, std::string place, std::string description, time_t start, time_t end) : id_(id), name_(name), place_(place), description_(description), start_(start), end_(end){}
 
 void Line::addUser(UserID id){
     std::unique_lock<std::mutex> add_lock(members_mutex_);
@@ -31,4 +31,15 @@ void Line::acceptLettingThrough(UserID id){
 void Line::next(){
     std::unique_lock<std::mutex> del_lock(members_mutex_);
     members_.pop_front();
+	users_serviced_++;
+	countAvgUserMinutes();
+}
+
+void Line::countAvgUserMinutes() {
+	std::time_t now = std::time(0);
+	avg_user_minutes_ = (now - start_) / 60 / users_serviced_;
+}
+
+int Line::getAvgUserMinutes() {
+	return avg_user_minutes_;
 }
