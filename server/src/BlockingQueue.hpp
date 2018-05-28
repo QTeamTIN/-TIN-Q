@@ -18,6 +18,11 @@ public:
     Packet pop();
     void push(const Packet& packet);
 
+	bool empty();
+	std::size_t size();
+
+	void terminate();
+
 private:
     std::mutex guard_;
     std::condition_variable full_;
