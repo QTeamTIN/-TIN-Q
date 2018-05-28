@@ -11,15 +11,25 @@
 class ClientReceiver: public Stoppable
 {
 public:
+    enum class ReceiverError {
+        PACKET_SERIALIZATION_ERROR
+    };
+
     ClientReceiver(ClientSocket *sock);
 
     void run() override;
 
     BlockingQueue &getInputQueue();
 
+    std::future<ReceiverError> getErrorFuture();
+
 private:
+
+    std::promise<ReceiverError> error_;
+
     ClientSocket *socket_;
     PacketSerializer serializer_;
+
     BlockingQueue input_queue_;
 
 };
