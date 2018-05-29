@@ -9,7 +9,7 @@ Packet PacketSerializer::parse(const std::string &packet_str)
 {
     Packet pack;
     //TODO custom exception
-    if ( !pack.ParseFromString(packet_str + "trelemorele") ) {
+    if ( !pack.ParseFromString(packet_str) ) {
         throw SerializerException("Invalid packet. Parsing failed.");
     }
     return pack;
