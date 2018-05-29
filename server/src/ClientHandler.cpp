@@ -1,7 +1,6 @@
 #include "ClientHandler.hpp"
 
 #include <iostream>
-#include <future>
 
 ClientHandler::ClientHandler(ClientSocket *sock_ptr)
     :sock_ptr_(sock_ptr)
@@ -20,7 +19,13 @@ void ClientHandler::init()
 void ClientHandler::run()
 {
     init();
-    while(!stopRequested()) {}
+    try{
+        while (!stopRequested()) {
+            handleErrors();
+        }
+    } catch(const std::exception& e) {
+        std::cout<<e.what()<<std::endl;
+    }
     terminate();
 }
 
@@ -29,6 +34,13 @@ void ClientHandler::terminate()
     sock_ptr_->shutdown();
     receiver_.stop();
     sender_.stop();
+    dispatcher_.stop();
     sock_ptr_->close();
     std::cout<<"Close client thread\n";
+}
+
+void ClientHandler::handleErrors()
+{
+    receiver_.handle();
+    sender_.handle();
 }

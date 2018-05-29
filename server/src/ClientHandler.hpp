@@ -23,6 +23,8 @@ private:
     void init();
     void terminate();
 
+    void handleErrors();
+
     ClientSocket *sock_ptr_;
 
     ClientReceiver receiver_;

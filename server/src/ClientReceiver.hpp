@@ -7,19 +7,25 @@
 #include "ClientSocket.hpp"
 #include "PacketSerializer.hpp"
 #include "Stoppable.hpp"
+#include "Thrower.h"
 
-class ClientReceiver: public Stoppable
+class ClientReceiver: public Stoppable, public Thrower
 {
 public:
+    enum class ReceiverError {
+        PACKET_SERIALIZATION_ERROR
+    };
+
     ClientReceiver(ClientSocket *sock);
 
     void run() override;
 
     BlockingQueue &getInputQueue();
-
 private:
+
     ClientSocket *socket_;
     PacketSerializer serializer_;
+
     BlockingQueue input_queue_;
 
 };

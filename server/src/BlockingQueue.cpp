@@ -1,9 +1,5 @@
 #include "BlockingQueue.hpp"
 
-BlockingQueue::BlockingQueue()
-{
-	
-}
 
 Packet BlockingQueue::pop()
 {

@@ -2,16 +2,20 @@
 #define CLIENTSENDER_HPP
 
 #include <memory>
-#include <queue>
 
 #include "BlockingQueue.hpp"
 #include "ClientSocket.hpp"
 #include "PacketSerializer.hpp"
 #include "Stoppable.hpp"
+#include "Thrower.h"
 
-class ClientSender: public Stoppable
+class ClientSender: public Stoppable, public Thrower
 {
 public:
+    enum class SenderError {
+        PACKET_PARSING_ERROR
+    };
+
     ClientSender(ClientSocket *sock);
 
     void run() override;
@@ -19,13 +23,11 @@ public:
     BlockingQueue& getOutputQueue();
 
 private:
+
     ClientSocket *socket_;
     PacketSerializer serializer_;
 
     BlockingQueue output_queue_;
-
-    std::queue<Packet> output_queue_;
-
 };
 
 #endif // CLIENTSENDER_HPP
