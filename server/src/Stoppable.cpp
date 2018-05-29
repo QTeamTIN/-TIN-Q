@@ -18,7 +18,7 @@ Stoppable &Stoppable::operator=(Stoppable &&other)
 
 void Stoppable::operator()()
 {
-    run();
+    thread_ = std::make_unique<std::thread>(&Stoppable::run, this);
 }
 
 bool Stoppable::stopRequested()
@@ -30,5 +30,10 @@ bool Stoppable::stopRequested()
 void Stoppable::stop()
 {
     exit_signal_.set_value();
+}
+
+void Stoppable::join()
+{
+    thread_->join();
 }
 
