@@ -27,9 +27,6 @@ private:
     PacketSerializer serializer_;
 
     BlockingQueue output_queue_;
-
-    std::queue<Packet> output_queue_;
-
 };
 
 #endif // CLIENTSENDER_HPP
