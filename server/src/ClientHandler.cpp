@@ -11,9 +11,9 @@ ClientHandler::ClientHandler(ClientSocket *sock_ptr)
 
 void ClientHandler::init()
 {
-    recv_thread_ = std::thread(&ClientReceiver::run, &receiver_);
-    send_thread_ = std::thread(&ClientSender::run, &sender_);
-    dispatcher_thread_ = std::thread(&Dispatcher::run, &dispatcher_);
+    receiver_();
+    sender_();
+    dispatcher_();
 }
 
 void ClientHandler::run()

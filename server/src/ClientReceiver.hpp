@@ -7,7 +7,7 @@
 #include "ClientSocket.hpp"
 #include "PacketSerializer.hpp"
 #include "Stoppable.hpp"
-#include "Thrower.h"
+#include "Thrower.hpp"
 
 class ClientReceiver: public Stoppable, public Thrower
 {

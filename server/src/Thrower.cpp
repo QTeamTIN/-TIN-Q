@@ -1,4 +1,4 @@
-#include "Thrower.h"
+#include "Thrower.hpp"
 
 Thrower::Thrower()
     :exception_future_(exception_handler_.get_future())

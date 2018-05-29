@@ -30,10 +30,6 @@ private:
     ClientReceiver receiver_;
     ClientSender sender_;
     Dispatcher dispatcher_;
-
-    std::thread recv_thread_;
-    std::thread send_thread_;
-    std::thread dispatcher_thread_;
 };
 
 #endif // CLIENTHANDLER_HPP
