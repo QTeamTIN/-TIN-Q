@@ -1,0 +1,1 @@
+./Debug/PostgresQueueDAO.cpp.o ./Debug/Queue.cpp.o ./Debug/User.cpp.o ./Debug/PostgresUserDAO.cpp.o ./Debug/main.cpp.o ./Debug/Connection.cpp.o
