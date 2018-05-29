@@ -12,12 +12,9 @@ void Server::run()
     while(i < 3){
         ClientSocket *sock = connect_sock_.accept();
         //security_provider_.makeSocketSecure(sock);
-
         ClientHandler* client_handler = new ClientHandler(sock);
-        std::thread thread(&ClientHandler::run, client_handler);
-
+        (*client_handler)();
         clients_.push_back(client_handler);
-        client_threads_.push_back(std::move(thread));
         ++i;
     }
     sleep(5);
@@ -26,8 +23,8 @@ void Server::run()
         client->stop();
     }
     std::cout<<"Joining\n";
-    for (auto& thread: client_threads_) {
-        thread.join();
+    for (auto client: clients_) {
+        client->join();
     }
     std::cout<<"Clients closed\n";
     std::cout<<"bye!\n";

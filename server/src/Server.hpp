@@ -21,7 +21,6 @@ private:
     SecurityProvider security_provider_;
 
     std::list<ClientHandler*> clients_;
-    std::list<std::thread> client_threads_;
 };
 
 #endif // SERVER_HPP
