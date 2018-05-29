@@ -8,7 +8,6 @@ PacketSerializer::PacketSerializer()
 Packet PacketSerializer::parse(const std::string &packet_str)
 {
     Packet pack;
-    //TODO custom exception
     if ( !pack.ParseFromString(packet_str) ) {
         throw SerializerException("Invalid packet. Parsing failed.");
     }
@@ -18,8 +17,6 @@ Packet PacketSerializer::parse(const std::string &packet_str)
 std::string PacketSerializer::serialize(const Packet &pack)
 {
     std::string out;
-    //TODO custom exception
-
     if ( !pack.SerializeToString(&out)) {
         throw SerializerException("Invalid packet. Serialization failed.");
     }

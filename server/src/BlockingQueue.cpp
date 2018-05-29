@@ -7,6 +7,7 @@ Packet BlockingQueue::pop()
     {
         empty_.wait(cond_lock);
     }
+
     auto packet = packet_queue_.front();
     packet_queue_.pop();
     full_.notify_one();

@@ -39,7 +39,6 @@ ssize_t ClientSocket::send(const std::string& message)
 
     const char* to_send = message.c_str();
     int s_bytes = ::send(getSocketFd(), to_send, strlen(to_send), 0);
-
     //ssize_t s_bytes = SSL_write(ssl_handle, to_send, strlen(to_send));
     if (s_bytes < 0)
     {
