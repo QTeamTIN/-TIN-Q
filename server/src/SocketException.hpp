@@ -14,13 +14,14 @@ public:
         BIND,
         RECEIVE,
         SEND
-    }
+    };
     SocketException(Type type, const char* msg);
-    const char* what() const;
+    virtual const char* what() const noexcept;
 
 private:
+    const char *typeToString(Type type);
     Type type_;
-    char* msg_;
+    const char* msg_;
 
 };
 
