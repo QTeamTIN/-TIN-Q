@@ -12,6 +12,7 @@
 class SocketWrapper {
 
     static constexpr int UNINIT_FD = -1;
+
 public:
     SocketWrapper();
     SocketWrapper(int socket_fd);

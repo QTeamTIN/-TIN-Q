@@ -33,7 +33,9 @@ void SocketWrapper::close()
 {
     if (socket_fd_ == UNINIT_FD)
         return;
-    ::close(socket_fd_);
+    if ( ::close(socket_fd_) == -1) {
+//        throw
+    }
     //TODO close errors
 }
 

@@ -2,6 +2,7 @@
 #define SOCKETEXCEPTION_HPP
 
 #include <exception>
+#include <string>
 
 class SocketException: public std::exception
 {
@@ -15,13 +16,13 @@ public:
         RECEIVE,
         SEND
     };
-    SocketException(Type type, const char* msg);
-    virtual const char* what() const noexcept;
+    SocketException(Type type, const std::string &msg);
+    const char *what() const noexcept override;
 
 private:
-    const char *typeToString(Type type);
+    std::string typeToString(Type type) const;
     Type type_;
-    const char* msg_;
+    std::string msg_;
 
 };
 
