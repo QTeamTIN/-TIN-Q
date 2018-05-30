@@ -9,6 +9,8 @@
 #include <unistd.h>
 #include <errno.h>
 
+#include "SocketException.hpp"
+
 class SocketWrapper {
 
     static constexpr int UNINIT_FD = -1;
@@ -27,7 +29,7 @@ public:
 
     void init();
     void close();
-    int shutdown();
+    void shutdown();
 
 
     int getSocketFd() const;

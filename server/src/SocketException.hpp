@@ -1,7 +1,9 @@
 #ifndef SOCKETEXCEPTION_HPP
 #define SOCKETEXCEPTION_HPP
 
+#include <errno.h>
 #include <exception>
+#include <string.h>
 #include <string>
 
 class SocketException: public std::exception
@@ -14,9 +16,10 @@ public:
         ACCEPT,
         BIND,
         RECEIVE,
-        SEND
+        SEND,
+        SETSOCKOPT
     };
-    SocketException(Type type, const std::string &msg);
+    SocketException(Type type);
     const char *what() const noexcept override;
 
 private:

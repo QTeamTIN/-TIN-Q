@@ -2,10 +2,10 @@
 
 #include <map>
 
-SocketException::SocketException(SocketException::Type type, const std::string& msg)
+SocketException::SocketException(SocketException::Type type)
     :type_(type)
 {
-    msg_ = typeToString(type_) + msg;
+    msg_ = typeToString(type_) + std::string(strerror(errno));
 }
 
 const char *SocketException::what() const noexcept
@@ -22,7 +22,8 @@ std::string SocketException::typeToString(SocketException::Type type) const
         {SocketException::Type::LISTEN, "Listen: "},
         {SocketException::Type::RECEIVE, "Receive: "},
         {SocketException::Type::SEND, "Send: "},
-        {SocketException::Type::SHUTDOWN, "Shutdown: "}
+        {SocketException::Type::SHUTDOWN, "Shutdown: "},
+        {SocketException::Type::SETSOCKOPT, "Setsockopt: "}
     };
     return type_str[type];
 }

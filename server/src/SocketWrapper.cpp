@@ -34,15 +34,14 @@ void SocketWrapper::close()
     if (socket_fd_ == UNINIT_FD)
         return;
     if ( ::close(socket_fd_) == -1) {
-//        throw
+        throw SocketException(SocketException::Type::CLOSE);
     }
-    //TODO close errors
 }
 
-int SocketWrapper::shutdown()
+void SocketWrapper::shutdown()
 {
-    //TODO errors, "how"
-    return ::shutdown(socket_fd_, SHUT_WR);
+    if(::shutdown(socket_fd_, SHUT_WR))
+        throw SocketException(SocketException::Type::SHUTDOWN);
 }
 
 

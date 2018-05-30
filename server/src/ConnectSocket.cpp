@@ -24,7 +24,7 @@ void ConnectSocket::init(int backlog)
                    SO_REUSEADDR,
                    &yes,
                    sizeof(int)) == -1) {
-        throw std::runtime_error("setsockopt error: " + errno);
+        throw SocketException(SocketException::Type::SETSOCKOPT);
     }
 
     serv_addr_.sin_family = AF_INET;
@@ -34,10 +34,10 @@ void ConnectSocket::init(int backlog)
     if (::bind(getSocketFd(),
                (struct sockaddr*) &serv_addr_,
                sizeof(serv_addr_)) < 0) {
-       throw std::runtime_error("Binding error: " + errno);
+       throw SocketException(SocketException::Type::BIND);
     }
-
-    ::listen(getSocketFd(), backlog);
+    if(::listen(getSocketFd(), backlog))
+        throw SocketException(SocketException::Type::LISTEN);
 }
 
 ClientSocket *ConnectSocket::accept()
@@ -47,6 +47,7 @@ ClientSocket *ConnectSocket::accept()
     int client_socket = ::accept(getSocketFd(), (struct sockaddr*) &clientAddr, &clientAddrSize);
 
     if (client_socket == -1)
-        throw std::runtime_error("Accept error: " + errno);
+        throw SocketException(SocketException::Type::ACCEPT);
+
     return new ClientSocket(client_socket, clientAddr);
 }
