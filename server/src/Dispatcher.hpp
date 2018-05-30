@@ -16,6 +16,17 @@ public:
 
     void run() override;
 
+	void processPacket(PACKET packet);
+	void processLogin(PACKET packet);
+	void processChange(PACKET packet);
+	void processUserID(PACKET packet);
+	void processAck(PACKET packet);
+	void processOperation(PACKET packet);
+	void processQuery(PACKET packet);
+	void processQueryResponse(PACKET packet):
+	void processAlive(PACKET packet);
+
+
 private:
     BlockingQueue& input_queue_;
     BlockingQueue& output_queue_;
