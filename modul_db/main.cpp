@@ -25,28 +25,35 @@
 //wywala warningi, do zrobiania ale nie dzis
 int main(int argc, char **argv)
 {
+    PostgresUserDAO pud;
     User user;
-    user = user.setUserId(3)
-                .setName("Test")
-                .setDisplayName("TestFromCpp")
-                .setPassword("hshshs")
-                .setMail("siema@gmail.com");
-    pud.saveUser(user);
+    pud.loadUser(4);
+//    try{
+//        user = user.setUserId(5)
+////                    .setName("Test")
+//                    .setDisplayName("TestFromCpp")
+//                    .setPassword("hshshs")
+//                    .setMail("siema@gmail.com");
+//        pud.saveUser(user);
+//    } catch (const std::invalid_argument e) {
+//        std::cout << "NIE DZIALA DODANIE USERA" << std::endl;
+//    }
 
-    PostgresQueueDAO pqdao;
-   
-    Queue q = pqdao.loadQueue(2,1);
-    std::cout << q.getName() << std::endl;
-    
-    Queue q2;
-    q2.setQueueId(3);
-    q2.setUserId(2);
-    q2.setName("tsts");
-    q2.setDescription("asdsadad");
-    q2.setStartTime("16:23:32");
-    q2.setEndTime("20:20:20");
-    q2.setDayOfWeek(3);
-    
-    pqdao.saveQueue(q2);
+
+//    PostgresQueueDAO pqdao;
+//   
+//    Queue q = pqdao.loadQueue(2,1);
+//    std::cout << q.getName() << std::endl;
+//    
+//    Queue q2;
+//    q2.setQueueId(4);
+//    q2.setUserId(2);
+////    q2.setName("tsts");
+//    q2.setDescription("asdsadad");
+//    q2.setStartTime("16:23:32");
+//    q2.setEndTime("20:20:20");
+//    q2.setDayOfWeek(3);
+//    
+//    pqdao.saveQueue(q2);
 	return 0;
 }

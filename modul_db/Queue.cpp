@@ -10,19 +10,19 @@ Queue& Queue::setDayOfWeek(int dayOfWeek) {
     this->dayOfWeek = dayOfWeek;
     return *this;
 }
-Queue& Queue::setDescription(std::string description) {
+Queue& Queue::setDescription(const std::string& description) {
     this->description = description; 
     return *this;
 }
-Queue& Queue::setEndTime(std::string endTime) {
+Queue& Queue::setEndTime(const std::string& endTime) {
     this->endTime = endTime; 
     return *this;
 }
-Queue& Queue::setName(std::string name) {
+Queue& Queue::setName(const std::string& name) {
     this->name = name; 
     return *this;
 }
-Queue& Queue::setPlace(std::string place) {
+Queue& Queue::setPlace(const std::string& place) {
     this->place = place; 
     return *this;
 }
@@ -30,7 +30,7 @@ Queue& Queue::setQueueId(int queue_id) {
     this->queue_id = queue_id; 
     return *this;
 }
-Queue& Queue::setStartTime(std::string startTime) {
+Queue& Queue::setStartTime(const std::string& startTime) {
     this->startTime = startTime; 
     return *this;
 }
@@ -41,22 +41,22 @@ Queue& Queue::setUserId(int user_id) {
 int Queue::getDayOfWeek() {
     return dayOfWeek;
 }
-std::string Queue::getDescription() {
+const std::string Queue::getDescription() {
     return description;
 }
-std::string Queue::getEndTime() {
+const std::string Queue::getEndTime() {
     return endTime;
 }
-std::string Queue::getName() {
+const std::string Queue::getName() {
     return name;
 }
-std::string Queue::getPlace() {
+const std::string Queue::getPlace() {
     return place;
 }
 int Queue::getQueueId() {
     return queue_id;
 }
-std::string Queue::getStartTime() {
+const std::string Queue::getStartTime() {
     return startTime;
 }
 int Queue::getUserId() {

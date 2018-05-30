@@ -7,48 +7,60 @@ User::~User(){
     
 }
 
-User& User::setDisplayName(std::string display_name) {
+User& User::setDisplayName(const std::string& display_name) {
     this->display_name = display_name;
+    isDisplayNameSet = true;
     return *this;
 }
 
-User& User::setMail(std::string mail) {
+User& User::setMail(const std::string& mail) {
     this->mail = mail; 
+    isMailSet = true;
     return *this;
 }
 
-User& User::setName(std::string name) {
+User& User::setName(const std::string& name) {
     this->name = name; 
+    isNameSet = true;
     return *this;
 }
 
-User& User::setPassword(std::string password) {
+User& User::setPassword(const std::string& password) {
     this->password = password; 
+    isPasswordSet = true;
     return *this;
 }
     
 
 User& User::setUserId(int user_id) {
     this->user_id = user_id; 
+    isUserIdSet = true;
     return *this;
 }
 
-std::string User::getDisplayName() {
+const std::string User::getDisplayName() {
     return display_name;
 }
 
-std::string User::getMail() {
+const std::string User::getMail() {
     return mail;
 }
 
-std::string User::getName() {
+const std::string User::getName() {
     return name;
 }
 
-std::string User::getPassword() {
+const std::string User::getPassword() {
     return password;
 }
 
 int User::getUserId() {
     return user_id;
+}
+
+void User::setMandatoryTrue(){
+    setIsNameSet(true);
+    setIsDisplayNameSet(true);
+    setIsPasswordSet(true);
+    setIsUserIdSet(true);
 }
