@@ -1,13 +1,14 @@
 #include "LinesManager.hpp"
+#include <iostream>
 
-LinesManager::LinesManager() {
-
+LinesManager::LinesManager() : last_id_(0){
 }
 
 void LinesManager::addLine(std::string name, std::string place, std::string description, time_t start, time_t end) {
 	LineID id = createID();
 	std::unique_lock<std::mutex> add_lock(lines_mutex_);
-	lines_.try_emplace(id, Line(id, name, place, description, start, end));
+	Line line(id, name, place, description, start, end);
+	lines_.insert(std::make_pair(id, line));
 }
 
 void LinesManager::deleteLine(LineID id) {
@@ -31,15 +32,15 @@ void LinesManager::acceptLettingThrough(LineID line_id, Line::UserID user_id){
 	lines_.at(line_id).acceptLettingThrough(user_id);
 }
 
-bool LinesManager::next(LineID line_id){
-	return lines_.at(line_id).next();
+void LinesManager::next(LineID line_id){
+	lines_.at(line_id).next();
 }
 
 int LinesManager::getAvgUserMinutes(LineID line_id){
 	return lines_.at(line_id).getAvgUserMinutes();
 }
 
-int LinesManager::createID() {
+LinesManager::LineID LinesManager::createID() {
 	return last_id_++;
 }
 

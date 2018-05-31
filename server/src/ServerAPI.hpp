@@ -11,20 +11,20 @@ class ServerAPI
 {
 public:
 	ServerAPI();
-	void callFunction(int id, std::vector<int> int_args, std::vector<std::string> string_args);
-	void addLine(std::vector<int> int_args, std::vector<std::string> string_args);
-	/*void deleteLine(LinesManager::LineID);
-	void addUser(LinesManager::LineID line_id, Line::UserID user_id);
-	void deleteUser(LinesManager::LineID line_id, Line::UserID user_id);
-	void letUserThrough(LinesManager::LineID line_id, Line::UserID user_id);
-	void acceptLettingThrough(LinesManager::LineID line_id, Line::UserID user_id);
-	bool next(LinesManager::LineID line_id);
-	int getAvgUserMinutes(LinesManager::LineID line_id);*/
 
+	/* POSSIBLE FUNCTIONS
+		0 - addLine
+		1 - deleteLine
+		2 - addUser
+		3 - deleteUser
+		4 - letUserThrough
+		5 - acceptLettingThrough
+		6 - next
+	*/
+	bool callFunction(int id, std::vector<int> int_args, std::vector<std::string> string_args);
 
 private:
 	std::unique_ptr<Service> service;
-	//std::map<int, AnyCallable<void>> functions_map_;
 
 };
 

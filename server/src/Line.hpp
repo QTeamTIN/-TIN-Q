@@ -16,7 +16,7 @@ public:
     void deleteUser(UserID id);
     void letUserThrough(UserID id);
     void acceptLettingThrough(UserID id);
-    bool next();
+    void next();
 	int getAvgUserMinutes();
 
 
@@ -31,7 +31,7 @@ private:
 	std::string description_;
 	time_t start_;
 	time_t end_;
-	int users_serviced_=0;
+	int users_serviced_ = 0;
 	int avg_user_minutes_ = 0;
 	void countAvgUserMinutes();
 };

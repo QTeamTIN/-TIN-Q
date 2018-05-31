@@ -2,30 +2,39 @@
 
 
 ServerAPI::ServerAPI() {
-	//todo - na zewn¹trz
+	//todo - na zewn¹trz?
 	service = std::make_unique<Service>();
 }
 
-void ServerAPI::callFunction(int id, std::vector<int> int_args, std::vector<std::string> string_args) {
-	switch(id){
-	case 0:
-		addLine(int_args, string_args);
-
-	}
-	/*try {
-		auto iter = functions_map_.find(id);
-		if (iter == functions_map_.end())
-		{
-			throw std::runtime_error("Function does not exist");
+bool ServerAPI::callFunction(int id, std::vector<int> int_args, std::vector<std::string> string_args) {
+	try {
+		switch (id) {
+		case 0:
+			service->lines_manager_.addLine(string_args.at(0), string_args.at(1), string_args.at(2), int_args.at(0), int_args.at(1));
+			break;
+		case 1:
+			service->lines_manager_.deleteLine(int_args.at(0));
+			break;
+		case 2:
+			service->lines_manager_.addUser(int_args.at(0), int_args.at(1));
+			break;
+		case 3:
+			service->lines_manager_.deleteUser(int_args.at(0), int_args.at(1));
+			break;
+		case 4:
+			service->lines_manager_.letUserThrough(int_args.at(0), int_args.at(1));
+			break;
+		case 5:
+			service->lines_manager_.acceptLettingThrough(int_args.at(0), int_args.at(1));
+			break;
+		case 6:
+			service->lines_manager_.next(int_args.at(0));
+			break;
 		}
-		(iter->second)(int_args, string_args);
 	}
-	catch (std::runtime_error &e) {
+	catch (std::exception &e) {
 		std::cout << e.what() << std::endl;
-	}*/
-}
-
-void ServerAPI::addLine(std::vector<int> int_args, std::vector<std::string> string_args) {
-	service->lines_manager_.addLine(string_args.at(0), string_args.at(1), string_args.at(2), int_args.at(0), int_args.at(1));
-
+		return false;
+	}	
+	return true;
 }
