@@ -86,18 +86,30 @@ void PostgresQ_DAO::deleteUser(int userId) {
 }
 
 void PostgresQ_DAO::updateUser(User user) {
-    std::stringstream stringQuery;
-    stringQuery << "UPDATE USERS" <<
-                   " SET" <<
-                   " NAME = '" << user.getName() << "'" <<
-                   ", PASSWORD = '" << user.getPassword() << "'" <<
-                   ", DISPLAY_NAME = '" << user.getDisplayName() << "'";
-    if(user.isMailFilled()) {
-     stringQuery <<", MAIL = '" << user.getMail() << "'";
-    }
-    stringQuery << " WHERE USER_ID = " << user.getUserId() << 
+    std::stringstream stringQuerySelect;
+    stringQuerySelect << "SELECT * FROM USERS" <<
+                   " WHERE USER_ID = " << user.getUserId() <<
                    ";";
-    pqxx::result result = Connection::executeQuery(stringQuery.str());
+    pqxx::result resultSelect = Connection::executeQuery(stringQuerySelect.str());
+    
+    if(resultSelect.size() > 0) {
+        std::stringstream stringQuery;
+        stringQuery << "UPDATE USERS" <<
+                       " SET" <<
+                       " NAME = '" << user.getName() << "'" <<
+                       ", PASSWORD = '" << user.getPassword() << "'" <<
+                       ", DISPLAY_NAME = '" << user.getDisplayName() << "'";
+        if(user.isMailFilled()) {
+         stringQuery <<", MAIL = '" << user.getMail() << "'";
+        }
+        stringQuery << " WHERE USER_ID = " << user.getUserId() << 
+                       ";";
+        pqxx::result result = Connection::executeQuery(stringQuery.str());
+    }
+    else {
+        saveUser(user);
+    }
+
 }                                    
 
 
@@ -214,26 +226,38 @@ void PostgresQ_DAO::deleteQueue(int userId, int queueId) {
 
 
 void PostgresQ_DAO::updateQueue(Queue queue) {
-    std::stringstream stringQuery;
-    stringQuery << "UPDATE QUEUES" <<
-                   " SET" <<
-                   " NAME = '" << queue.getName() << "'" <<
-                   ", PLACE = '" << queue.getPlace() << "'";
-                   
-    if(queue.isDescriptionFilled()) {
-     stringQuery <<", DESCRIPTION = '" << queue.getDescription() << "'";
-    }
-    if(queue.isStartTimeFilled()) {
-     stringQuery <<", START_TIME = '" << queue.getStartTime() << "'";
-    }
-    if(queue.isEndTimeFilled()) {
-     stringQuery <<", END_TIME = '" << queue.getEndTime() << "'";
-    }
-    if(queue.isDayOfWeekFilled()) {
-     stringQuery <<", DAY_OF_WEEK = '" << queue.getDayOfWeek() << "'";
-    }
-    stringQuery << " WHERE USER_ID = " << queue.getUserId() <<
+        std::stringstream stringQuerySelect;
+    stringQuerySelect << "SELECT * FROM QUEUES" <<
+                   " WHERE USER_ID = " << queue.getUserId() <<
                    " AND QUEUE_ID = " << queue.getQueueId() <<
                    ";";
-    pqxx::result result = Connection::executeQuery(stringQuery.str());
+    pqxx::result resultSelect = Connection::executeQuery(stringQuerySelect.str());
+    
+    if(resultSelect.size() > 0) {
+        std::stringstream stringQuery;
+        stringQuery << "UPDATE QUEUES" <<
+                       " SET" <<
+                       " NAME = '" << queue.getName() << "'" <<
+                       ", PLACE = '" << queue.getPlace() << "'";
+                       
+        if(queue.isDescriptionFilled()) {
+         stringQuery <<", DESCRIPTION = '" << queue.getDescription() << "'";
+        }
+        if(queue.isStartTimeFilled()) {
+         stringQuery <<", START_TIME = '" << queue.getStartTime() << "'";
+        }
+        if(queue.isEndTimeFilled()) {
+         stringQuery <<", END_TIME = '" << queue.getEndTime() << "'";
+        }
+        if(queue.isDayOfWeekFilled()) {
+         stringQuery <<", DAY_OF_WEEK = '" << queue.getDayOfWeek() << "'";
+        }
+        stringQuery << " WHERE USER_ID = " << queue.getUserId() <<
+                       " AND QUEUE_ID = " << queue.getQueueId() <<
+                       ";";
+        pqxx::result result = Connection::executeQuery(stringQuery.str());
+    }
+    else {
+        saveQueue(queue);
+    }
 }  
