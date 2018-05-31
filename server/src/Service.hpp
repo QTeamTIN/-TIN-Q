@@ -1,17 +1,14 @@
 #ifndef SERVICE_HPP
 #define SERVICE_HPP
 
+#include <map>
+#include "LinesManager.hpp"
+
 class Service
 {
 public:
-	Service();
-
-	void createLine();
-	void joinLine();
-	void removeLine();
-	void checkLineState();
-
-private:
+	Service();	
+	LinesManager lines_manager_;
 
 };
 
