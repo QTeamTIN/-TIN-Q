@@ -10,6 +10,9 @@
 //sudo apt-get install libpqxx-doc
 //odpalanie z dodaniem flag -lpqxx -lpq
 //z konsoli cos nie moglem, z IDE CodeLite jakos poszlo
+
+//musi istniec plik pqCon.properties na tym samym poziomie co main.o
+// musi tam by w 1 linii host=<host> dbname=<dbname> user=<username> password=<pass>
 //
 //Ogolnie chodzi o to, ze sa klasy UserDAO i QueueDAO - interfejsy
 //PostgresQueueDAO i PostgresUserDAO to klasa dziedziczaca

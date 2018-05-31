@@ -4,12 +4,14 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <fstream>
 class Connection
 {
 public:
     //hardcoded values to connect TODO change
         static pqxx::connection& getConnectionInstance();
         static pqxx::result executeQuery(std::string);
+        static std::string getConnectionProp();
     private:
         
         Connection();
