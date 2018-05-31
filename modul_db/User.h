@@ -1,6 +1,9 @@
 #ifndef USER_H
 #define USER_H
-#include <string>
+
+#include <pqxx/pqxx>
+#include <iostream>
+
 
 //This class represents database record
 //Each user is saved in database tuple contains basic informations
@@ -20,29 +23,31 @@ public:
     const std::string getPassword();
     int getUserId();
     
-    User& setIsDisplayNameSet(bool isDisplayNameSet) {this->isDisplayNameSet = isDisplayNameSet; return *this;}
-    User& setIsMailSet(bool isMailSet) {this->isMailSet = isMailSet; return *this;}
-    User& setIsNameSet(bool isNameSet) {this->isNameSet = isNameSet; return *this;}
-    User& setIsPasswordSet(bool isPasswordSet) {this->isPasswordSet = isPasswordSet; return *this;}
-    User& setIsUserIdSet(bool isUserIdSet) {this->isUserIdSet = isUserIdSet; return *this;}
-    bool getIsDisplayNameSet() const {return isDisplayNameSet;}
-    bool getIsMailSet() const {return isMailSet;}
-    bool getIsNameSet() const {return isNameSet;}
-    bool getIsPasswordSet() const {return isPasswordSet;}
-    bool getIsUserIdSet() const {return isUserIdSet;}
-    void setMandatoryTrue(); 
+    User& setDisplayNameFilled(bool displayNameFilled) {this->displayNameFilled = displayNameFilled; return *this;}
+    User& setMailFilled(bool mailFilled) {this->mailFilled = mailFilled; return *this;}
+    User& setNameFilled(bool nameFilled) {this->nameFilled = nameFilled; return *this;}
+    User& setPasswordFilled(bool passwordFilled) {this->passwordFilled = passwordFilled; return *this;}
+    User& setUserIdFilled(bool userIdFilled) {this->userIdFilled = userIdFilled; return *this;}
+    bool isDisplayNameFilled() const {return displayNameFilled;}
+    bool isMailFilled() const {return mailFilled;}
+    bool isNameFilled() const {return nameFilled;}
+    bool isPasswordFilled() const {return passwordFilled;}
+    bool isUserIdFilled() const {return userIdFilled;}
     
-    private:
+    void setMandatoryTrue();
+    void print();
+private:
+    
     int user_id;
-    bool isUserIdSet = false;
+    bool userIdFilled = false;
     std::string name;
-    bool isNameSet = false;
+    bool nameFilled = false;
     std::string password;
-    bool isPasswordSet = false;
+    bool passwordFilled = false;
     std::string display_name;
-    bool isDisplayNameSet = false;
+    bool displayNameFilled = false;
     std::string mail;
-    bool isMailSet = false;
+    bool mailFilled = false;
 
 };
 

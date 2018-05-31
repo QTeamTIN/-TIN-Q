@@ -1,11 +1,8 @@
 #include <stdio.h>
 #include "Connection.h"
-#include "UserDAO.h"
 #include "User.h"
 #include "Queue.h"
-#include "QueueDAO.h"
-#include "PostgresUserDAO.h"
-#include "PostgresQueueDAO.h"
+#include "PostgresQ_DAO.h"
 
 //HOW TO:
 //sudo apt-get install libpqxx-4.0v5
@@ -25,35 +22,44 @@
 //wywala warningi, do zrobiania ale nie dzis
 int main(int argc, char **argv)
 {
-    PostgresUserDAO pud;
-    User user;
-    pud.loadUser(4);
-//    try{
-//        user = user.setUserId(5)
-////                    .setName("Test")
-//                    .setDisplayName("TestFromCpp")
-//                    .setPassword("hshshs")
+    PostgresQ_DAO pqDao;
+    int test = 6;
+    try{
+        User user;
+        user = pqDao.loadUser(test);
+        user.print();
+        user.setMail("gitasdsadaaaaaaa");
+        pqDao.updateUser(user);
+        pqDao.loadUser(test).print();
+    }
+    catch (std::invalid_argument){
+        std::cout<<"Nie udalo sie" << std::endl;
+    }
+//        User user;
+//        user = user.setUserId(test)
+//                    .setName("Kokos")
+//                    .setDisplayName("Konrad Kucharczyk")
+//                    .setPassword("hashhash")
 //                    .setMail("siema@gmail.com");
-//        pud.saveUser(user);
-//    } catch (const std::invalid_argument e) {
-//        std::cout << "NIE DZIALA DODANIE USERA" << std::endl;
+//        pqDao.saveUser(user);
+//        pqDao.loadUser(test).print();
+//    }
+//    catch (std::invalid_argument){
+//        
 //    }
 
-
-//    PostgresQueueDAO pqdao;
-//   
-//    Queue q = pqdao.loadQueue(2,1);
-//    std::cout << q.getName() << std::endl;
-//    
+    
 //    Queue q2;
-//    q2.setQueueId(4);
-//    q2.setUserId(2);
-////    q2.setName("tsts");
+//    q2.setQueueId(1);
+//    q2.setUserId(1);
+//    q2.setName("tsts");
+//    q2.setPlace("eiti");
 //    q2.setDescription("asdsadad");
 //    q2.setStartTime("16:23:32");
 //    q2.setEndTime("20:20:20");
 //    q2.setDayOfWeek(3);
-//    
-//    pqdao.saveQueue(q2);
+//    pqDao.saveQueue(q2);
+//    pqDao.loadQueue(1,1).print();
+
 	return 0;
 }

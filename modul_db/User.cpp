@@ -1,4 +1,5 @@
 #include "User.h"
+#include <string>
 User::User(){
     
 }
@@ -9,32 +10,32 @@ User::~User(){
 
 User& User::setDisplayName(const std::string& display_name) {
     this->display_name = display_name;
-    isDisplayNameSet = true;
+    displayNameFilled = true;
     return *this;
 }
 
 User& User::setMail(const std::string& mail) {
     this->mail = mail; 
-    isMailSet = true;
+    mailFilled = true;
     return *this;
 }
 
 User& User::setName(const std::string& name) {
     this->name = name; 
-    isNameSet = true;
+    nameFilled = true;
     return *this;
 }
 
 User& User::setPassword(const std::string& password) {
     this->password = password; 
-    isPasswordSet = true;
+    passwordFilled = true;
     return *this;
 }
     
 
 User& User::setUserId(int user_id) {
     this->user_id = user_id; 
-    isUserIdSet = true;
+    userIdFilled = true;
     return *this;
 }
 
@@ -59,8 +60,20 @@ int User::getUserId() {
 }
 
 void User::setMandatoryTrue(){
-    setIsNameSet(true);
-    setIsDisplayNameSet(true);
-    setIsPasswordSet(true);
-    setIsUserIdSet(true);
+    setNameFilled(true);
+    setDisplayNameFilled(true);
+    setPasswordFilled(true);
+    setUserIdFilled(true);
+}
+
+void User::print() {
+    std::stringstream printString;
+    printString << getUserId() << 
+                ", '" << getName()<< "'" <<
+                ", '" << getPassword()<< "'" <<
+                ", '" << getDisplayName()<< "'";
+    if(isMailFilled()) {
+        printString << ", '" << getMail() << "'";
+    }
+    std::cout << printString.str() << std::endl;
 }
