@@ -44,14 +44,12 @@ void Line::acceptLettingThrough(UserID id){
     members_.splice(++std::find(members_.begin(), members_.end(), id), tmp_members_);
 }
 
-bool Line::next(){
+void Line::next(){
     std::unique_lock<std::mutex> del_lock(members_mutex_);
-	if (members_.empty())
-		return false;
-    members_.pop_front();
-	users_serviced_++;
-	countAvgUserMinutes();
-	return true;
+	if (!members_.empty())
+		members_.pop_front();
+		users_serviced_++;
+		countAvgUserMinutes();
 }
 
 void Line::countAvgUserMinutes() {

@@ -16,14 +16,14 @@ public:
 	void deleteUser(LineID line_id, Line::UserID user_id);
 	void letUserThrough(LineID line_id, Line::UserID user_id);
 	void acceptLettingThrough(LineID line_id, Line::UserID user_id);
-	bool next(LineID line_id);
+	void next(LineID line_id);
 	int getAvgUserMinutes(LineID line_id);
 
 private:
-	std::map<int, Line> lines_;
+	std::map<LineID, Line> lines_;
 	std::mutex lines_mutex_;
 	LineID createID();
-	LineID last_id_=0;
+	LineID last_id_;
 };
 
 #endif //LINES_MANAGER_HPP
