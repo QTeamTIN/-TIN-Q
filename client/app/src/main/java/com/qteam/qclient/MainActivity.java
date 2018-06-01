@@ -9,9 +9,12 @@ import com.q.prot_packet.Packet;
 import com.qteam.qclient.MyService.LocalBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.EditText;
 import android.widget.Toast;
 import android.view.*;
 import android.os.IBinder;
+
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -66,5 +69,11 @@ public class MainActivity extends AppCompatActivity {
             mBound = false;
             myService = null;
         }
+    }
+
+    public void NextActivity(View view){
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.putExtra(EXTRA_MESSAGE, "My message");
+        startActivity(intent);
     }
 }
