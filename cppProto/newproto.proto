@@ -1,0 +1,57 @@
+syntax = "proto2";
+
+package packet;
+
+
+message BasePacket {
+    oneof subtype {
+        Login           login       = 1;
+        UserID          user_id     = 2;
+        Operation       operation   = 3;
+        Ack             ack         = 4;
+        Query           query       = 5;
+        QueryResponse   response    = 6;
+        Alive           alive       = 7;
+    }
+}
+
+message Login {
+	required string name = 1;
+	required int64 hash  = 2;
+}
+
+message UserID {
+	required int32      session_id    = 1;
+}
+
+message Operation {
+	required int32      session_id      = 1;
+	required int32      operation_id    = 2;
+	required int32      local_id        = 3;
+	repeated string     str_args        = 4;
+	repeated int32      int_args        = 5;
+}
+
+message Ack {
+    required int32      local_id        = 1;
+    required bool       if_success      = 2;
+}
+
+message Query {
+    required int32      session_id      = 1;
+    required int32      operation_id    = 2;
+    required int32      local_id        = 3;
+	repeated string     str_args        = 4;
+	repeated int32      int_args        = 5;
+}
+
+message QueryResponse {
+    required int32      object_id       = 1;
+    repeated string     str_args        = 2;
+    repeated int32      int_args        = 3;
+}
+
+message Alive {
+    required int32      session_id      = 1;
+}
+
