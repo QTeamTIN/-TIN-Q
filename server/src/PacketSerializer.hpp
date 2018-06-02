@@ -6,9 +6,9 @@
 
 #include "cppQ.pb.h"
 
-using namespace packet;
+//using namespace packet;
 
-typedef PACKET Packet;
+using Packet = packet::BasePacket;
 
 class PacketSerializer
 {
