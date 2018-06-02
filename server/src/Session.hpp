@@ -10,8 +10,10 @@ class Session
 {
 public:
     Session();
+    Session(std::shared_ptr<User> user);
 
     void setUser(std::shared_ptr<User> user);
+    std::shared_ptr<User> getUser() const;
 
     void update();
     std::time_t getLastActivity() const;
