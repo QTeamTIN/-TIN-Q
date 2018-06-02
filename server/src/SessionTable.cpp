@@ -9,6 +9,8 @@ int SessionTable::createSession()
     int id;
     while(isEngaged(id = generateID()));
     sessions_[id] = Session();
+    std::cout<<"Create session with ID: "<<id<<std::endl;
+    return id;
 }
 
 void SessionTable::destroySession(int id)

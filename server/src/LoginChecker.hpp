@@ -9,7 +9,7 @@ class LoginChecker
 public:
     LoginChecker(const Q_DAO& db_handler);
 
-    std::shared_ptr<User> login(const std::string& username, int pass_hash);
+    std::shared_ptr<User> login(const std::string& username, const std::string &hash);
 private:
     const Q_DAO& db_handler_;
 };

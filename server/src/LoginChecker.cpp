@@ -11,7 +11,7 @@ std::shared_ptr<User> LoginChecker::login(const std::string &username, const std
 {
     try {
         auto user = std::make_shared<User>(db_handler_.loadUser(username));
-        if (hash == user.getPassword())
+        if (hash == user->getPassword())
             return user;
 
     } catch (const std::invalid_argument& e) {
