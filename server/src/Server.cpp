@@ -1,6 +1,7 @@
 #include "Server.hpp"
 
 #include <iostream>
+#include "PostgresQ_DAO.hpp"
 
 Server::Server(int conn_port)
     :connect_sock_(conn_port)
@@ -8,6 +9,14 @@ Server::Server(int conn_port)
 
 void Server::run()
 {
+    PostgresQ_DAO pqDao;
+    try {
+        User user;
+        user = pqDao.loadUser(6);
+        user.print();
+    } catch (std::invalid_argument) {
+        std::cout<<"smutek.gif\n";
+    }
     int i = 0;
     while(i < 3){
         ClientSocket *sock = connect_sock_.accept();
