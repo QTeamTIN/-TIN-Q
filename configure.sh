@@ -15,3 +15,4 @@ fi
 echo host\=$host dbname\=$dbname user\=$user password\=$password >> pqCon.properties
 
 protoc -I=cppProto/ --cpp_out=server/src cppQ.proto
+mv server/src/cppQ.pb.cc server/src/cppQ.pb.cpp
