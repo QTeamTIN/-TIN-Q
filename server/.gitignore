@@ -3,6 +3,7 @@
 *.pro.user
 *.o
 *.autosave
+pqCon.properties
 SocketWrapper
 /bin
 
