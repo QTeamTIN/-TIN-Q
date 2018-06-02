@@ -7,7 +7,7 @@
 
 #include "cppQ.pb.h"
 
-using Packet = packet::PACKET;
+using Packet = packet::BasePacket;
 class BlockingQueue
 {
     static constexpr unsigned MAX_CAPACITY = 50;
