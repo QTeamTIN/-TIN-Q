@@ -13,7 +13,7 @@ PostgresQ_DAO::~PostgresQ_DAO()
 //Saving user in database
 //TODO check if already exist - what then?
 //throws std::invalid_argument if not all mandatory argument are filled
-void PostgresQ_DAO::saveUser(User user){
+void PostgresQ_DAO::saveUser(User user) const{
     std::stringstream stringQuery;
 
     if(user.isUserIdFilled()
@@ -48,7 +48,7 @@ void PostgresQ_DAO::saveUser(User user){
 }
 
 //load user from database
-User PostgresQ_DAO::loadUser(int user_id){
+User PostgresQ_DAO::loadUser(int user_id) const{
     std::stringstream stringQuery;
     stringQuery << "SELECT USER_ID " <<
                     ", NAME" << 
@@ -62,7 +62,7 @@ User PostgresQ_DAO::loadUser(int user_id){
     return readUser(result);
 }
 
-User PostgresQ_DAO::loadUser(const std::string &username)
+User PostgresQ_DAO::loadUser(const std::string &username) const
 {
     std::stringstream stringQuery;
     stringQuery << "SELECT USER_ID" <<
@@ -77,7 +77,7 @@ User PostgresQ_DAO::loadUser(const std::string &username)
     return readUser(result);
 }
 
-void PostgresQ_DAO::deleteUser(int userId) {
+void PostgresQ_DAO::deleteUser(int userId) const {
     std::stringstream stringQuery;
     stringQuery << "DELETE FROM USERS" <<
                    " WHERE USER_ID = " << userId << 
@@ -85,7 +85,7 @@ void PostgresQ_DAO::deleteUser(int userId) {
     pqxx::result result = Connection::executeQuery(stringQuery.str());
 }
 
-void PostgresQ_DAO::updateUser(User user) {
+void PostgresQ_DAO::updateUser(User user) const {
     std::stringstream stringQuerySelect;
     stringQuerySelect << "SELECT * FROM USERS" <<
                    " WHERE USER_ID = " << user.getUserId() <<
@@ -115,7 +115,7 @@ void PostgresQ_DAO::updateUser(User user) {
 
 
 //Load Queue from base
-Queue PostgresQ_DAO::loadQueue(int userId, int queueId) {
+Queue PostgresQ_DAO::loadQueue(int userId, int queueId) const {
     std::stringstream stringQuery;
     stringQuery << "SELECT USER_ID " <<
                     ", QUEUE_ID" << 
@@ -161,7 +161,7 @@ Queue PostgresQ_DAO::loadQueue(int userId, int queueId) {
     }
 }
 
-void PostgresQ_DAO::saveQueue(Queue queue){
+void PostgresQ_DAO::saveQueue(Queue queue) const{
         std::stringstream stringQuery;
         
     if(queue.isQueueIdFilled()
@@ -215,7 +215,7 @@ void PostgresQ_DAO::saveQueue(Queue queue){
 }
 
 
-void PostgresQ_DAO::deleteQueue(int userId, int queueId) {
+void PostgresQ_DAO::deleteQueue(int userId, int queueId) const {
     std::stringstream stringQuery;
     stringQuery << "DELETE FROM QUEUES" <<
                    " WHERE USER_ID = " << userId <<
@@ -225,7 +225,7 @@ void PostgresQ_DAO::deleteQueue(int userId, int queueId) {
 }                  
 
 
-void PostgresQ_DAO::updateQueue(Queue queue) {
+void PostgresQ_DAO::updateQueue(Queue queue) const {
         std::stringstream stringQuerySelect;
     stringQuerySelect << "SELECT * FROM QUEUES" <<
                    " WHERE USER_ID = " << queue.getUserId() <<
@@ -262,7 +262,7 @@ void PostgresQ_DAO::updateQueue(Queue queue) {
     }
 }
 
-User PostgresQ_DAO::readUser(const pqxx::result &result)
+User PostgresQ_DAO::readUser(const pqxx::result &result) const
 {
     User user;
     if(result.size() > 0) {

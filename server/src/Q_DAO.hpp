@@ -6,16 +6,16 @@ class Q_DAO
 {
 public:
 
-    virtual void saveUser(User)=0;
-    virtual User loadUser(int)=0;
-    virtual User loadUser(const std::string& name) = 0;
-    virtual void deleteUser(int)=0;
-    virtual void updateUser(User)=0;
+    virtual void saveUser(User) const =0;
+    virtual User loadUser(int) const =0;
+    virtual User loadUser(const std::string& name) const = 0;
+    virtual void deleteUser(int) const = 0;
+    virtual void updateUser(User) const = 0;
     
-    virtual void saveQueue(Queue)=0;
-    virtual Queue loadQueue(int, int)=0;
-    virtual void deleteQueue(int, int)=0;
-    virtual void updateQueue(Queue)=0;
+    virtual void saveQueue(Queue) const = 0;
+    virtual Queue loadQueue(int, int) const = 0;
+    virtual void deleteQueue(int, int) const = 0;
+    virtual void updateQueue(Queue) const = 0;
 };
 
 #endif // Q_DAO_H
