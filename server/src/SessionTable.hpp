@@ -20,7 +20,8 @@ public:
 
     void checkTimeout();
 
-    Session getSession() const;
+    const Session &getSession(int id) const;
+    bool ifSessionExists(int id) const;
 
 private:
     int generateID();

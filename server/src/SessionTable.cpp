@@ -36,6 +36,16 @@ void SessionTable::checkTimeout()
     }
 }
 
+const Session& SessionTable::getSession(int id) const
+{
+    return sessions_.at(id);
+}
+
+bool SessionTable::ifSessionExists(int id) const
+{
+    return sessions_.find(id) != sessions_.end();
+}
+
 int SessionTable::generateID()
 {
     srand(time(0) + rand());
