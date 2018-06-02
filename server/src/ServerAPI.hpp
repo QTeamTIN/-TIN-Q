@@ -11,6 +11,9 @@ class ServerAPI
 {
 public:
 	ServerAPI();
+	//ServerAPI() = delete;
+	//ServerAPI(std::unique_ptr<Service> service) : service(std::move(service)) {};
+	~ServerAPI() = default;
 
 	/* POSSIBLE FUNCTIONS
 		0 - addLine
