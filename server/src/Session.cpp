@@ -2,7 +2,7 @@
 
 Session::Session()
 {
-    update();
+
 }
 
 Session::Session(std::shared_ptr<User> user)

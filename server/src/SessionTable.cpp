@@ -1,14 +1,15 @@
 #include "SessionTable.hpp"
 
-SessionTable::SessionTable()
+SessionTable::SessionTable(const Q_DAO &db_handler)
     :timeout_(DEFAULT_TIMEOUT)
+    ,login_(db_handler)
 {}
 
-int SessionTable::createSession()
+int SessionTable::createSession(std::shared_ptr<User> user)
 {
     int id;
     while(isEngaged(id = generateID()));
-    sessions_[id] = Session();
+    sessions_[id] = Session(user);
     std::cout<<"Create session with ID: "<<id<<std::endl;
     return id;
 }
@@ -46,6 +47,14 @@ const Session& SessionTable::getSession(int id) const
 bool SessionTable::ifSessionExists(int id) const
 {
     return sessions_.find(id) != sessions_.end();
+}
+
+int SessionTable::login(const std::string& username, const std::string &hash)
+{
+    auto user = login_.login(username, hash);
+    if (user)
+        return createSession(user);
+    return 0;
 }
 
 int SessionTable::generateID()
