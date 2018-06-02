@@ -7,6 +7,7 @@ SessionTable::SessionTable(const Q_DAO &db_handler)
 
 int SessionTable::createSession(std::shared_ptr<User> user)
 {
+    std::lock_guard<std::mutex> lock(guard_);
     int id;
     while(isEngaged(id = generateID()));
     sessions_[id] = Session(user);
@@ -16,6 +17,7 @@ int SessionTable::createSession(std::shared_ptr<User> user)
 
 void SessionTable::destroySession(int id)
 {
+    std::lock_guard<std::mutex> lock(guard_);
     sessions_.erase(id);
 }
 

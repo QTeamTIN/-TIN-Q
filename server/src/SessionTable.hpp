@@ -1,6 +1,7 @@
 #ifndef SESSIONTABLE_HPP
 #define SESSIONTABLE_HPP
 
+#include <mutex>
 #include <map>
 #include <cstdlib>
 #include "Session.hpp"
@@ -29,6 +30,8 @@ public:
 private:
     int generateID();
     bool isEngaged(int id) const;
+
+    std::mutex guard_;
 
     std::map<int, Session> sessions_;
     double timeout_;
