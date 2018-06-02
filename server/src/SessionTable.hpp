@@ -8,12 +8,14 @@
 
 class SessionTable
 {
+    static constexpr double DEFAULT_TIMEOUT = 600;
 public:
     SessionTable();
 
     int createSession();
+    void destroySession(int id);
 
-    void setTimeout();
+    void setTimeout(double timeout);
     double getTimeout() const;
 
     void checkTimeout();
