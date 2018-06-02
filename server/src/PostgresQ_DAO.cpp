@@ -59,22 +59,22 @@ User PostgresQ_DAO::loadUser(int user_id){
                     "WHERE USER_ID = " << user_id <<";";
                     
     pqxx::result result = Connection::executeQuery(stringQuery.str());
-    User user;
-    if(result.size() > 0) {
-        user = user.setUserId(result[0][0].as<int>())
-                    .setName(result[0][1].as<std::string>())
-                    .setPassword(result[0][2].as<std::string>())
-                    .setDisplayName(result[0][3].as<std::string>());
-        user.setMandatoryTrue();
-        if(!result[0][4].is_null()) {
-           user = user.setMail(result[0][4].as<std::string>())
-                        .setMailFilled(true);
-        }
-    }
-    else {
-        throw std::invalid_argument("No User with given userId");
-    }
-    return user;
+    return readUser(result);
+}
+
+User PostgresQ_DAO::loadUser(const std::string &username)
+{
+    std::stringstream stringQuery;
+    stringQuery << "SELECT USER_ID" <<
+                   ", NAME" <<
+                   ", PASSWORD" <<
+                   ", DISPLAY_NAME" <<
+                   ", MAIL " <<
+                   "FROM USERS "<<
+                   "WHERE NAME = " << username <<";";
+
+    pqxx::result result = Connection::executeQuery(stringQuery.str());
+    return readUser(result);
 }
 
 void PostgresQ_DAO::deleteUser(int userId) {
@@ -260,4 +260,24 @@ void PostgresQ_DAO::updateQueue(Queue queue) {
     else {
         saveQueue(queue);
     }
-}  
+}
+
+User PostgresQ_DAO::readUser(const pqxx::result &result)
+{
+    User user;
+    if(result.size() > 0) {
+        user = user.setUserId(result[0][0].as<int>())
+                    .setName(result[0][1].as<std::string>())
+                    .setPassword(result[0][2].as<std::string>())
+                    .setDisplayName(result[0][3].as<std::string>());
+        user.setMandatoryTrue();
+        if(!result[0][4].is_null()) {
+           user = user.setMail(result[0][4].as<std::string>())
+                        .setMailFilled(true);
+        }
+    }
+    else {
+        throw std::invalid_argument("No User with given userId");
+    }
+    return user;
+}

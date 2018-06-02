@@ -8,6 +8,7 @@ public:
 
     virtual void saveUser(User)=0;
     virtual User loadUser(int)=0;
+    virtual User loadUser(const std::string& name) = 0;
     virtual void deleteUser(int)=0;
     virtual void updateUser(User)=0;
     
