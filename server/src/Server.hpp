@@ -5,6 +5,7 @@
 #include "ConnectSocket.hpp"
 #include "ClientHandler.hpp"
 #include "SecurityProvider.hpp"
+#include "PostgresQ_DAO.hpp"
 
 #include <list>
 
@@ -16,6 +17,8 @@ public:
     void run();
 
 private:
+    std::unique_ptr<Q_DAO> database_;
+
     ConnectSocket connect_sock_;
 
     SecurityProvider security_provider_;

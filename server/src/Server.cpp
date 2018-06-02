@@ -4,6 +4,7 @@
 
 Server::Server(int conn_port)
     :connect_sock_(conn_port)
+    ,database_(std::make_unique<PostgresQ_DAO>())
 {}
 
 void Server::run()
@@ -28,5 +29,4 @@ void Server::run()
     }
     std::cout<<"Clients closed\n";
     std::cout<<"bye!\n";
-
 }
