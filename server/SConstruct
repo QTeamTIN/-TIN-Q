@@ -1,6 +1,6 @@
 source=Glob('src/*.cpp')
-libs=['pthread', 'ssl', 'crypto', 'protobuf']
-lib_paths=''
+libs=['pthread', 'ssl', 'crypto', 'protobuf', 'pqxx', 'pq']
+lib_paths='/usr/local/lib'
 env=Environment(CPPPATH='src/',
-		CXXFLAGS="-std=c++11")
-env.Program('bin/Server', source, LIBS=libs)
+		CXXFLAGS="-std=c++14")
+env.Program('bin/Server', source, LIBS=libs, LIBPATH=lib_paths)

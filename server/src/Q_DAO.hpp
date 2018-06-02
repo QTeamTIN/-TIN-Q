@@ -1,10 +1,11 @@
 #ifndef Q_DAO_H
 #define Q_DAO_H
-#include "User.h"
-#include "Queue.h"
+#include "User.hpp"
+#include "Queue.hpp"
 class Q_DAO
 {
 public:
+
     virtual void saveUser(User)=0;
     virtual User loadUser(int)=0;
     virtual void deleteUser(int)=0;

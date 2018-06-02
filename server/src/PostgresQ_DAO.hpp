@@ -1,7 +1,7 @@
 #ifndef POSTREGSQ_DAO_H
 #define POSTREGSQ_DAO_H
-#include <Q_DAO.h>
-#include "Connection.h"
+#include "Q_DAO.hpp"
+#include "Connection.hpp"
 
 class PostgresQ_DAO : public Q_DAO
 {

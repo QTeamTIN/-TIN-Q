@@ -1,6 +1,6 @@
-#include "PostgresQ_DAO.h"
+#include "PostgresQ_DAO.hpp"
 #include <pqxx/pqxx>
-#include "Connection.h"
+#include "Connection.hpp"
 
 PostgresQ_DAO::PostgresQ_DAO()
 {
