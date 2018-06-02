@@ -2,6 +2,7 @@
 #define SESSIONTABLE_HPP
 
 #include <map>
+#include <cstdlib>
 #include "Session.hpp"
 #include "Q_DAO.hpp"
 
@@ -21,6 +22,7 @@ public:
 
 private:
     int generateID();
+    bool isEngaged(int id) const;
 
     std::map<int, Session> sessions_;
     double timeout_;
