@@ -17,6 +17,7 @@ int SessionTable::createSession(std::shared_ptr<User> user)
 
 void SessionTable::destroySession(int id)
 {
+    std::cout<<"Destroy session with ID: "<<id<<std::endl;
     std::lock_guard<std::mutex> lock(guard_);
     sessions_.erase(id);
 }
@@ -54,8 +55,11 @@ bool SessionTable::ifSessionExists(int id) const
 int SessionTable::login(const std::string& username, const std::string &hash)
 {
     auto user = login_.login(username, hash);
-    if (user)
+    if (user) {
+        std::cout<<"User "<<username<<" logged in\n";
         return createSession(user);
+    }
+    std::cout<<"User "<<username<<" login failure\n";
     return 0;
 }
 

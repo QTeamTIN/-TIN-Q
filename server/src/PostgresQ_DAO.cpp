@@ -71,7 +71,7 @@ User PostgresQ_DAO::loadUser(const std::string &username) const
                    ", DISPLAY_NAME" <<
                    ", MAIL " <<
                    "FROM USERS "<<
-                   "WHERE NAME = " << username <<";";
+                   "WHERE NAME = \'" << username <<"\';";
 
     pqxx::result result = Connection::executeQuery(stringQuery.str());
     return readUser(result);

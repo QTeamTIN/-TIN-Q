@@ -6,6 +6,7 @@
 #include "ClientHandler.hpp"
 #include "SecurityProvider.hpp"
 #include "PostgresQ_DAO.hpp"
+#include "SessionTable.hpp"
 
 #include <list>
 
@@ -17,7 +18,10 @@ public:
     void run();
 
 private:
-    std::unique_ptr<Q_DAO> database_;
+
+    std::shared_ptr<Q_DAO> database_;
+
+    SessionTable sessions_;
 
     ConnectSocket connect_sock_;
 
