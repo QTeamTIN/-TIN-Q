@@ -8,19 +8,20 @@ class PostgresQ_DAO : public Q_DAO
 public:
     PostgresQ_DAO();
     ~PostgresQ_DAO();
-    void saveUser(User) const override;
-    User loadUser(int) const override;
-    User loadUser(const std::string& username) const override;
+    void saveUser(UserTuple) const override;
+    UserTuple loadUser(int) const override;
+    UserTuple loadUser(const std::string& username) const override;
     void deleteUser(int) const override;
-    void updateUser(User) const override;
+    void updateUser(UserTuple) const override;
 
-    void saveQueue(Queue) const override;
-    Queue loadQueue(int userId, int queueId) const override;
+    void saveQueue(QueueTuple) const override;
+    QueueTuple loadQueue(int userId, int queueId) const override;
     void deleteQueue(int, int) const override;
-    void updateQueue(Queue) const override;
+    void updateQueue(QueueTuple) const override;
 
 private:
-    User readUser(const pqxx::result& result) const;
+    UserTuple readUser(const pqxx::result& result) const;
+    QueueTuple readQueue(const pqxx::result& result) const;
 };
 
 #endif // POSTREGSQ_DAO_H

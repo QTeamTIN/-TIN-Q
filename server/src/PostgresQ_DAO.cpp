@@ -13,7 +13,7 @@ PostgresQ_DAO::~PostgresQ_DAO()
 //Saving user in database
 //TODO check if already exist - what then?
 //throws std::invalid_argument if not all mandatory argument are filled
-void PostgresQ_DAO::saveUser(User user) const{
+void PostgresQ_DAO::saveUser(UserTuple user) const{
     std::stringstream stringQuery;
 
     if(user.isUserIdFilled()
@@ -48,7 +48,7 @@ void PostgresQ_DAO::saveUser(User user) const{
 }
 
 //load user from database
-User PostgresQ_DAO::loadUser(int user_id) const{
+UserTuple PostgresQ_DAO::loadUser(int user_id) const{
     std::stringstream stringQuery;
     stringQuery << "SELECT USER_ID " <<
                     ", NAME" << 
@@ -62,7 +62,7 @@ User PostgresQ_DAO::loadUser(int user_id) const{
     return readUser(result);
 }
 
-User PostgresQ_DAO::loadUser(const std::string &username) const
+UserTuple PostgresQ_DAO::loadUser(const std::string &username) const
 {
     std::stringstream stringQuery;
     stringQuery << "SELECT USER_ID" <<
@@ -85,7 +85,7 @@ void PostgresQ_DAO::deleteUser(int userId) const {
     pqxx::result result = Connection::executeQuery(stringQuery.str());
 }
 
-void PostgresQ_DAO::updateUser(User user) const {
+void PostgresQ_DAO::updateUser(UserTuple user) const {
     std::stringstream stringQuerySelect;
     stringQuerySelect << "SELECT * FROM USERS" <<
                    " WHERE USER_ID = " << user.getUserId() <<
@@ -114,8 +114,8 @@ void PostgresQ_DAO::updateUser(User user) const {
 
 
 
-//Load Queue from base
-Queue PostgresQ_DAO::loadQueue(int userId, int queueId) const {
+//Load QueueTuple from base
+QueueTuple PostgresQ_DAO::loadQueue(int userId, int queueId) const {
     std::stringstream stringQuery;
     stringQuery << "SELECT USER_ID " <<
                     ", QUEUE_ID" << 
@@ -132,36 +132,14 @@ Queue PostgresQ_DAO::loadQueue(int userId, int queueId) const {
                     
     pqxx::result result = Connection::executeQuery(stringQuery.str());
     if(result.size() > 0) {
-        Queue queue;
-        queue = queue.setUserId(result[0][0].as<int>())
-                    .setQueueId(result[0][1].as<int>())
-                    .setName(result[0][2].as<std::string>())
-                    .setPlace(result[0][3].as<std::string>());
-          
-        if(!result[0][4].is_null()) {
-           queue = queue.setDescription(result[0][4].as<std::string>())
-                        .setDescriptionFilled(true);
-        }
-        if(!result[0][5].is_null()) {
-           queue = queue.setStartTime(result[0][5].as<std::string>())
-                        .setStartTimeFilled(true);
-        }
-        if(!result[0][6].is_null()) {
-           queue = queue.setEndTime(result[0][6].as<std::string>())
-                        .setEndTimeFilled(true);
-        }
-        if(!result[0][7].is_null()) {
-           queue = queue.setDayOfWeek(result[0][7].as<int>())
-                        .setDayOfWeekFilled(true);
-        }            
-        return queue;
+        return readQueue(result);
     }
     else {
         throw std::invalid_argument("No Queue with given userId and queueId");
     }
 }
 
-void PostgresQ_DAO::saveQueue(Queue queue) const{
+void PostgresQ_DAO::saveQueue(QueueTuple queue) const{
         std::stringstream stringQuery;
         
     if(queue.isQueueIdFilled()
@@ -225,7 +203,7 @@ void PostgresQ_DAO::deleteQueue(int userId, int queueId) const {
 }                  
 
 
-void PostgresQ_DAO::updateQueue(Queue queue) const {
+void PostgresQ_DAO::updateQueue(QueueTuple queue) const {
         std::stringstream stringQuerySelect;
     stringQuerySelect << "SELECT * FROM QUEUES" <<
                    " WHERE USER_ID = " << queue.getUserId() <<
@@ -262,22 +240,46 @@ void PostgresQ_DAO::updateQueue(Queue queue) const {
     }
 }
 
-User PostgresQ_DAO::readUser(const pqxx::result &result) const
+UserTuple PostgresQ_DAO::readUser(const pqxx::result &result) const
 {
-    User user;
+    UserTuple user;
     if(result.size() > 0) {
         user = user.setUserId(result[0][0].as<int>())
                     .setName(result[0][1].as<std::string>())
                     .setPassword(result[0][2].as<std::string>())
                     .setDisplayName(result[0][3].as<std::string>());
         user.setMandatoryTrue();
+        
         if(!result[0][4].is_null()) {
-           user = user.setMail(result[0][4].as<std::string>())
-                        .setMailFilled(true);
+           user = user.setMail(result[0][4].as<std::string>());
         }
     }
     else {
         throw std::invalid_argument("No User with given userId");
     }
     return user;
+}
+
+
+QueueTuple PostgresQ_DAO::readQueue(const pqxx::result &result) const
+{
+   QueueTuple queue;
+    queue = queue.setUserId(result[0][0].as<int>())
+                .setQueueId(result[0][1].as<int>())
+                .setName(result[0][2].as<std::string>())
+                .setPlace(result[0][3].as<std::string>());
+      
+    if(!result[0][4].is_null()) {
+       queue = queue.setDescription(result[0][4].as<std::string>());
+    }
+    if(!result[0][5].is_null()) {
+       queue = queue.setStartTime(result[0][5].as<std::string>());
+    }
+    if(!result[0][6].is_null()) {
+       queue = queue.setEndTime(result[0][6].as<std::string>());
+    }
+    if(!result[0][7].is_null()) {
+       queue = queue.setDayOfWeek(result[0][7].as<int>());
+    }            
+    return queue;
 }

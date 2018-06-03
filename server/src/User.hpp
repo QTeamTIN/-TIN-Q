@@ -1,54 +1,29 @@
-#ifndef USER_H
-#define USER_H
+#ifndef USER_HPP
+#define USER_HPP
+#include <string>
 
-#include <pqxx/pqxx>
-#include <iostream>
-
-
-//This class represents database record
-//Each user is saved in database tuple contains basic informations
 class User
 {
 public:
     User();
+    User(int user_id, std::string name, std::string display_name);
+    User(int user_id, std::string name, std::string display_name, std::string mail);
     ~User();
-    User& setDisplayName(const std::string& display_name);
-    User& setMail(const std::string& mail);
-    User& setName(const std::string& name);
-    User& setPassword(const std::string& password);
-    User& setUserId(int user_id);
-    const std::string getDisplayName();
-    const std::string getMail();
-    const std::string getName();
-    const std::string getPassword();
-    int getUserId();
+    User& setDisplayName(const std::string& display_name) {this->display_name = display_name; return *this;}
+    User& setMail(const std::string& mail) {this->mail = mail; return *this;}
+    User& setName(const std::string& name) {this->name = name; return *this;}
+    User& setUserId(int user_id) {this->user_id = user_id; return *this;}
+    const std::string& getDisplayName() const {return display_name;}
+    const std::string& getMail() const {return mail;}
+    const std::string& getName() const {return name;}
+    int getUserId() const {return user_id;}
     
-    User& setDisplayNameFilled(bool displayNameFilled) {this->displayNameFilled = displayNameFilled; return *this;}
-    User& setMailFilled(bool mailFilled) {this->mailFilled = mailFilled; return *this;}
-    User& setNameFilled(bool nameFilled) {this->nameFilled = nameFilled; return *this;}
-    User& setPasswordFilled(bool passwordFilled) {this->passwordFilled = passwordFilled; return *this;}
-    User& setUserIdFilled(bool userIdFilled) {this->userIdFilled = userIdFilled; return *this;}
-    bool isDisplayNameFilled() const {return displayNameFilled;}
-    bool isMailFilled() const {return mailFilled;}
-    bool isNameFilled() const {return nameFilled;}
-    bool isPasswordFilled() const {return passwordFilled;}
-    bool isUserIdFilled() const {return userIdFilled;}
-    
-    void setMandatoryTrue();
-    void print();
 private:
-    
     int user_id;
-    bool userIdFilled = false;
     std::string name;
-    bool nameFilled = false;
-    std::string password;
-    bool passwordFilled = false;
     std::string display_name;
-    bool displayNameFilled = false;
     std::string mail;
-    bool mailFilled = false;
 
 };
 
-#endif // USER_H
+#endif // USER_HPP
