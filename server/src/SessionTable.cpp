@@ -2,6 +2,7 @@
 
 SessionTable::SessionTable(const Q_DAO &db_handler)
     :timeout_(DEFAULT_TIMEOUT)
+    ,refresh_period_(DEFAULT_REFRESH_PERIOD)
     ,login_(db_handler)
 {}
 
@@ -32,11 +33,23 @@ double SessionTable::getTimeout() const
     return timeout_;
 }
 
+void SessionTable::setRefreshPeriod(int period)
+{
+    refresh_period_ = period;
+}
+
+int SessionTable::getRefreshPeriod() const
+{
+    return refresh_period_;
+}
+
 void SessionTable::checkTimeout()
 {
+    std::cout<<"Session table refreshing\n";
     for (auto it = sessions_.begin(); it != sessions_.end(); ++it) {
         std::time_t activity = it->second.getLastActivity();
-        if (std::difftime(activity, std::time(0)) > timeout_) {
+        if (std::difftime(std::time(0), activity) > timeout_) {
+            std::cout<<"Session "<<it->first<<" inactive\n";
             destroySession(it->first);
         }
     }
@@ -52,6 +65,11 @@ bool SessionTable::ifSessionExists(int id) const
     return sessions_.find(id) != sessions_.end();
 }
 
+void SessionTable::refreshSession(int id)
+{
+    sessions_.at(id).update();
+}
+
 int SessionTable::login(const std::string& username, const std::string &hash)
 {
     auto user = login_.login(username, hash);
@@ -62,6 +80,15 @@ int SessionTable::login(const std::string& username, const std::string &hash)
     std::cout<<"User "<<username<<" login failure\n";
     return 0;
 }
+
+void SessionTable::run()
+{
+    while(!stopRequested()) {
+        sleep(refresh_period_);
+        checkTimeout();
+    }
+}
+
 
 int SessionTable::generateID()
 {

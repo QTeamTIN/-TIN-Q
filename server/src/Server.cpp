@@ -11,6 +11,7 @@ Server::Server(int conn_port)
 
 void Server::run()
 {
+    sessions_();
     int i = 0;
     while(i < 3){
         ClientSocket *sock = connect_sock_.accept();

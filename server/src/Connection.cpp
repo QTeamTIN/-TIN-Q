@@ -22,8 +22,6 @@ pqxx::result Connection::executeQuery(std::string query) {
 std::string Connection::getConnectionProp() {
     std::string line;
     std::ifstream file ("pqCon.properties");
-    std::ofstream outfile ("tutej.txt");
-    outfile << "sadsaad" << std::endl;
     if(file.is_open()) {
         getline(file, line);
         file.close();
