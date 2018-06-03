@@ -30,6 +30,8 @@ bool ServerAPI::callFunction(int id, std::vector<int> int_args, std::vector<std:
 		case 6:
 			service->lines_manager_.next(int_args.at(0));
 			break;
+		default:
+			throw std::runtime_error("No such operation: " + std::to_string(id));
 		}
 	}
 	catch (std::exception &e) {
@@ -37,4 +39,21 @@ bool ServerAPI::callFunction(int id, std::vector<int> int_args, std::vector<std:
 		return false;
 	}	
 	return true;
+}
+
+ServerAPI::QueryResponse ServerAPI::callQuery(int id, std::vector<int> int_args, std::vector<std::string> string_args)
+{
+	try {
+		switch (id) {
+		case 0:
+			return service->lines_manager_.getLine(int_args.at(0));
+		default:
+			throw std::runtime_error("No such operation: " + std::to_string(id));
+		}
+	}
+	catch (std::exception &e) {
+		std::cout << e.what() << std::endl;
+		return QueryResponse();
+	}
+
 }

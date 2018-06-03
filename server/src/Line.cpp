@@ -52,11 +52,22 @@ void Line::next(){
 		countAvgUserMinutes();
 }
 
+Line::QueryResponse Line::getLineParams()
+{	//todo synchronizacja
+	std::list<int> int_args;
+	std::list<std::string> str_args;
+	int_args.push_back(members_.size());
+	int_args.push_back(start_);
+	int_args.push_back(end_);
+	int_args.push_back(avg_user_minutes_);
+	str_args.push_back(name_);
+	str_args.push_back(place_);
+	str_args.push_back(description_);
+	return std::make_tuple(int_args,str_args);
+}
+
 void Line::countAvgUserMinutes() {
 	std::time_t now = std::time(0);
 	avg_user_minutes_ = (now - start_) / 60 / users_serviced_;
 }
 
-int Line::getAvgUserMinutes() {
-	return avg_user_minutes_;
-}

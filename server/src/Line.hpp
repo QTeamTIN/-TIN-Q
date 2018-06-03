@@ -17,10 +17,13 @@ public:
     void letUserThrough(UserID id);
     void acceptLettingThrough(UserID id);
     void next();
-	int getAvgUserMinutes();
+
+	typedef std::tuple<std::list<int>, std::list<std::string>> QueryResponse;
+	QueryResponse getLineParams();
 
 
 private:
+	mutable std::mutex line_mutex_;
 	std::list<UserID> members_;
     mutable std::mutex members_mutex_;
     std::list<UserID> tmp_members_;  
