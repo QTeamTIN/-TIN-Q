@@ -31,15 +31,15 @@ void Dispatcher::run()
 void Dispatcher::processPacket(Packet packet)
 {
 	// wip map packettype -> method to process	
-	//static const std::unordered_map<Packet::SubtypeCase, std::function<void(Packet)> > processMethods = {
-	//	{ Packet::SubtypeCase::kLogin, std::bind(&Dispatcher::processLogin, this, _1) },
-	//	{ Packet::SubtypeCase::kUserId, std::bind(&Dispatcher::processLogin, this, _1) },
-	//	{ Packet::SubtypeCase::kOperation, std::bind(&Dispatcher::processLogin, this, _1) },
-	//	{ Packet::SubtypeCase::kAck, std::bind(&Dispatcher::processLogin, this, _1) },
-	//	{ Packet::SubtypeCase::kQuery, std::bind(&Dispatcher::processLogin, this, _1) },
-	//	{ Packet::SubtypeCase::kResponse, std::bind(&Dispatcher::processLogin, this, _1) },
-	//	{ Packet::SubtypeCase::kAlive, std::bind(&Dispatcher::processLogin, this, _1) }
-	//};
+	/*static const std::unordered_map<Packet::SubtypeCase, std::function<void(Packet)> > processMethods = {
+		{ Packet::SubtypeCase::kLogin, [this](Packet packet) { this->processLogin(packet); } },
+		{ Packet::SubtypeCase::kUserId, [this](Packet packet) { this->processLogin(packet); } },
+		{ Packet::SubtypeCase::kOperation, [this](Packet packet) { this->processLogin(packet); } },
+		{ Packet::SubtypeCase::kAck, [this](Packet packet) { this->processLogin(packet); } },
+		{ Packet::SubtypeCase::kQuery, [this](Packet packet) { this->processLogin(packet); } },
+		{ Packet::SubtypeCase::kResponse, [this](Packet packet) { this->processLogin(packet); } },
+		{ Packet::SubtypeCase::kAlive, [this](Packet packet) { this->processLogin(packet); } }
+	};*/
 
 	/*auto specificMethod = processMethods.find(packet.subtype_case());
 	if (specificMethod != processMethods.end())
@@ -113,12 +113,6 @@ void Dispatcher::processOperation(Packet packet)
 	//if not logged in send userid empty else call func
 
 	bool ok = serverAPI->callFunction(operation_id, intArgs, strArgs);
-	//Packet response;
-	//packet::Ack AckPacket;
-	////AckPacket.mutable_ack();
-	//AckPacket.set_local_id(local_id);
-	//AckPacket.set_if_success(ok);
-	//response.set_allocated_ack(&AckPacket);
 	Packet ackResponse;
 	auto ack = ackResponse.mutable_ack();
 	ack->set_local_id(local_id);
