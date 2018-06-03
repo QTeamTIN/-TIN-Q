@@ -10,6 +10,7 @@ class LinesManager {
 public:
 	LinesManager();
 	typedef int LineID;
+	typedef std::tuple<std::list<int>, std::list<std::string>> QueryResponse;
 	void addLine(std::string name, std::string place, std::string description, time_t start, time_t end);
 	void deleteLine(LineID);
 	void addUser(LineID line_id,Line::UserID user_id);
@@ -17,7 +18,8 @@ public:
 	void letUserThrough(LineID line_id, Line::UserID user_id);
 	void acceptLettingThrough(LineID line_id, Line::UserID user_id);
 	void next(LineID line_id);
-	int getAvgUserMinutes(LineID line_id);
+	QueryResponse getLine(LineID line_id);
+	
 
 private:
 	std::map<LineID, Line> lines_;

@@ -36,11 +36,12 @@ void LinesManager::next(LineID line_id){
 	lines_.at(line_id).next();
 }
 
-int LinesManager::getAvgUserMinutes(LineID line_id){
-	return lines_.at(line_id).getAvgUserMinutes();
-}
 
 LinesManager::LineID LinesManager::createID() {
 	return last_id_++;
+}
+
+LinesManager::QueryResponse LinesManager::getLine(LineID line_id) {
+	return lines_.at(line_id).getLineParams();
 }
 
