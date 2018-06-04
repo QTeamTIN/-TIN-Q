@@ -1,78 +1,55 @@
-syntax = "proto2";
-
-package packet;
-
-option java_package = "com.q.prot_packet";
-
-option java_outer_classname = "Packet";
-message PACKET {
-	extensions 100 to 150;
-
-	enum PacketType {
-		_ACK = 1;
-		_ALIVE = 2;
-		_CHANGE = 3;
-		_LOGIN = 4;
-		_OPERATION = 5;
-		_QUERY = 6;
-		_QUERY_RESPONSE = 7;
-	}
-
-	required PacketType type = 1;
-	required int32 code = 2;
+syntax = "proto2"; 
+ 
+package packet; 
+ 
+ 
+message BasePacket { 
+    oneof subtype { 
+        Login           login       = 1; 
+        UserID          user_id     = 2; 
+        Operation       operation   = 3; 
+        Ack             ack         = 4; 
+        Query           query       = 5; 
+        QueryResponse   response    = 6; 
+        Alive           alive       = 7; 
+    } 
+} 
+ 
+message Login { 
+  required string name = 1; 
+  required int64 hash  = 2; 
+} 
+ 
+message UserID { 
+  required int32      session_id    = 1; 
+} 
+message Operation { 
+  required int32      session_id      = 1; 
+  required int32      operation_id    = 2; 
+  required int32      local_id        = 3; 
+  repeated string     str_args        = 4; 
+  repeated int32      int_args        = 5; 
+} 
+ 
+message Ack { 
+    required int32      local_id        = 1; 
+    required bool       if_success      = 2; 
+} 
+ 
+message Query { 
+    required int32      session_id      = 1; 
+    required int32      operation_id    = 2; 
+    required int32      local_id        = 3; 
+	repeated string     str_args        = 4; 
+	repeated int32      int_args        = 5; 
+} 
+ 
+message QueryResponse { 
+    required int32      object_id       = 1; 
+    repeated string     str_args        = 2; 
+    repeated int32      int_args        = 3; 
 }
 
-message _ACT {
-	extend PACKET {
-		optional _ACT type = 100;
-	}
-	required int32 operational_local_id = 1;
-	optional string success = 2;
-	optional string error = 3; 
-}
-
-
-message _ALIVE {
-	extend PACKET {
-		optional _ALIVE type = 101;
-	}
-	required int32 session_id = 1;
-}
-
-
-message _CHANGE {
-	extend PACKET {
-		optional _CHANGE type = 102;
-	}
-	required int32 obiect_id = 1;
-}
-
-message _OPEARATION {
-	extend PACKET {	
-		optional _OPEARATION type = 103;
-	}
-	optional int32 session_id = 1;
-	optional int32 operation_description = 2;
-	optional int32 operational_local_id = 3;
-}
-
-
-message _QUERY {
-	extend PACKET {
-		optional _QUERY type = 104;
-	}
-	required int32 session_id = 1;
-	optional int32 object_id = 2;
-}
-
-
-message _QUERY_RESPONSE {
-	extend PACKET {
-		optional _QUERY_RESPONSE type = 105;
-	}
-	required int32 session_id = 1;
-	optional int32 object_id = 2;
-}
-
-
-
+message Alive { 
+    required int32      session_id      = 1; 
+} 
