@@ -13,7 +13,6 @@ Server::Server(int conn_port)
 void Server::run()
 {
     sessions_();
-    server_API_.callLogin("jedikarix", "nomoze");
     int i = 0;
     while(i < 3){
         ClientSocket *sock = connect_sock_.accept();
