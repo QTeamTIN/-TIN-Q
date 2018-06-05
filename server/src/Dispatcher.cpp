@@ -2,18 +2,18 @@
 #include <unordered_map>
 #include <functional>
 #include <vector>
+#include <string>
 
 //Dispatcher::Dispatcher(BlockingQueue &input_queue, BlockingQueue &output_queue, std::unique_ptr<ServerAPI> serverAPI)
 //    :input_queue_(input_queue)
 //    ,output_queue_(output_queue)
 //	,serverAPI(std::move(serverAPI)) {}
 
-Dispatcher::Dispatcher(BlockingQueue &input_queue, BlockingQueue &output_queue)
+Dispatcher::Dispatcher(BlockingQueue &input_queue, BlockingQueue &output_queue, ServerAPI& server_api)
 	: input_queue_(input_queue)
 	, output_queue_(output_queue)
-{
-	serverAPI = std::make_unique<ServerAPI>();
-}
+	, serverAPI(server_api)
+{}
 
 void Dispatcher::run()
 {
@@ -77,11 +77,12 @@ void Dispatcher::processLogin(Packet packet)
 	auto loginPacket = packet.login();
 	std::string userName = loginPacket.name();
 	int64_t hash = loginPacket.hash();
-	// int32_t sessionID = serverAPI->loginUser(userName, hash);
-	// TODO create UserID packet with session_id and send to user
-	/*Packet userID;
-	userID.set_session_id(sessionID);
-	output_queue_.push(pack);*/
+	int32_t sessionID = serverAPI.callLogin(userName, std::to_string(hash));
+
+	Packet userID;
+	auto loginResp = userID.mutable_user_id();
+	loginResp->set_session_id(sessionID);
+	output_queue_.push(userID);
 }
 
 void Dispatcher::processChange(Packet packet)
@@ -112,7 +113,7 @@ void Dispatcher::processOperation(Packet packet)
 		intArgs.push_back(operationPacket.int_args(i));
 	//if not logged in send userid empty else call func
 
-	bool ok = serverAPI->callFunction(operation_id, intArgs, strArgs);
+	bool ok = serverAPI.callFunction(operation_id, intArgs, strArgs);
 	Packet ackResponse;
 	auto ack = ackResponse.mutable_ack();
 	ack->set_local_id(local_id);
@@ -138,7 +139,7 @@ void Dispatcher::processQuery(Packet packet)
 
 	Packet queryResponse;
 	auto response = queryResponse.mutable_response();
-	std::tuple<std::list<int>, std::list<std::string>> res = serverAPI->callQuery(operation_id, intArgs, strArgs);
+	std::tuple<std::list<int>, std::list<std::string>> res = serverAPI.callQuery(operation_id, intArgs, strArgs);
 	auto intResp = std::get<0>(res);
 	for (int i = 0; i < intResp.size(); ++i)
 		response->set_int_args(i, intResp.back());

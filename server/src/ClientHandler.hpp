@@ -15,7 +15,7 @@
 class ClientHandler: public Stoppable
 {
 public:
-    ClientHandler(ClientSocket *sock_ptr);
+    ClientHandler(ClientSocket *sock_ptr, ServerAPI& server_api);
 
     void run() override;
 

@@ -17,8 +17,7 @@ class Dispatcher: public Stoppable
 {
 public:
 	Dispatcher() = delete;
-    //Dispatcher(BlockingQueue& input_queue, BlockingQueue& output_queue, std::unique_ptr<ServerAPI> serverAPI);
-	Dispatcher(BlockingQueue& input_queue, BlockingQueue& output_queue);
+	Dispatcher(BlockingQueue& input_queue, BlockingQueue& output_queue, ServerAPI& server_api);
 	~Dispatcher() = default;
     void run() override;
 
@@ -37,7 +36,7 @@ private:
 
     BlockingQueue& input_queue_;
     BlockingQueue& output_queue_;
-	std::unique_ptr<ServerAPI> serverAPI;
+	ServerAPI& serverAPI;
 
 };
 

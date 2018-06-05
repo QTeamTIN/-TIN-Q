@@ -2,11 +2,11 @@
 
 #include <iostream>
 
-ClientHandler::ClientHandler(ClientSocket *sock_ptr)
+ClientHandler::ClientHandler(ClientSocket *sock_ptr, ServerAPI& server_api)
     :sock_ptr_(sock_ptr)
     ,receiver_(sock_ptr_)
     ,sender_(sock_ptr_)
-    ,dispatcher_(receiver_.getInputQueue(), sender_.getOutputQueue())
+    ,dispatcher_(receiver_.getInputQueue(), sender_.getOutputQueue(), server_api)
 {}
 
 void ClientHandler::init()
