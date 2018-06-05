@@ -59,5 +59,7 @@ ServerAPI::QueryResponse ServerAPI::callQuery(int id, std::vector<int> int_args,
 }
 
 int ServerAPI::callLogin(std::string userName, std::string hash) {
-    return service->session_table_->login(userName, hash);
+    std::cout << "Wchodzi w logowanie" << std::endl;
+    int num = service->session_table_->login(userName, hash);
+    std::cout << num << std::endl;
 }
