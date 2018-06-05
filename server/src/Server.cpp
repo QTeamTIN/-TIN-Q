@@ -15,7 +15,7 @@ void Server::run()
     int i = 0;
     while(i < 3){
         ClientSocket *sock = connect_sock_.accept();
-        //security_provider_.makeSocketSecure(sock);
+        security_provider_.makeSocketSecure(sock);
         ClientHandler* client_handler = new ClientHandler(sock);
         (*client_handler)();
         clients_.push_back(client_handler);

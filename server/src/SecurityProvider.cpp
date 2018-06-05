@@ -1,10 +1,12 @@
 #include"SecurityProvider.hpp"
+#include <iostream>
 
 SecurityProvider::SecurityProvider()
 {
     OpenSSL_add_all_algorithms();
     SSL_load_error_strings();
     initSSLContext();
+    loadCertificates(ssl_context, "../certs/cert.pem", "../certs/key.pem");
 }
 SecurityProvider::~SecurityProvider()
 {
@@ -41,6 +43,7 @@ void SecurityProvider::makeSocketSecure(ClientSocket* socket)
         ssl_handle=nullptr;
         throw SSLException("Unable to associate SSL and plain socket");
     }
+
     int acc=SSL_accept(ssl_handle);
     if (acc<=0)
     {
