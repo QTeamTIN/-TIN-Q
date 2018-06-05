@@ -7,6 +7,7 @@
 #include "SecurityProvider.hpp"
 #include "PostgresQ_DAO.hpp"
 #include "SessionTable.hpp"
+#include "ServerAPI.hpp"
 
 #include <list>
 
@@ -28,6 +29,8 @@ private:
     SecurityProvider security_provider_;
 
     std::list<ClientHandler*> clients_;
+    
+    ServerAPI server_API_;
 };
 
 #endif // SERVER_HPP

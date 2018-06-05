@@ -1,9 +1,9 @@
 #include "ServerAPI.hpp"
 
 
-ServerAPI::ServerAPI() {
-	//todo - na zewn¹trz?
-	service = std::make_unique<Service>();
+ServerAPI::ServerAPI(SessionTable& session_tbl) {
+	//todo - na zewnÂ¹trz?
+	service = std::make_unique<Service>(session_tbl);
 }
 
 bool ServerAPI::callFunction(int id, std::vector<int> int_args, std::vector<std::string> string_args) {
@@ -56,4 +56,8 @@ ServerAPI::QueryResponse ServerAPI::callQuery(int id, std::vector<int> int_args,
 		return QueryResponse();
 	}
 
+}
+
+int ServerAPI::callLogin(std::string userName, std::string hash) {
+    return service->session_table_->login(userName, hash);
 }

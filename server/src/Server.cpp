@@ -7,6 +7,7 @@ Server::Server(int conn_port)
     :connect_sock_(conn_port)
     ,database_(std::make_unique<PostgresQ_DAO>())
     ,sessions_(*database_)
+    ,server_API_(sessions_)
 {}
 
 void Server::run()
