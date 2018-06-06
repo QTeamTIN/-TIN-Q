@@ -10,8 +10,13 @@ class Service
 {
 public:
 	Service(SessionTable& session_tbl);
+
+    LinesManager& getLinesManager();
+    SessionTable& getSessionTable();
+
+private:
 	LinesManager lines_manager_;
-    SessionTable* session_table_;
+    SessionTable& session_table_;
 };
 
 #endif // SERVICE_HPP
