@@ -27,7 +27,9 @@ public:
 
 	/* POSSIBLE FUNCTIONS
 		0 - getLine
-        1 - getUser
+        1 - getUserByName
+        2 - getUserById
+        3 - getQueue
 	*/
 	QueryResponse callQuery(int id, std::vector<int> int_args, std::vector<std::string> string_args);
 	

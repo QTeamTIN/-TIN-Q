@@ -49,6 +49,8 @@ ServerAPI::QueryResponse ServerAPI::callQuery(int id, std::vector<int> int_args,
         case 1:
             return service.db_handler_->loadUser(string_args.at(0)).getUser().getUserParams();
         case 2:
+            return service.db_handler_->loadUser(int_args.at(0)).getUser().getUserParams();
+        case 3:
             return service.db_handler_->loadQueue(int_args.at(0), int_args.at(1)).getQueue().getQueueParams();
 		default:
 			throw std::runtime_error("No such operation: " + std::to_string(id));
