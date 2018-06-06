@@ -19,17 +19,16 @@ public:
     void run();
 
 private:
-    Service service_;
-
-    SessionTable sessions_;
 
     ConnectSocket connect_sock_;
+    SessionTable sessions_;
+    Service service_;
+    ServerAPI server_API_;
 
     SecurityProvider security_provider_;
 
     std::list<ClientHandler*> clients_;
-    
-    ServerAPI server_API_;
+
 };
 
 #endif // SERVER_HPP
