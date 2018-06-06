@@ -17,7 +17,7 @@ message BasePacket {
 
 message Login {
 	required string name = 1;
-	required int64 hash  = 2;
+	required string hash  = 2;
 }
 
 message UserID {
