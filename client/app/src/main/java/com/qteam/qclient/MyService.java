@@ -4,8 +4,11 @@ import java.io.*;
 import java.net.*;
 import java.security.GeneralSecurityException;
 import java.security.cert.X509Certificate;
+import java.util.Queue;
 import java.util.Random;
 import java.nio.ByteBuffer;
+
+import android.app.Application;
 import android.os.AsyncTask;
 import android.app.Service;
 import android.content.Intent;
@@ -21,6 +24,8 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import packet.JavaQ;
+
 public class MyService extends Service {
     private final IBinder mBinder = new LocalBinder();
     Socket socket;
@@ -28,10 +33,19 @@ public class MyService extends Service {
     PrintStream output;
     Integer counter=0;
     Random rand;
+    int session_id=0;
+
+    public MyService(){
+        super();
+        new ConnectionInit(this).execute();
+        new ReceiveDataTask().execute();
+
+    }
+
 
     @Override
     public IBinder onBind(Intent intent) {
-        new ConnectionInit(this).execute();
+
 
         rand = new Random();
 
@@ -44,8 +58,8 @@ public class MyService extends Service {
         }
     }
 
-    public void sendData(){
-        new SendDataTask(this).execute();
+    public void sendData(packet.JavaQ.BasePacket base_packet ){
+        new SendDataTask().execute(base_packet);
     }
 
     public void disconnect(){
@@ -82,7 +96,7 @@ public class MyService extends Service {
             try{
                 //System.setProperty("javax.net.ssl.trustStore","../../../../res/raw/cert.pem");
 
-                //////////totalnie do zmiany - niebezpieczne!
+                //////////do zmiany - niebezpieczne!
                 TrustManager[] trustAllCerts = new TrustManager[] {
                         new X509TrustManager() {
                             public java.security.cert.X509Certificate[] getAcceptedIssuers() {
@@ -102,7 +116,7 @@ public class MyService extends Service {
                     SSLContext sc = SSLContext.getInstance("TLS");
                     sc.init(null, trustAllCerts, new java.security.SecureRandom());
                     SSLSocketFactory factory = sc.getSocketFactory();
-                    SSLSocket socket = (SSLSocket)factory.createSocket("89.64.9.255", 8888);
+                    SSLSocket socket = (SSLSocket)factory.createSocket("192.168.1.16", 8888);
                     socket.startHandshake();
                     input = new DataInputStream(socket.getInputStream());
                     output = new PrintStream(socket.getOutputStream());
@@ -114,8 +128,9 @@ public class MyService extends Service {
                 //SSLSocketFactory factory = (SSLSocketFactory)SSLSocketFactory.getDefault();
                 //SSLSocket socket = (SSLSocket)factory.createSocket("192.168.1.12", 8888);
                 //socket.startHandshake();
-                //socket = new Socket("192.168.1.12",8888);
-
+                //socket = new Socket("192.168.1.16",8888);
+                //input = new DataInputStream(socket.getInputStream());
+                //output = new PrintStream(socket.getOutputStream());
             }
             catch (Exception e) {
                 return e.toString();
@@ -124,30 +139,24 @@ public class MyService extends Service {
         }
     }
 
-    class SendDataTask extends MyAsyncTask{
-        public SendDataTask(Context context){
-            super(context);
+    class SendDataTask extends AsyncTask<packet.JavaQ.BasePacket, Void,Boolean>{
+        public SendDataTask(){
+            super();
         }
 
         @Override
-        protected String doInBackground(Void... params) {
+        protected Boolean doInBackground(packet.JavaQ.BasePacket ... pack) {
             try{
-                counter++;
-                ByteBuffer b = ByteBuffer.allocate(4);
-                b.putInt(counter);
-                byte[] result = b.array();
-                output.write(result, 0, 1);
-                b = ByteBuffer.allocate(4);
-                b.putInt(rand.nextInt(255));
-                result = b.array();
-                output.write(result, 0, 1);
+                packet.JavaQ.BasePacket base_packet=pack[0];
+                base_packet.writeTo(output);
             }
             catch (Exception e) {
-                return e.toString();
+                return false;
             }
-            return counter.toString();
+            return true;
         }
     }
+
 
     class Disconnect extends MyAsyncTask{
         public Disconnect(Context context){
@@ -185,6 +194,44 @@ public class MyService extends Service {
                 return e.toString();
             }
             return "Success";
+        }
+    }
+
+    class ReceiveDataTask extends AsyncTask<Void, Void,Boolean>{
+        public ReceiveDataTask(){
+            super();
+        }
+
+        @Override
+        protected Boolean doInBackground(Void ... params) {
+            try{
+                while(true) {
+                    JavaQ.BasePacket base_packet = JavaQ.BasePacket.parseFrom(input);
+                    if( base_packet == null)
+                        continue;
+                    if (base_packet.hasAck()) {
+                        Intent intent = new Intent();
+                        intent.setAction("Action");
+                        intent.putExtra("DATAPASSED", 1);
+                        sendBroadcast(intent);
+                    }
+                    else if (base_packet.hasAlive()) {
+                        packet.JavaQ.Alive alive = packet.JavaQ.Alive.newBuilder().setSessionId(session_id).build();
+                        packet.JavaQ.BasePacket base_packet_alive = packet.JavaQ.BasePacket.newBuilder().setAlive(alive).build();
+                        base_packet_alive.writeTo(output);
+                    }
+                    else if(base_packet.hasResponse()){
+
+                    }
+                    else if(base_packet.hasUserId()) {
+                        session_id=base_packet.getUserId().getSessionId();
+                    }
+
+                }
+            }
+            catch (Exception e) {
+                return false;
+            }
         }
     }
 

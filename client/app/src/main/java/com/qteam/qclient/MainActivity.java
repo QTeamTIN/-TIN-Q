@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.ComponentName;
 
-import com.q.prot_packet.Packet;
 import com.qteam.qclient.MyService.LocalBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -51,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void SendData(View view){
         if (myService!=null)
-            myService.sendData();
+            ;//myService.sendData();
         else
             Toast.makeText(MainActivity.this, "There is no service", Toast.LENGTH_SHORT).show();
     }

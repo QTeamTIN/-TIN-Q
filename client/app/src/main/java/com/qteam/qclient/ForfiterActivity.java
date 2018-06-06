@@ -1,11 +1,9 @@
-package com.qteam.qclient.debug;
+package com.qteam.qclient;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
-
-import com.qteam.qclient.R;
 
 public class ForfiterActivity extends AppCompatActivity {
 

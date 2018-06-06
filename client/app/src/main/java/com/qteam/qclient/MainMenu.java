@@ -1,4 +1,4 @@
-package com.qteam.qclient.debug;
+package com.qteam.qclient;
 
 import android.content.Context;
 import android.content.res.TypedArray;

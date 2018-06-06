@@ -1,6 +1,10 @@
-package com.qteam.qclient.debug;
+package com.qteam.qclient;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,10 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import com.qteam.qclient.LoginActivity;
-import com.qteam.qclient.MainActivity;
-import com.qteam.qclient.R;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -21,6 +21,16 @@ public class ForfiterListActivity extends AppCompatActivity {
     ArrayList<String> listItems = new ArrayList<String>();
     ArrayAdapter<String> adapter;
     Random rand;
+    MyService myService;
+    Boolean serviceConnected=false;
+
+    protected void onStart(){
+        super.onStart();
+        Intent mIntent = new Intent(this, MyService.class);
+        ComponentName myService_name = startService(new Intent(this, MyService.class));
+        bindService(mIntent, mConnection, Context.BIND_AUTO_CREATE);
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +60,35 @@ public class ForfiterListActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onStop() {
+
+        super.onStop();
+        if (serviceConnected) {
+            unbindService(mConnection);
+            stopService(new Intent(this, MyService.class));
+            serviceConnected = false;
+        }
+    }
+
     private void startNewActivity(int queueNum){
         Intent intent = new Intent(this, ForfiterActivity.class);
         intent.putExtra("queue_num", queueNum);
         startActivity(intent);
     }
+
+    private ServiceConnection mConnection = new ServiceConnection() {
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            serviceConnected = false;
+            myService = null;
+        }
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            serviceConnected = true;
+            MyService.LocalBinder mLocalBinder = (MyService.LocalBinder)service;
+            myService = mLocalBinder.getService();
+        }
+    };
 }
