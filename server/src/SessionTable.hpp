@@ -48,6 +48,8 @@ private:
     int refresh_period_;
 
     LoginChecker login_;
+    
+    const Q_DAO& db_handler_;
 
 };
 

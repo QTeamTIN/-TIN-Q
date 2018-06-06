@@ -10,6 +10,7 @@
 class ServerAPI
 {
 public:
+
     ServerAPI(Service &service);
 	typedef std::tuple<std::list<int>, std::list<std::string>> QueryResponse;
 
@@ -26,7 +27,7 @@ public:
 
 	/* POSSIBLE FUNCTIONS
 		0 - getLine
-        1 - getQueue
+        1 - getUser
 	*/
 	QueryResponse callQuery(int id, std::vector<int> int_args, std::vector<std::string> string_args);
 	

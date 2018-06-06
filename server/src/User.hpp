@@ -1,6 +1,11 @@
 #ifndef USER_HPP
 #define USER_HPP
+#include <list>
+#include <mutex>
+#include <algorithm>
 #include <string>
+#include <ctime>
+
 
 class User
 {
@@ -17,6 +22,9 @@ public:
     const std::string& getMail() const {return mail;}
     const std::string& getName() const {return name;}
     int getUserId() const {return user_id;}
+    
+    typedef std::tuple<std::list<int>, std::list<std::string>> QueryResponse;
+	QueryResponse getUserParams() const;
     
 private:
     int user_id;
