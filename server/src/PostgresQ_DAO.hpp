@@ -8,7 +8,7 @@ class PostgresQ_DAO : public Q_DAO
 public:
     PostgresQ_DAO();
     ~PostgresQ_DAO();
-    void saveUser(UserTuple) const override;
+    int saveUser(UserTuple) const override;
     UserTuple loadUser(int) const override;
     UserTuple loadUser(const std::string& username) const override;
     void deleteUser(int) const override;
@@ -22,6 +22,9 @@ public:
 private:
     UserTuple readUser(const pqxx::result& result) const;
     QueueTuple readQueue(const pqxx::result& result) const;
+       
+    int getUserIdCurrSeq() const;
+    int nextvalUserIdSeq() const;
 };
 
 #endif // POSTREGSQ_DAO_H

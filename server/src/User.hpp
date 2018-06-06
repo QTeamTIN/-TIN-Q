@@ -18,9 +18,9 @@ public:
     User& setMail(const std::string& mail) {this->mail = mail; return *this;}
     User& setName(const std::string& name) {this->name = name; return *this;}
     User& setUserId(int user_id) {this->user_id = user_id; return *this;}
-    const std::string& getDisplayName() const {return display_name;}
-    const std::string& getMail() const {return mail;}
-    const std::string& getName() const {return name;}
+    std::string& getDisplayName() {return display_name;}
+    std::string& getMail() {return mail;}
+    std::string& getName() {return name;}
     int getUserId() const {return user_id;}
     
     typedef std::tuple<std::list<int>, std::list<std::string>> QueryResponse;

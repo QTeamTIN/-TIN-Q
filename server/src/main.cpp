@@ -15,6 +15,7 @@ int main(int argc, char * argv[])
         return 1;
     }
     PostgresQ_DAO db;
+
     Server server(port, db);
 
     server.run();

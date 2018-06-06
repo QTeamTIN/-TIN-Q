@@ -6,7 +6,7 @@ class Q_DAO
 {
 public:
 
-    virtual void saveUser(UserTuple) const =0;
+    virtual int saveUser(UserTuple) const =0;
     virtual UserTuple loadUser(int) const =0;
     virtual UserTuple loadUser(const std::string& name) const = 0;
     virtual void deleteUser(int) const = 0;

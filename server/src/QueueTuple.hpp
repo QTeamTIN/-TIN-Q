@@ -24,14 +24,14 @@ public:
     QueueTuple& setQueueId(int queue_id);
     QueueTuple& setStartTime(const std::string& startTime);
     QueueTuple& setUserId(int user_id);
-    const int getDayOfWeek();
-    const std::string getDescription();
-    const std::string getEndTime();
-    const std::string getName();
-    const std::string getPlace();
-    const int getQueueId();
-    const std::string getStartTime();
-    const int getUserId();
+    int getDayOfWeek()const;
+     std::string getDescription()const;
+    std::string getEndTime()const;
+    std::string getName()const;
+    std::string getPlace()const;
+    int getQueueId()const;
+    std::string getStartTime()const;
+    int getUserId()const;
     
     bool isDayOfWeekFilled() const {return dayOfWeekFilled;}
     bool isDescriptionFilled() const {return descriptionFilled;}
@@ -42,9 +42,9 @@ public:
     bool isStartTimeFilled() const {return startTimeFilled;}
     bool isUserIdFilled() const {return userIdFilled;}
     
-    const void setMandatoryTrue();
-    const void print();
-    const Queue getQueue();
+    void setMandatoryTrue();
+    void print()const;
+    Queue getQueue()const;
     
 private:
     int user_id;

@@ -60,37 +60,37 @@ QueueTuple& QueueTuple::setUserId(int user_id) {
     userIdFilled = true;   
     return *this;
 }
-const int QueueTuple::getDayOfWeek() {
+int QueueTuple::getDayOfWeek() const{
     return dayOfWeek;
 }
-const std::string QueueTuple::getDescription() {
+std::string QueueTuple::getDescription() const{
     return description;
 }
-const std::string QueueTuple::getEndTime() {
+std::string QueueTuple::getEndTime() const{
     return endTime;
 }
-const std::string QueueTuple::getName() {
+std::string QueueTuple::getName() const{
     return name;
 }
-const std::string QueueTuple::getPlace() {
+std::string QueueTuple::getPlace() const{
     return place;
 }
-const int QueueTuple::getQueueId() {
+int QueueTuple::getQueueId() const{
     return queue_id;
 }
-const std::string QueueTuple::getStartTime() {
+std::string QueueTuple::getStartTime() const{
     return startTime;
 }
-const int QueueTuple::getUserId() {
+int QueueTuple::getUserId() const{
     return user_id;
 }
-const void QueueTuple::setMandatoryTrue() {
+void QueueTuple::setMandatoryTrue(){
     userIdFilled = true;
     queueIdFilled = true;
     nameFilled = true;
     placeFilled = true;
 }
-const void QueueTuple::print() {
+void QueueTuple::print() const{
     std::stringstream printString;
     printString << getUserId() << 
                 ", " <<  getQueueId() << 
@@ -112,7 +112,7 @@ const void QueueTuple::print() {
     std::cout << printString.str() << std::endl;
 }
 
-const Queue QueueTuple::getQueue() {
+Queue QueueTuple::getQueue() const{
     Queue queue(getUserId(), getQueueId(), getName(), getPlace(), getDescription()
             , getStartTime(), getEndTime(), getDayOfWeek());
     return queue;
