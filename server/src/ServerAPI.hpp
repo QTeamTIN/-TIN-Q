@@ -31,6 +31,8 @@ public:
 	QueryResponse callQuery(int id, std::vector<int> int_args, std::vector<std::string> string_args);
 	
     int callLogin(std::string name, std::string hash);
+
+    void refreshSession(int session_id);
     
     
 private:

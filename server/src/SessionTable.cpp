@@ -68,6 +68,7 @@ bool SessionTable::ifSessionExists(int id) const
 void SessionTable::refreshSession(int id)
 {
     sessions_.at(id).update();
+    std::cout << "Session " << id << " refreshed\n";
 }
 
 int SessionTable::login(const std::string& username, const std::string &hash)

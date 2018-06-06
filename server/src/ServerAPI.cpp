@@ -60,3 +60,8 @@ ServerAPI::QueryResponse ServerAPI::callQuery(int id, std::vector<int> int_args,
 int ServerAPI::callLogin(std::string userName, std::string hash) {
     int num = service.getSessionTable().login(userName, hash);
 }
+
+void ServerAPI::refreshSession(int session_id)
+{
+    service.getSessionTable().refreshSession(session_id);
+}
