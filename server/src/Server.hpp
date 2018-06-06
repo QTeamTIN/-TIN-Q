@@ -14,13 +14,13 @@
 class Server
 {
 public:
-    Server(int conn_port);
+    Server(int conn_port, Q_DAO& database);
 
     void run();
 
 private:
 
-    std::shared_ptr<Q_DAO> database_;
+    Q_DAO& database_;
 
     SessionTable sessions_;
 

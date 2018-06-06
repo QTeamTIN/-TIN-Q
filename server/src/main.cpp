@@ -14,7 +14,8 @@ int main(int argc, char * argv[])
         std::cout<<"Error: Invalid port"<<std::endl;
         return 1;
     }
-    Server server(port);
+    PostgresQ_DAO db;
+    Server server(port, db);
 
     server.run();
 }

@@ -3,10 +3,10 @@
 #include <iostream>
 #include "PostgresQ_DAO.hpp"
 
-Server::Server(int conn_port)
+Server::Server(int conn_port, Q_DAO& database)
     :connect_sock_(conn_port)
-    ,database_(std::make_unique<PostgresQ_DAO>())
-    ,sessions_(*database_)
+    ,database_(database)
+    ,sessions_(database_)
     ,server_API_(sessions_)
 {}
 
