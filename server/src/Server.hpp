@@ -19,8 +19,7 @@ public:
     void run();
 
 private:
-
-    Q_DAO& database_;
+    Service service_;
 
     SessionTable sessions_;
 

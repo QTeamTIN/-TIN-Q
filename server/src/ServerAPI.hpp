@@ -10,7 +10,7 @@
 class ServerAPI
 {
 public:
-	ServerAPI(SessionTable& session_tbl);
+    ServerAPI(Service &service);
 	typedef std::tuple<std::list<int>, std::list<std::string>> QueryResponse;
 
 	/* POSSIBLE FUNCTIONS
@@ -34,7 +34,7 @@ public:
     
     
 private:
-	std::unique_ptr<Service> service;
+    Service& service;
 };
 
 #endif // SERVERAPI_HPP

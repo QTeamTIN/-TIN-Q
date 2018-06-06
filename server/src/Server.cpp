@@ -5,9 +5,9 @@
 
 Server::Server(int conn_port, Q_DAO& database)
     :connect_sock_(conn_port)
-    ,database_(database)
-    ,sessions_(database_)
-    ,server_API_(sessions_)
+    ,sessions_(database)
+    ,service_(sessions_)
+    ,server_API_(service_)
 {}
 
 void Server::run()
