@@ -40,8 +40,7 @@ void SocketWrapper::close()
 
 void SocketWrapper::shutdown()
 {
-    if(::shutdown(socket_fd_, SHUT_WR))
-        throw SocketException(SocketException::Type::SHUTDOWN);
+    ::shutdown(socket_fd_, SHUT_WR);
 }
 
 

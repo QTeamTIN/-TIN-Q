@@ -20,6 +20,10 @@ void ClientSender::run()
         }
     } catch (const PacketSerializer::SerializerException& e ) {
         setException(e);
+    } catch (const SocketException& e) {
+        setException(e);
+    } catch (const std::runtime_error& e) {
+        setException(e);
     }
 }
 
