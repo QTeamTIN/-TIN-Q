@@ -1,0 +1,6 @@
+source=Glob('*.cpp')
+libs=['pthread', 'ssl', 'crypto', 'protobuf']
+lib_paths='/usr/local/lib'
+env=Environment(CPPPATH='src/',
+                CXXFLAGS="-std=c++11")
+env.Program('TestClient', source, LIBS=libs, LIBPATH=lib_paths)
