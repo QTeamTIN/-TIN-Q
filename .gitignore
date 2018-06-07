@@ -1,2 +1,10 @@
+*.sconsign.dblite
+*.pro
+*.pro.user
+*.o
+*.autosave
 *.pb.*
 pqCon.properties
+SocketWrapper
+/bin
+TestClient
