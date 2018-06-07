@@ -12,8 +12,8 @@
 
 class SessionTable: public Stoppable
 {
-    static constexpr double DEFAULT_TIMEOUT = 15;      //s
-    static constexpr int DEFAULT_REFRESH_PERIOD = 5;   //s
+    static constexpr double DEFAULT_TIMEOUT = 300;      //s
+    static constexpr int DEFAULT_REFRESH_PERIOD = 20;   //s
 public:
     SessionTable(const Q_DAO& db_handler);
 

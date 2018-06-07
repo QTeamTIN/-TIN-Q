@@ -6,12 +6,33 @@
 #include<iostream>
 #include<unistd.h>
 #include<string>
+#include<ctime>
 
 #include"cppQ.pb.h"
 
 using Packet = packet::BasePacket;
 
 char server_reply[2000];
+int session_id;
+
+time_t readTime() {
+    struct tm time_set;
+    std::cout<<"Year: ";
+    int year;
+    std::cin>>year;
+    time_set.tm_year = year-1900;
+    std::cout<<"Month: ";
+    std::cin>>time_set.tm_mon;
+    std::cout<<"Day: ";
+    std::cin>>time_set.tm_mday;
+    std::cout<<"Hour: ";
+    std::cin>>time_set.tm_hour;
+    std::cout<<"Minutes: ";
+    std::cin>>time_set.tm_min;
+    time_set.tm_sec = 0;
+    return mktime(&time_set);
+}
+
 
 void sendPacket(int sock, Packet& packet) {
     std::string msg;
@@ -40,20 +61,47 @@ void receivePacket(int sock, int scenario) {
     switch (scenario) {
     case 0:break;
     case 1:
-        std::cout<<"User ID: "<<recv_pac.user_id().session_id()<<std::endl;
+        session_id = recv_pac.user_id().session_id();
+        std::cout<<"User ID: "<<session_id<<std::endl;
         break;
     }
 }
 
-void operationMenu(int sock) {
+void setOperationArgs(::packet::Operation* operation, const std::vector<std::string>& str_args, const std::vector<int>& int_args) {
+    for (int i = 0; i < str_args.size(); ++i)
+        operation->mutable_str_args()->Add("str_args.at(i)");
+    for (int i = 0; i < int_args.size(); ++i)
+        operation->mutable_int_args()->Add(1);
+}
+void operationMenu(Packet& pack) {
     
-    auto operation = packet.mutable_operation();
+    auto operation = pack.mutable_operation();
+    operation->set_session_id(session_id);
+    operation->set_local_id(0);
     int oper_id;
     std::cout << "Set operation ID: ";
     std::cin >> oper_id;
-    switch (oper_id) {
-    case 0:
-        
+    operation->set_operation_id(oper_id);
+    if (oper_id == 0) {
+        std::vector<std::string> str_args;
+        str_args.resize(3);
+        std::vector<int> int_args;
+        int_args.reserve(2);
+        std::cout<<"Query name: ";
+        std::cin>>str_args[0];
+        std::cout<<"Place: ";
+        std::cin>>str_args[1];
+        std::cout<<"Description: ";
+        std::cin>>str_args[2];
+        std::cout<<"start time: ";
+        time_t start = readTime();
+        int_args[0] = start;
+        std::cout<<"duration time (minutes): ";
+        int dur;
+        std::cin>>dur;
+        int_args[1] = start + dur*60;
+        setOperationArgs(operation, str_args, int_args);
+
     }
 }
 
@@ -85,7 +133,7 @@ int packetMenu(Packet& packet) {
         login->set_hash(hash);
         std::cout<<login->hash()<<std::endl;
     } else if ( scenario == 2 ) {
-        operationMenu(sock);
+        operationMenu(packet);
     }
     return scenario;
 }
