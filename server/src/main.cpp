@@ -2,6 +2,18 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <signal.h>
+
+Server* server;
+
+void exitHandler(int s) {
+    std::cout<<"Closing server\n";
+    server->stop();
+    server->terminate();
+    server->join();
+    delete server;
+    exit(1);
+}
 
 int main(int argc, char * argv[])
 {
@@ -15,7 +27,16 @@ int main(int argc, char * argv[])
         return 1;
     }
     PostgresQ_DAO db;
-    Server server(port, db);
+    server =  new Server(port, db);
 
-    server.run();
+    (*server)();
+
+    struct sigaction exit_sig;
+    exit_sig.sa_handler = exitHandler;
+    sigemptyset(&exit_sig.sa_mask);
+    exit_sig.sa_flags = 0;
+
+    sigaction(SIGINT, &exit_sig, NULL);
+
+    pause();
 }

@@ -8,15 +8,17 @@
 #include "PostgresQ_DAO.hpp"
 #include "SessionTable.hpp"
 #include "ServerAPI.hpp"
+#include "Stoppable.hpp"
 
 #include <list>
 
-class Server
+class Server: public Stoppable
 {
 public:
     Server(int conn_port, Q_DAO& database);
 
-    void run();
+    void run() override;
+    void terminate();
 
 private:
 
