@@ -4,15 +4,13 @@ UserTuple::UserTuple(){
     
 }
 
-UserTuple::UserTuple(int user_id, std::string name, std::string password, std::string display_name){
-    setUserId(user_id);
+UserTuple::UserTuple(int userId, std::string name, std::string password, std::string display_name){
     setName(name);
     setPassword(password);
     setDisplayName(display_name);
 }
 
-UserTuple::UserTuple(int user_id, std::string name, std::string password, std::string display_name, std::string mail){
-    setUserId(user_id);
+UserTuple::UserTuple(int userId, std::string name, std::string password, std::string display_name, std::string mail){
     setName(name);
     setPassword(password);
     setDisplayName(display_name);
@@ -54,47 +52,47 @@ UserTuple& UserTuple::setUserId(int user_id) {
     return *this;
 }
 
-const std::string UserTuple::getDisplayName() {
+std::string UserTuple::getDisplayName() const{
     return display_name;
 }
 
-const std::string UserTuple::getMail() {
+std::string UserTuple::getMail() const{
     return mail;
 }
 
-const std::string UserTuple::getName() {
+std::string UserTuple::getName() const{
     return name;
 }
 
-const std::string UserTuple::getPassword() {
+std::string UserTuple::getPassword() const{
     return password;
 }
 
-const int UserTuple::getUserId() {
+int UserTuple::getUserId() const{
     return user_id;
 }
 
-const void UserTuple::setMandatoryTrue(){
+void UserTuple::setMandatoryTrue(){
     nameFilled = true;
     displayNameFilled = true;
     passwordFilled = true;
-    userIdFilled = true;
-
 }
 
-const void UserTuple::print() {
+void UserTuple::print() const {
     std::stringstream printString;
-    printString << getUserId() << 
-                ", '" << getName()<< "'" <<
+    printString << getName()<< "'" <<
                 ", '" << getPassword()<< "'" <<
                 ", '" << getDisplayName()<< "'";
     if(isMailFilled()) {
         printString << ", '" << getMail() << "'";
     }
+    if(isUserIdFilled()) {
+        printString << ", " << getUserId();
+    }
     std::cout << printString.str() << std::endl;
 }
 
-const User UserTuple::getUser() {
+User UserTuple::getUser() const{
     User user(getUserId(), getName(), getDisplayName(), getMail());
     return user;
 }

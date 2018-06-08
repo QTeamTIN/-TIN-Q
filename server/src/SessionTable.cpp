@@ -4,6 +4,7 @@ SessionTable::SessionTable(const Q_DAO &db_handler)
     :timeout_(DEFAULT_TIMEOUT)
     ,refresh_period_(DEFAULT_REFRESH_PERIOD)
     ,login_(db_handler)
+    ,db_handler_(db_handler)
 {}
 
 int SessionTable::createSession(std::shared_ptr<User> user)

@@ -13,12 +13,10 @@ PostgresQ_DAO::~PostgresQ_DAO()
 //Saving user in database
 //TODO check if already exist - what then?
 //throws std::invalid_argument if not all mandatory argument are filled
-void PostgresQ_DAO::saveUser(UserTuple user) const{
+int PostgresQ_DAO::saveUser(UserTuple user) const{
     std::stringstream stringQuery;
 
-    if(user.isUserIdFilled()
-        && user.isUserIdFilled()
-        && user.isNameFilled()
+    if( user.isNameFilled()
         && user.isPasswordFilled()
         && user.isDisplayNameFilled()        
         ) {    
@@ -30,7 +28,7 @@ void PostgresQ_DAO::saveUser(UserTuple user) const{
             stringQuery << ", MAIL";
         }
         stringQuery << ")" <<
-                " VALUES(" << user.getUserId() << 
+                " VALUES(" << nextvalUserIdSeq() << 
                 ", '" << user.getName()<< "'" <<
                 ", '" << user.getPassword()<< "'" <<
                 ", '" << user.getDisplayName()<< "'";
@@ -40,6 +38,7 @@ void PostgresQ_DAO::saveUser(UserTuple user) const{
         stringQuery << ");";
         
         pqxx::result result = Connection::executeQuery(stringQuery.str());
+        return getUserIdCurrSeq();
     }
     else {
         throw std::invalid_argument("Not all mandatory values are set: USER_ID, NAME, PASSWORD, DISPLAY_NAME");
@@ -184,7 +183,7 @@ void PostgresQ_DAO::saveQueue(QueueTuple queue) const{
                 stringQuery << ", '" << queue.getDayOfWeek() << "'";
         }
         stringQuery << ");";
-        std::cout << stringQuery.str() << std::endl;
+
         pqxx::result result = Connection::executeQuery(stringQuery.str());
     }
     else {
@@ -282,4 +281,20 @@ QueueTuple PostgresQ_DAO::readQueue(const pqxx::result &result) const
        queue = queue.setDayOfWeek(result[0][7].as<int>());
     }            
     return queue;
+}
+
+
+
+int PostgresQ_DAO::getUserIdCurrSeq() const{
+    std::stringstream stringQuery;
+    stringQuery << "select last_value from \"public\".user_id_seq;";
+    pqxx::result result = Connection::executeQuery(stringQuery.str());
+    return result[0][0].as<int>();
+}
+
+int PostgresQ_DAO::nextvalUserIdSeq() const{
+    std::stringstream stringQuery;
+    stringQuery << "select nextval('\"public\".user_id_seq');";
+    pqxx::result result = Connection::executeQuery(stringQuery.str());
+    return result[0][0].as<int>();
 }

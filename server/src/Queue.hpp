@@ -1,7 +1,11 @@
 #ifndef QUEUE_HPP
 #define QUEUE_HPP
-#include <string>
 
+#include <list>
+#include <mutex>
+#include <algorithm>
+#include <string>
+#include <ctime>
 
 class Queue
 {
@@ -28,6 +32,9 @@ public:
     int getQueueId() const {return queue_id;}
     const std::string& getStartTime() const {return startTime;}
     int getUserId() const {return user_id;}
+    
+    typedef std::tuple<std::list<int>, std::list<std::string>> QueryResponse;
+	QueryResponse getQueueParams() const;
 
 private:
     int user_id;

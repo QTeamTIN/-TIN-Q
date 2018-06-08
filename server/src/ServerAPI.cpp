@@ -43,9 +43,15 @@ bool ServerAPI::callFunction(int id, std::vector<int> int_args, std::vector<std:
 ServerAPI::QueryResponse ServerAPI::callQuery(int id, std::vector<int> int_args, std::vector<std::string> string_args)
 {
 	try {
-		switch (id) {
+        switch (id) {
 		case 0:
             return service.getLinesManager().getLine(int_args.at(0));
+        case 1:
+            return service.getDBHandler().loadUser(string_args.at(0)).getUser().getUserParams();
+        case 2:
+            return service.getDBHandler().loadUser(int_args.at(0)).getUser().getUserParams();
+        case 3:
+            return service.getDBHandler().loadQueue(int_args.at(0), int_args.at(1)).getQueue().getQueueParams();
 		default:
 			throw std::runtime_error("No such operation: " + std::to_string(id));
 		}
